@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:macro name="volta_wheel" params="wheel_prefix *joint_origin">
 
         <!-- Wheel Link -->
-        <link name="${wheel_prefix}_wheel_${number}">
+        <link name="${wheel_prefix}_wheel">
             <visual>
                 <origin xyz="0 0 0" rpy="1.570796327 0 0"/>
                 <geometry>
@@ -54,7 +54,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             </inertial>
         </link>
 
-        <gazebo reference="${wheel_prefix}_wheel_${number}">
+        <gazebo reference="${wheel_prefix}_wheel">
             <material>Gazebo/Red</material>
             <mu1 value="1400"/>
             <mu2 value="600"/>
@@ -64,17 +64,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </gazebo>
 
         <!-- Wheel Joint -->
-        <joint name="${wheel_prefix}_wheel_${number}_joint_${number}" type="continuous">
+        <joint name="${wheel_prefix}_wheel_joint" type="continuous">
             <parent link="base_link_${number}"/>
-            <child link="${wheel_prefix}_wheel_${number}" />
+            <child link="${wheel_prefix}_wheel" />
             <xacro:insert_block name="joint_origin" />
             <axis xyz="0 1 0" />
         </joint>
 
         <!-- Wheel Transmission -->
-        <transmission name="${wheel_prefix}_wheel_${number}_transmission" type="SimpleTransmission">
+        <transmission name="${wheel_prefix}_wheel_transmission" type="SimpleTransmission">
             <type>transmission_interface/SimpleTransmission</type>
-            <joint name="${wheel_prefix}_wheel_${number}_joint_${number}">
+            <joint name="${wheel_prefix}_wheel_joint">
                 <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             </joint>
             <actuator name="${wheel_prefix}_motor">

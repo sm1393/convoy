@@ -88,11 +88,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </link>
 
         <!-- Wheel -->
-        <xacro:volta_wheel wheel_prefix="right_${number}">
+        <xacro:volta_wheel wheel_prefix="right">
             <origin xyz="0.0 ${-wheel_joint_y_abs} ${wheel_joint_z_abs}" rpy="0 0 0" />
         </xacro:volta_wheel>
 
-        <xacro:volta_wheel wheel_prefix="left_${number}">
+        <xacro:volta_wheel wheel_prefix="left">
             <origin xyz="0.0 ${wheel_joint_y_abs} ${wheel_joint_z_abs}" rpy="0 0 0" />
         </xacro:volta_wheel>
 
@@ -134,6 +134,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <!-- Robot Gazebo tag -->
         <gazebo>
             <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+                <!-- <robotParam>/volta${number}/robot_description</robotParam> -->
                 <robotNamespace>$(arg robot_namespace)</robotNamespace>
                 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             </plugin>

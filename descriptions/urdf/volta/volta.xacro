@@ -31,7 +31,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   <xacro:arg name="number" default="0" />
   <xacro:include filename="$(find descriptions)/urdf/volta/volta.urdf.xacro" />
-  <!-- <xacro:volta number="0"></xacro:volta> -->
   <xacro:volta_robot number="$(arg number)"/>
 
 </robot>
