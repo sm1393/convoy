@@ -30,13 +30,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
     <xacro:macro name="imu" params="frame:=imu topic:=imu/data update_rate:=50 robot_namespace:=/ tf_pre:=/">
-        <joint name="${frame}_${number}_joint_${number}" type="fixed">
-            <parent link="base_link_${number}" />
-            <child link="${frame}_${number}" />
+        <joint name="${frame}_joint" type="fixed">
+            <parent link="base_link" />
+            <child link="${frame}" />
             <origin xyz="0 0 ${base_h/2}" rpy="0 0 0" />
         </joint>
 
-        <link name="${frame}_${number}">
+        <link name="${frame}">
             <inertial>
                 <mass value="0.001"/>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -49,9 +49,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <alwaysOn>true</alwaysOn>
                 <robotNamespace>${robot_namespace}</robotNamespace>
                 <updateRate>${update_rate}</updateRate>
-                <bodyName>${frame}_${number}</bodyName>
-                <frameId>${tf_pre}${frame}_${number}</frameId>
-                <frameName>${tf_pre}${frame}_${number}</frameName>
+                <bodyName>${frame}</bodyName>
+                <frameId>${tf_pre}${frame}</frameId>
+                <frameName>${tf_pre}${frame}</frameName>
                 <topicName>${topic}</topicName>
                 <xyzOffset>0.0 0.0 0.0</xyzOffset>
                 <rpyOffset>0.0 0.0 0.0</rpyOffset>

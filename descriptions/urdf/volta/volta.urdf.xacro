@@ -29,8 +29,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
-    
-    <xacro:macro name="volta_robot" params="number:=0">
     <!-- xacro includes -->
     <xacro:include filename="$(find descriptions)/urdf/volta/volta_properties.xacro"/>
     <xacro:include filename="$(find descriptions)/urdf/volta/components/wheel_volta.urdf.xacro"/>
@@ -42,33 +40,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <!-- xacro args -->
     <xacro:arg name="robot_namespace" default="/" />
     <xacro:arg name="tf_pre" default=""/>
-    <xacro:arg name="lidar_enabled" default="true"/>
-    <xacro:arg name="rplidar_a3_enabled" default="true"/>
+    <xacro:arg name="lidar_enabled" default="false"/>
+    <xacro:arg name="rplidar_a3_enabled" default="false"/>
     <xacro:arg name="hokuyo_ust_10lx_enabled" default="false"/>
-    <xacro:arg name="imu_enabled" default="true"/>
-    <xacro:arg name="camera_enabled" default="true"/>
-    <xacro:arg name="intel_d435i_enabled" default="true"/>
+    <xacro:arg name="imu_enabled" default="false"/>
+    <xacro:arg name="camera_enabled" default="false"/>
+    <xacro:arg name="intel_d435i_enabled" default="false"/>
     <xacro:arg name="orbbec_astra_pro_enabled" default="false"/>
 
-        <!-- Footprint_${number} -->
-        <link name="footprint_${number}"/>
+    <xacro:macro name="volta_robot">
+        <!-- Footprint -->
+        <link name="footprint"/>
 
-        <!-- Joint from footprint_${number} to base link(chassis) -->
-        <joint name="base_footprint_${number}_joint" type="fixed">
+        <!-- Joint from footprint to base link(chassis) -->
+        <joint name="base_footprint_joint" type="fixed">
             <origin xyz="0 0 ${base_underside_h}" rpy="0 0 0" />
-            <parent link="base_link_${number}" />
-            <child link="footprint_${number}" />
+            <parent link="base_link" />
+            <child link="footprint" />
         </joint>
 
-        <!-- Chassis a.k.a base_link_${number} -->
-        <link name="base_link_${number}">
-            <visual name="visual_base_${number}">
+        <!-- Chassis a.k.a base_link -->
+        <link name="base_link">
+            <visual name="visual_base">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
                     <mesh filename="package://descriptions/meshes/volta.dae"/>
                 </geometry>
             </visual>
-            <visual name="visual_logo_${number}">
+            <visual name="visual_logo">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
                     <mesh filename="package://descriptions/meshes/volta_logo.dae"/>
@@ -97,19 +96,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </xacro:volta_wheel>
 
         <!-- Caster wheels -->
-        <xacro:volta_caster caster_prefix="front_left_${number}">
+        <xacro:volta_caster caster_prefix="front_left">
             <origin xyz="${caster_joint_x} ${caster_joint_y} ${caster_joint_z}" rpy="0 0 0" />
         </xacro:volta_caster>
 
-        <xacro:volta_caster caster_prefix="front_right_${number}">
+        <xacro:volta_caster caster_prefix="front_right">
             <origin xyz="${caster_joint_x} ${-caster_joint_y} ${caster_joint_z}" rpy="0 0 0" />
         </xacro:volta_caster>
 
-        <xacro:volta_caster caster_prefix="rear_right_${number}">
+        <xacro:volta_caster caster_prefix="rear_right">
             <origin xyz="${-caster_joint_x} ${-caster_joint_y} ${caster_joint_z}" rpy="0 0 0" />
         </xacro:volta_caster>
 
-        <xacro:volta_caster caster_prefix="rear_left_${number}">
+        <xacro:volta_caster caster_prefix="rear_left">
             <origin xyz="${-caster_joint_x} ${caster_joint_y} ${caster_joint_z}" rpy="0 0 0" />
         </xacro:volta_caster>
 
@@ -134,13 +133,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <!-- Robot Gazebo tag -->
         <gazebo>
             <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-                <!-- <robotParam>/volta${number}/robot_description</robotParam> -->
                 <robotNamespace>$(arg robot_namespace)</robotNamespace>
                 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             </plugin>
         </gazebo>
 
     </xacro:macro>
-<!-- </xacro:macro> -->
 
 </robot>

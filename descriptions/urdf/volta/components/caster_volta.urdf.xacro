@@ -33,13 +33,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:macro name="volta_caster" params="caster_prefix *caster_joint_origin">
 
         <!-- Caster Joint -->
-        <link name="caster_${caster_prefix}_link_${number}">
+        <link name="caster_${caster_prefix}_link">
             <visual>
                 <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
                 <geometry>
                     <sphere radius="${caster_radius}"/>
                 </geometry>
-                <material name="Black"/>
+                <material name="black"/>
             </visual>
             <collision>
                 <geometry>
@@ -55,13 +55,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </link>
 
         <!-- Caster Joint -->
-        <joint name="caster_${caster_prefix}_joint_${number}" type="fixed">
-            <parent link="base_link_${number}"/>
-            <child link="caster_${caster_prefix}_link_${number}"/>
+        <joint name="caster_${caster_prefix}_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="caster_${caster_prefix}_link"/>
             <xacro:insert_block name="caster_joint_origin" />
         </joint>
 
-        <gazebo reference="caster_${caster_prefix}_link_${number}">
+        <gazebo reference="caster_${caster_prefix}_link">
             <material>Gazebo/DarkGrey</material>
             <turnGravityOff>false</turnGravityOff>
             <mu1 value="0.1"/>

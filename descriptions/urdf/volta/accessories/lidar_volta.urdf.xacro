@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
 
-  <xacro:macro name="lidar" params="frame:=lidar_${number} topic:=scan_filtered sample_size:=271 update_rate:=50
+  <xacro:macro name="lidar" params="frame:=lidar topic:=scan_filtered sample_size:=271 update_rate:=50
                  min_angle:=-1.57 max_angle:=1.57 min_range:=0.5 max_range:=10.0 rplidar_a3_enabled:=true hokuyo_ust_10lx_enabled:=false robot_namespace:=/">
 
       <xacro:if value="${rplidar_a3_enabled}">
@@ -59,7 +59,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <!-- lidar joint -->
         <joint name="lidar_joint" type="fixed">
             <origin xyz="${lidar_joint_x} ${lidar_joint_y} ${lidar_joint_z + 0.03}" rpy="0 0 0" />
-            <parent link="base_link_${number}" />
+            <parent link="base_link" />
             <child link="${frame}" />
         </joint>
       </xacro:if>
@@ -93,7 +93,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <!-- lidar joint -->
         <joint name="lidar_joint" type="fixed">
             <origin xyz="${lidar_joint_x} ${lidar_joint_y} ${lidar_joint_z + 0.049}" rpy="0 0 0" />
-            <parent link="base_link_${number}" />
+            <parent link="base_link" />
             <child link="${frame}" />
         </joint>
       </xacro:if>

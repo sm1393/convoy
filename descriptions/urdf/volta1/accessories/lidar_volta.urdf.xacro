@@ -41,13 +41,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <visual>
                 <origin xyz="0 0 -0.03" rpy="0 0 0.785398"/>
                 <geometry>
-                    <mesh filename="package://volta_description/meshes/rplidar.dae"/>
+                    <mesh filename="package://descriptions/meshes/rplidar.dae"/>
                 </geometry>
             </visual>
             <collision>
                 <origin xyz="0 0 -0.03" rpy="0 0 0"/>
                 <geometry>
-                  <mesh filename="package://volta_description/meshes/rplidar.dae"/>
+                  <mesh filename="package://descriptions/meshes/rplidar.dae"/>
                 </geometry>
             </collision>
             <inertial>
@@ -75,13 +75,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <visual>
               <origin xyz="0 0 -0.049" rpy="0 0 0"/>
                 <geometry>
-                    <mesh filename="package://volta_description/meshes/hokuyo.dae"/>
+                    <mesh filename="package://descriptions/meshes/hokuyo.dae"/>
                 </geometry>
             </visual>
             <collision>
                 <origin xyz="0 0 -0.049" rpy="0 0 0"/>
                 <geometry>
-                  <mesh filename="package://volta_description/meshes/hokuyo.dae"/>
+                  <mesh filename="package://descriptions/meshes/hokuyo.dae"/>
                 </geometry>
             </collision>
             <inertial>

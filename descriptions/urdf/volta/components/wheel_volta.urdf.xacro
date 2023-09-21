@@ -65,7 +65,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <!-- Wheel Joint -->
         <joint name="${wheel_prefix}_wheel_joint" type="continuous">
-            <parent link="base_link_${number}"/>
+            <parent link="base_link"/>
             <child link="${wheel_prefix}_wheel" />
             <xacro:insert_block name="joint_origin" />
             <axis xyz="0 1 0" />

@@ -28,11 +28,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot_1" xmlns:xacro="https://ros.org/wiki/xacro">
     <!-- xacro includes -->
-    <xacro:include filename="$(find volta_description)/urdf/volta_properties.xacro"/>
-    <xacro:include filename="$(find volta_description)/urdf/components/wheel_volta.urdf.xacro"/>
-    <xacro:include filename="$(find volta_description)/urdf/components/caster_volta.urdf.xacro"/>
+    <xacro:include filename="$(find descriptions)/urdf/volta1/volta_properties.xacro"/>
+    <xacro:include filename="$(find descriptions)/urdf/volta1/components/wheel_volta.urdf.xacro"/>
+    <xacro:include filename="$(find descriptions)/urdf/volta1/components/caster_volta.urdf.xacro"/>
 
     <!-- xacro properties -->
     <xacro:property name="PI" value="3.14159"/>
@@ -40,15 +40,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <!-- xacro args -->
     <xacro:arg name="robot_namespace" default="/" />
     <xacro:arg name="tf_pre" default=""/>
-    <xacro:arg name="lidar_enabled" default="true"/>
-    <xacro:arg name="rplidar_a3_enabled" default="true"/>
+    <xacro:arg name="lidar_enabled" default="false"/>
+    <xacro:arg name="rplidar_a3_enabled" default="false"/>
     <xacro:arg name="hokuyo_ust_10lx_enabled" default="false"/>
-    <xacro:arg name="imu_enabled" default="true"/>
-    <xacro:arg name="camera_enabled" default="true"/>
-    <xacro:arg name="intel_d435i_enabled" default="true"/>
+    <xacro:arg name="imu_enabled" default="false"/>
+    <xacro:arg name="camera_enabled" default="false"/>
+    <xacro:arg name="intel_d435i_enabled" default="false"/>
     <xacro:arg name="orbbec_astra_pro_enabled" default="false"/>
 
-    <xacro:macro name="volta_robot">
+    <xacro:macro name="volta_robot_1">
         <!-- Footprint -->
         <link name="footprint"/>
 
@@ -64,19 +64,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <visual name="visual_base">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://volta_description/meshes/volta.dae"/>
+                    <mesh filename="package://descriptions/meshes/volta.dae"/>
                 </geometry>
             </visual>
             <visual name="visual_logo">
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://volta_description/meshes/volta_logo.dae"/>
+                    <mesh filename="package://descriptions/meshes/volta_logo.dae"/>
                 </geometry>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <mesh filename="package://volta_description/meshes/volta.dae"/>
+                    <mesh filename="package://descriptions/meshes/volta.dae"/>
                 </geometry>
             </collision>
             <inertial>
@@ -114,29 +114,50 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <!-- IMU -->
         <xacro:if value="$(arg imu_enabled)">
-            <xacro:include filename="$(find volta_description)/urdf/accessories/imu_volta.urdf.xacro"/>
+            <xacro:include filename="$(find descriptions)/urdf/volta1/accessories/imu_volta.urdf.xacro"/>
             <xacro:imu robot_namespace="$(arg robot_namespace)" tf_pre="$(arg tf_pre)"></xacro:imu>
         </xacro:if>
 
         <!-- LIDAR -->
         <xacro:if value="$(arg lidar_enabled)">
-            <xacro:include filename="$(find volta_description)/urdf/accessories/lidar_volta.urdf.xacro"/>
+            <xacro:include filename="$(find descriptions)/urdf/volta1/accessories/lidar_volta.urdf.xacro"/>
             <xacro:lidar rplidar_a3_enabled="$(arg rplidar_a3_enabled)" hokuyo_ust_10lx_enabled="$(arg hokuyo_ust_10lx_enabled)" robot_namespace="$(arg robot_namespace)">  </xacro:lidar>
         </xacro:if>
 
         <!-- Camera -->
         <xacro:if value="$(arg camera_enabled)">
-            <xacro:include filename="$(find volta_description)/urdf/accessories/camera_volta.urdf.xacro"/>
+            <xacro:include filename="$(find descriptions)/urdf/volta1/accessories/camera_volta.urdf.xacro"/>
             <xacro:camera_ intel_d435i_enabled="$(arg intel_d435i_enabled)" orbbec_astra_pro_enabled="$(arg orbbec_astra_pro_enabled)" robot_namespace="$(arg robot_namespace)"></xacro:camera_>
         </xacro:if>
 
         <!-- Robot Gazebo tag -->
-        <gazebo>
+        <!-- <gazebo>
             <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
                 <robotNamespace>$(arg robot_namespace)</robotNamespace>
                 <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
             </plugin>
-        </gazebo>
+        </gazebo> -->
+
+        <gazebo>
+            <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+                <updateRate>20</updateRate>
+                <leftJoint>left_wheel_joint</leftJoint>
+                <rightJoint>right_wheel_joint</rightJoint>
+                <wheelSeparation>0.3208</wheelSeparation>
+                <wheelDiameter>0.085</wheelDiameter>
+                <wheelAcceleration>1.0</wheelAcceleration>
+                <wheelTorque>20</wheelTorque>
+                <commandTopic>cmd_vel</commandTopic>
+                <odometryTopic>odom</odometryTopic>
+                <odometryFrame>odom</odometryFrame>
+                <robotBaseFrame>base_footprint</robotBaseFrame>
+                <odometrySource>1</odometrySource>
+                <publishWheelTF>true</publishWheelTF>
+                <publishOdom>true</publishOdom>
+                <publishWheelJointState>true</publishWheelJointState>
+                <legacyMode>false</legacyMode>
+            </plugin>
+          </gazebo>
 
     </xacro:macro>
 

@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot_1" xmlns:xacro="https://ros.org/wiki/xacro">
     <!-- Wheel Macro -->
     <xacro:macro name="volta_wheel" params="wheel_prefix *joint_origin">
 

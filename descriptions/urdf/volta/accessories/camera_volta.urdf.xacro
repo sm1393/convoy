@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
 
-    <xacro:macro name="camera_" params="frame:=camera_${number} topic:=camera info_topic:=camera_info update_rate:=50 intel_d435i_enabled:=true orbbec_astra_pro_enabled:=false robot_namespace:=/">
+    <xacro:macro name="camera_" params="frame:=camera topic:=camera info_topic:=camera_info update_rate:=50 intel_d435i_enabled:=true orbbec_astra_pro_enabled:=false robot_namespace:=/">
 
         <xacro:if value="${intel_d435i_enabled}">
           <!-- Camera link -->
@@ -55,7 +55,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           </link>
           <!-- Camera joint -->
           <joint name="base_to_camera" type="fixed">
-              <parent link="base_link_${number}"/>
+              <parent link="base_link"/>
               <child link="${frame}"/>
               <origin xyz="${camera_joint_x} ${camera_joint_y} ${camera_joint_z + 0.0125}"/>
           </joint>
@@ -84,7 +84,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           </link>
           <!-- Camera joint -->
           <joint name="base_to_camera" type="fixed">
-              <parent link="base_link_${number}"/>
+              <parent link="base_link"/>
               <child link="${frame}"/>
               <origin xyz="${camera_joint_x} ${camera_joint_y} ${camera_joint_z + 0.0337}"/>
           </joint>

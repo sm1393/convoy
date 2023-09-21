@@ -29,8 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
 
-  <xacro:arg name="number" default="0" />
   <xacro:include filename="$(find descriptions)/urdf/volta/volta.urdf.xacro" />
-  <xacro:volta_robot number="$(arg number)"/>
+  <xacro:volta_robot/>
 
 </robot>

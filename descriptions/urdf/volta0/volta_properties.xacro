@@ -27,7 +27,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot_0" xmlns:xacro="https://ros.org/wiki/xacro">
 
     <material name="blue">
         <color rgba="0 0 0.8 1"/>
