@@ -1,7 +1,7 @@
 <launch>
-    <arg name="odom_topic" default="odometry/wheel"/>
+    <arg name="odom_topic" default="/volta_1/odom"/>
     <arg name="gmapping" default="false"/>
-    <arg name="scan_topic" default="volta_1/scan_filtered" />
+    <arg name="scan_topic" default="/volta_1/scan_filtered" />
     <arg name="base_global" default="global_planner/GlobalPlanner"/>
     <arg name="base_local" default="dwa_local_planner/DWAPlannerROS"/>
 
@@ -13,10 +13,10 @@
     <arg name="amcl_init_pose_x" default="0"/>
     <arg name="amcl_init_pose_y" default="0"/>
     <arg name="amcl_init_pose_yaw" default="0"/>
-    <arg name="map_file" default="$(find multirobot)/maps/office/office.yaml"/>
+    <!-- <arg name="map_file" default="$(find multirobot)/maps/office/office.yaml"/> -->
 
-    <node pkg="amcl" type="amcl" name="amcl" unless="$(arg gmapping)">
-        <rosparam file="$(find multirobot)/config/amcl.yaml" command="load"/>
+    <node pkg="amcl" type="amcl" name="amcl1" unless="$(arg gmapping)">
+        <rosparam file="$(find multirobot)/config/volta1/amcl.yaml" command="load"/>
         <param name="use_map_topic" value="$(arg amcl_use_map_topic)"/>
         <param name="global_frame_id" value="$(arg map_frame)"/>
         <param name="odom_frame_id" value="$(arg odom_frame)"/>
@@ -28,25 +28,21 @@
         <remap from="scan" to="$(arg scan_topic)"/>
     </node>
 
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base1" output="screen">
         <remap from="odom" to="$(arg odom_topic)" />
-        <remap from="cmd_vel" to="nav/cmd_vel" />
+        <remap from="cmd_vel" to="volta_1/cmd_vel" />
 
         <param name="base_global_planner" value="$(arg base_global)"/>
         <param name="base_local_planner" value="$(arg base_local)"/>
 
-        <rosparam file="$(find volta_navigation)/config/global_planner.yaml" command="load"/>
-        <rosparam file="$(find volta_navigation)/config/local_planner.yaml" command="load"/>
+        <rosparam file="$(find multirobot)/config/volta1/global_planner.yaml" command="load"/>
+        <rosparam file="$(find multirobot)/config/volta1/local_planner.yaml" command="load"/>
 
-        <rosparam file="$(find volta_navigation)/config/costmap.yaml" command="load" ns="global_costmap" />
-        <rosparam file="$(find volta_navigation)/config/costmap.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find multirobot)/config/volta1/costmap.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find multirobot)/config/volta1/costmap.yaml" command="load" ns="local_costmap" />
 
-        <rosparam file="$(find volta_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find multirobot)/config/volta1/costmap_local.yaml" command="load" ns="local_costmap" />
 
-        <rosparam file="$(find volta_navigation)/config/costmap_global.yaml" command="load" ns="global_costmap"/>
+        <rosparam file="$(find multirobot)/config/volta1/costmap_global.yaml" command="load" ns="global_costmap"/>
     </node>
-
-    <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" unless="$(arg gmapping)"/> -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
-
 </launch>
