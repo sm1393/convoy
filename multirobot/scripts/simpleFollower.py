@@ -9,7 +9,7 @@ import numpy as np
 
 linVelkP = 2
 angVelkP = 2
-rTrSafeDistance = 1
+rTrSafeDistance = 2
 
 class Queue:
     def __init__(self):
