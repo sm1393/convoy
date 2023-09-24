@@ -1,5 +1,0 @@
-<launch>
-    <include file="$(find multirobot)/launch/volta0_navigation.launch"/>
-    <include file="$(find multirobot)/launch/volta1_navigation.launch"/>
-    <include file="$(find multirobot)/launch/map.launch"/>
-</launch>
