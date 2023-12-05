@@ -102,7 +102,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <sensor type="ray" name="${frame}">
           <always_on>true</always_on>
           <pose>0 0 0 0 0 0</pose>
-          <visualize>false</visualize>
+          <visualize>true</visualize>
           <update_rate>${update_rate}</update_rate>
           <ray>
             <scan>
@@ -120,8 +120,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             </range>
           </ray>
           <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
-            <topicName>volta_1/${topic}</topicName>
-            <frameName>volta_1_tf/${frame}</frameName>
+            <topicName>volta_0/${topic}</topicName>
+            <frameName>volta_0_tf/${frame}</frameName>
             <robotNamespace>${robot_namespace}</robotNamespace>
             <gaussianNoise>0.005</gaussianNoise>
             <alwaysOn>true</alwaysOn>

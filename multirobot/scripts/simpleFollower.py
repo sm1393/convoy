@@ -73,5 +73,4 @@ if __name__ == "__main__":
                 linVel, angVel = followTarget(followerPos, leaderQueue.dequeue())
                 follow(linVel, angVel)
         except Exception as E:
-            # print("Exception", E)
             continue
