@@ -10,7 +10,8 @@
     <include file="$(find multirobot)/launch/multirobot.launch" />
     <include file="$(find navigation)/launch/navigation0.launch" />
     <include file="$(find navigation)/launch/navigation1.launch" />
-    <include file="$(find navigation)/launch/move_base1.launch" />
+    <include file="$(find navigation)/launch/move_base.launch" />
+    <!-- <include file="$(find navigation)/launch/move_base1.launch" /> -->
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
     

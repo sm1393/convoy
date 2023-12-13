@@ -6,7 +6,7 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 def movebase_action_client():
 
-    client = actionlib.SimpleActionClient('move_base_1',MoveBaseAction)
+    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
     print(client)
     client.wait_for_server()
 
@@ -14,8 +14,8 @@ def movebase_action_client():
     goal.target_pose.header.frame_id = 'map'
     print("rospy.Time.now() = ", rospy.Time.now())
     goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = 1.0
-    goal.target_pose.pose.position.y = 1.0
+    goal.target_pose.pose.position.x = 2.0
+    goal.target_pose.pose.position.y = 2.0
     goal.target_pose.pose.orientation.x = 0.0
     goal.target_pose.pose.orientation.y = 0.0
     goal.target_pose.pose.orientation.z = 0.0
