@@ -1,0 +1,16 @@
+<launch>
+    <param name="use_sim_time" value="true"/>
+    <arg name="map_file" default="$(find navigation)/maps/office/office.yaml"/>
+    <arg name="rviz_config" default="$(find navigation)/rviz_config/amcl.rviz"/>
+
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
+        <param name="frame_id" value="map"/>
+    </node>
+
+    <include file="$(find multirobot)/launch/multirobot.launch"/>
+    <include file="$(find navigation)/launch/navigation0.launch"/>
+    <include file="$(find navigation)/launch/navigation1.launch"/>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
+
+</launch>

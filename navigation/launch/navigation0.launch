@@ -2,9 +2,9 @@
 	<!-- Arguments -->
 	<arg name="use_map_topic"   default="true"/>
 	<arg name="scan_topic"      default="/volta_0/scan_filtered"/>
-	<arg name="initial_pose_x"  default="2.0"/>
-	<arg name="initial_pose_y"  default="0.0"/>
-	<arg name="initial_pose_a"  default="-1.5708"/>
+	<arg name="initial_pose_x"  default="0.0"/>
+	<arg name="initial_pose_y"  default="2.0"/>
+	<arg name="initial_pose_a"  default="0.0"/>
 	<arg name="global_frame_id" default="map"/>
 	<!-- AMCL -->
 	<node pkg="amcl" type="amcl" name="amcl_0">

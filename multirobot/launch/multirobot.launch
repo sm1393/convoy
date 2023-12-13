@@ -13,7 +13,7 @@
     <arg name="second_volta_z_pos" default="0.0"/>
     <arg name="second_volta_yaw"   default="-1.5708"/>
   
-	<!-- <arg name="world" default="$(find volta_simulation)/worlds/office_full.world"/>
+	<arg name="world" default="$(find volta_simulation)/worlds/office_full.world"/>
     <param name="use_sim_time" value="true"/>
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -23,7 +23,7 @@
 		<arg name="gui" value="true"/>
 		<arg name="headless" value="false"/>
 		<arg name="debug" value="false"/>
-    </include> -->
+    </include>
 
     <group ns = "$(arg first_volta)">
 		<arg name="model" default="$(find descriptions)/urdf/volta0/volta.xacro"/>
