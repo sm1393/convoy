@@ -14,5 +14,12 @@
     <!-- <include file="$(find navigation)/launch/move_base1.launch" /> -->
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
+
+    <arg name="keyboard" default="false" />
+    <rosparam command="load" file="$(find volta_teleoperator)/config/joy.yaml" unless="$(arg keyboard)" />
+    <node pkg="joy" type="joy_node" name="joy_node"  unless="$(arg keyboard)" />
+    <node pkg="volta_teleoperator" type="volta_joy_teleop_node" name="joy_teleop" output="screen" unless="$(arg keyboard)">
+      <remap from="/joy/cmd_vel" to="/volta_0/cmd_vel"/>
+    </node>
     
 </launch>

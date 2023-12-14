@@ -6,22 +6,20 @@ from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 def movebase_action_client():
 
-    client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
-    print(client)
+    goal = MoveBaseGoal()
+    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
     client.wait_for_server()
 
-    goal = MoveBaseGoal()
     goal.target_pose.header.frame_id = 'map'
-    print("rospy.Time.now() = ", rospy.Time.now())
     goal.target_pose.header.stamp = rospy.Time.now()
-    goal.target_pose.pose.position.x = 2.0
-    goal.target_pose.pose.position.y = 2.0
+    goal.target_pose.pose.position.x = 0.0
+    goal.target_pose.pose.position.y = 0.0
     goal.target_pose.pose.orientation.x = 0.0
     goal.target_pose.pose.orientation.y = 0.0
     goal.target_pose.pose.orientation.z = 0.0
     goal.target_pose.pose.orientation.w = 1.0
-    print(goal)
     client.send_goal(goal)
+    print(client.get_state())
     wait = client.wait_for_result()
     if not wait:
         rospy.logerr("Action server not available!")
