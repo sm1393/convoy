@@ -1,7 +1,7 @@
 <launch>
     <param name="use_sim_time" value="true" />
     <arg name="map_file" default="$(find navigation)/maps/office/office.yaml" />
-    <arg name="rviz_config" default="$(find navigation)/rviz_config/move_base.rviz" />
+    <arg name="rviz_config" default="$(find navigation)/rviz_config/three_volta.rviz" />
 
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
         <param name="frame_id" value="map" />
@@ -10,6 +10,7 @@
     <include file="$(find multirobot)/launch/multirobot.launch" />
     <include file="$(find navigation)/launch/navigation0.launch" />
     <include file="$(find navigation)/launch/navigation1.launch" />
+    <include file="$(find navigation)/launch/navigation2.launch" />
     <include file="$(find navigation)/launch/move_base.launch" />
     <!-- <include file="$(find navigation)/launch/move_base1.launch" /> -->
 

@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta_robot_1" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot_2" xmlns:xacro="https://ros.org/wiki/xacro">
 
   <xacro:macro name="lidar" params="frame:=lidar topic:=scan_filtered sample_size:=271 update_rate:=50
                  min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.5 max_range:=10.0 rplidar_a3_enabled:=true hokuyo_ust_10lx_enabled:=false robot_namespace:=/">
@@ -120,8 +120,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             </range>
           </ray>
           <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
-            <topicName>volta_1/${topic}</topicName>
-            <frameName>volta_1_tf/${frame}</frameName>
+            <topicName>volta_2/${topic}</topicName>
+            <frameName>volta_2_tf/${frame}</frameName>
             <robotNamespace>${robot_namespace}</robotNamespace>
             <gaussianNoise>0.005</gaussianNoise>
             <alwaysOn>true</alwaysOn>

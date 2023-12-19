@@ -2,6 +2,7 @@
 
     <arg name="first_volta"  default="volta_0"/>
     <arg name="second_volta" default="volta_1"/>
+    <arg name="third_volta" default="volta_2"/>
   
     <arg name="first_volta_x_pos" default="2.0"/>
     <arg name="first_volta_y_pos" default="0.0"/>
@@ -12,6 +13,11 @@
     <arg name="second_volta_y_pos" default="0.0"/>
     <arg name="second_volta_z_pos" default="0.0"/>
     <arg name="second_volta_yaw"   default="-1.5708"/>
+
+	<arg name="third_volta_x_pos" default="-2.0"/>
+    <arg name="third_volta_y_pos" default="0.0"/>
+    <arg name="third_volta_z_pos" default="0.0"/>
+    <arg name="third_volta_yaw"   default="-1.5708"/>
   
 	<arg name="world" default="$(find volta_simulation)/worlds/office_full.world"/>
     <param name="use_sim_time" value="true"/>
@@ -52,5 +58,19 @@
 		</node>
 		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg second_volta) -x $(arg second_volta_x_pos) -y $(arg second_volta_y_pos) -z $(arg second_volta_z_pos) -Y $(arg second_volta_yaw) -param robot_description" respawn="false" output="screen" />
     </group>
+
+	<!-- <group ns = "$(arg third_volta)">
+	    <arg name="model" default="$(find descriptions)/urdf/volta2/volta.xacro"/>
+    	<param name="robot_description" command="$(find xacro)/xacro -|-inorder $(arg model)"/>
+		<param name="tf_prefix" value="volta_2_tf" />
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+			<param name="use_gui" value="False"/>
+		</node>
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+			<param name="publish_frequency" type="double" value="50.0" />
+			<param name="tf_prefix" value="volta_2_tf" />
+		</node>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg third_volta) -x $(arg third_volta_x_pos) -y $(arg third_volta_y_pos) -z $(arg third_volta_z_pos) -Y $(arg third_volta_yaw) -param robot_description" respawn="false" output="screen" />
+    </group> -->
   
   </launch>

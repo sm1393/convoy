@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta_robot_0" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
 
     <xacro:macro name="camera_" params="frame:=camera topic:=camera info_topic:=camera_info update_rate:=50 intel_d435i_enabled:=true orbbec_astra_pro_enabled:=false robot_namespace:=/">
 
