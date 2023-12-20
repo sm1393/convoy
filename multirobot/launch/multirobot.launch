@@ -59,9 +59,9 @@
 		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg second_volta) -x $(arg second_volta_x_pos) -y $(arg second_volta_y_pos) -z $(arg second_volta_z_pos) -Y $(arg second_volta_yaw) -param robot_description" respawn="false" output="screen" />
     </group>
 
-	<!-- <group ns = "$(arg third_volta)">
+	<group ns = "$(arg third_volta)">
 	    <arg name="model" default="$(find descriptions)/urdf/volta2/volta.xacro"/>
-    	<param name="robot_description" command="$(find xacro)/xacro -|-inorder $(arg model)"/>
+    	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
 		<param name="tf_prefix" value="volta_2_tf" />
 		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
 			<param name="use_gui" value="False"/>
@@ -71,6 +71,6 @@
 			<param name="tf_prefix" value="volta_2_tf" />
 		</node>
 		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg third_volta) -x $(arg third_volta_x_pos) -y $(arg third_volta_y_pos) -z $(arg third_volta_z_pos) -Y $(arg third_volta_yaw) -param robot_description" respawn="false" output="screen" />
-    </group> -->
+    </group>
   
   </launch>

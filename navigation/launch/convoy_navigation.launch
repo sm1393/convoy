@@ -12,7 +12,7 @@
     <include file="$(find navigation)/launch/navigation1.launch" />
     <include file="$(find navigation)/launch/navigation2.launch" />
     <include file="$(find navigation)/launch/move_base.launch" />
-    <!-- <include file="$(find navigation)/launch/move_base1.launch" /> -->
+    <include file="$(find navigation)/launch/move_base1.launch" />
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
 
