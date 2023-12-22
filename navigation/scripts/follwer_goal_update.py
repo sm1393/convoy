@@ -13,7 +13,10 @@ followerPos = np.array([0.0, 0.0])
 
 rospy.init_node('movebase_action_client')
 client = actionlib.SimpleActionClient('move_base',MoveBaseAction)
+print("Searching")
 client.wait_for_server()
+print("found")
+print()
 goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
