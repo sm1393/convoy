@@ -11,8 +11,10 @@
     <include file="$(find navigation)/launch/navigation0.launch" />
     <include file="$(find navigation)/launch/navigation1.launch" />
     <include file="$(find navigation)/launch/navigation2.launch" />
+    <include file="$(find navigation)/launch/navigation3.launch" />
     <include file="$(find navigation)/launch/move_base.launch" />
     <include file="$(find navigation)/launch/move_base1.launch" />
+    <include file="$(find navigation)/launch/move_base2.launch" />
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
 
@@ -22,5 +24,8 @@
     <node pkg="volta_teleoperator" type="volta_joy_teleop_node" name="joy_teleop" output="screen" unless="$(arg keyboard)">
       <remap from="/joy/cmd_vel" to="/volta_0/cmd_vel"/>
     </node>
+    <node pkg="navigation" type="follwer_goal_update.py" name="follwer_goal_update" output="screen"/>
+    <node pkg="navigation" type="follwer_goal_update1.py" name="follwer_goal_update1" output="screen"/>
+    <node pkg="navigation" type="follwer_goal_update2.py" name="follwer_goal_update2" output="screen"/>
     
 </launch>

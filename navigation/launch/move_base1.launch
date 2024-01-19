@@ -11,7 +11,7 @@
     <arg name="base_global" default="global_planner/GlobalPlanner"/>
     <arg name="base_local" default="dwa_local_planner/DWAPlannerROS"/>
 
-    <node pkg="move_base" type="move_base" respawn="false" name="move_base_1" output="screen"> 
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" ns='robot1' output="screen"> 
         <param name="base_global_planner" value="$(arg base_global)"/>
         <param name="base_local_planner" value="$(arg base_local)"/>
         <param name="global_costmap/global_frame" value="$(arg global_frame_id)" />
@@ -31,49 +31,6 @@
         <remap from="odom"                                                                          to="$(arg odom_topic)"/>
         <remap from="scan"                                                                          to="$(arg laser_topic)"/>
         <remap from="map"                                                                           to="/map"/>
-        
-            <!-- <remap from="/move_base_simple/goal"                                                        to="/move_base_1_simple/goal"                                           />
-            <remap from="/move_base/TebLocalPlannerROS/global_plan"                                     to="/move_base_1/TebLocalPlannerROS/global_plan"                        />
-            <remap from="/move_base/TebLocalPlannerROS/local_plan"                                      to="/move_base_1/TebLocalPlannerROS/local_plan"                         />
-            <remap from="/move_base/TebLocalPlannerROS/teb_markers"                                     to="/move_base_1/TebLocalPlannerROS/teb_markers"                        />
-            <remap from="/move_base/TebLocalPlannerROS/teb_markers_array"                               to="/move_base_1/TebLocalPlannerROS/teb_markers_array"                  />
-            <remap from="/move_base/TebLocalPlannerROS/teb_poses"                                       to="/move_base_1/TebLocalPlannerROS/teb_poses"                          />
-            <remap from="/move_base/global_costmap/costmap"                                             to="/move_base_1/global_costmap/costmap"                                />
-            <remap from="/move_base/global_costmap/costmap_updates"                                     to="/move_base_1/global_costmap/costmap_updates"                        />
-            <remap from="/move_base/local_costmap/costmap"                                              to="/move_base_1/local_costmap/costmap"                                 />
-            <remap from="/move_base/local_costmap/costmap_updates"                                      to="/move_base_1/local_costmap/costmap_updates"                         />
-            <remap from="/move_base/local_costmap/footprint"                                            to="/move_base_1/local_costmap/footprint"                               />
-            <remap from="/move_base/GlobalPlanner/parameter_descriptions"                               to="/move_base_1/GlobalPlanner/parameter_descriptions"                  />
-            <remap from="/move_base/GlobalPlanner/parameter_updates"                                    to="/move_base_1/GlobalPlanner/parameter_updates"                       />
-            <remap from="/move_base/GlobalPlanner/plan"                                                 to="/move_base_1/GlobalPlanner/plan"                                    />
-            <remap from="/move_base/GlobalPlanner/potential"                                            to="/move_base_1/GlobalPlanner/potential"                               />
-            <remap from="/move_base/TebLocalPlannerROS/obstaclces"                                      to="/move_base_1/TebLocalPlannerROS/obstaclces"                         />
-            <remap from="/move_base/TebLocalPlannerROS/parameter_descriptions"                          to="/move_base_1/TebLocalPlannerROS/parameter_descriptions"             />
-            <remap from="/move_base/TebLocalPlannerROS/parameter_updates"                               to="/move_base_1/TebLocalPlannerROS/parameter_updates"                  />
-            <remap from="/move_base/cancel"                                                             to="/move_base_1/cancel"                                                />
-            <remap from="/move_base/current_goal"                                                       to="/move_base_1/current_goal"                                          />
-            <remap from="/move_basefeedback"                                                            to="/move_base_1feedback"                                               />
-            <remap from="/move_base/global_costmap/footprint"                                           to="/move_base_1/global_costmap/footprint"                              />
-            <remap from="/move_base/global_costmap/inflation_layer/parameter_descriptions"              to="/move_base_1/global_costmap/inflation_layer/parameter_descriptions" />
-            <remap from="/move_base/global_costmap/inflation_layer/parameter_updates"                   to="/move_base_1/global_costmap/inflation_layer/parameter_updates"      />
-            <remap from="/move_base/global_costmap/obstacle_layer/parameter_descriptions"               to="/move_base_1/global_costmap/obstacle_layer/parameter_descriptions"  />
-            <remap from="/move_base/global_costmap/obstacle_layer/parameter_updates"                    to="/move_base_1/global_costmap/obstacle_layer/parameter_updates"       />
-            <remap from="/move_base/global_costmap/parameter_descriptions"                              to="/move_base_1/global_costmap/parameter_descriptions"                 />
-            <remap from="/move_base/global_costmap/parameter_updates"                                   to="/move_base_1/global_costmap/parameter_updates"                      />
-            <remap from="/move_base/global_costmap/static_layer/parameter_descriptions"                 to="/move_base_1/global_costmap/static_layer/parameter_descriptions"    />
-            <remap from="/move_base/global_costmap/static_layer/parameter_updates"                      to="/move_base_1/global_costmap/static_layer/parameter_updates"         />
-            <remap from="/move_base/goal"                                                               to="/move_base_1/goal"                                                  />
-            <remap from="/move_base/local_costmap/obstacle_layer/parameter_descriptions"                to="/move_base_1/local_costmap/obstacle_layer/parameter_descriptions"   />
-            <remap from="/move_base/local_costmap/obstacle_layer/parameter_updates"                     to="/move_base_1/local_costmap/obstacle_layer/parameter_updates"        />
-            <remap from="/move_base/local_costmap/parameter_descriptions"                               to="/move_base_1/local_costmap/parameter_descriptions"                  />
-            <remap from="/move_base/local_costmap/parameter_updates"                                    to="/move_base_1/local_costmap/parameter_updates"                       />
-            <remap from="/move_base/local_costmap/static_layer/parameter_descriptions"                  to="/move_base_1/local_costmap/static_layer/parameter_descriptions"     />
-            <remap from="/move_base/local_costmap/static_layer/parameter_updates"                       to="/move_base_1/local_costmap/static_layer/parameter_updates"          />
-            <remap from="/move_base/parameter_descriptions"                                             to="/move_base_1/parameter_descriptions"                                />
-            <remap from="/move_base/parameter_updates"                                                  to="/move_base_1/parameter_updates"                                     />
-            <remap from="/move_base/result"                                                             to="/move_base_1/result"                                                />
-            <remap from="/move_base/status"                                                             to="/move_base_1/status"                                                /> -->
-
     </node>
 
 </launch>

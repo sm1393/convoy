@@ -1,7 +1,7 @@
 footprint: [[-0.26, -0.19], [-0.26, 0.19], [0.235, 0.19], [0.235, -0.19]]
 
 footprint_padding: 0.02
-robot_base_frame: volta_2/base_link
+robot_base_frame: volta_3/base_link
 update_frequency: 30.0
 publish_frequency: 20.0
 transform_tolerance: 1.0
@@ -17,7 +17,7 @@ static:
 
 obstacles_laser:
   observation_sources: laser
-  laser: {data_type: LaserScan, clearing: true, marking: true, topic: volta_2/scan_filtered, inf_is_valid: true}
+  laser: {data_type: LaserScan, clearing: true, marking: true, topic: volta_3/scan_filtered, inf_is_valid: true}
 
 inflation:
   # inflation_radius: 0.6
