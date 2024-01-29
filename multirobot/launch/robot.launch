@@ -1,0 +1,23 @@
+<launch>
+
+	<arg name="namespace" default="volta" />
+	<arg name="x_pos" default="0.0" />
+	<arg name="y_pos" default="0.0" />
+	<arg name="z_pos" default="0.0" />
+	<arg name="yaw" default="0.0" />
+
+	<group ns="$(arg namespace)">
+		<arg name="model" default="$(find descriptions)/urdf/volta/$(arg namespace).xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+		<param name="tf_prefix" value="$(arg namespace)" />
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+			<param name="use_gui" value="False" />
+		</node>
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+			<param name="publish_frequency" type="double" value="50.0" />
+			<param name="tf_prefix" value="$(arg namespace)" />
+		</node>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg namespace) -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -Y $(arg yaw) -param robot_description -robot_namespace $(arg namespace)" respawn="false" output="screen" />
+	</group>
+
+</launch>

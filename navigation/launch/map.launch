@@ -7,16 +7,5 @@
         <param name="frame_id" value="map"/>
     </node>
     
-    <include file="$(find multirobot)/launch/multirobot.launch"/>
-
-    <include file="$(find navigation)/launch/localization.launch">
-        <arg name="namespace" value="volta_0"/>
-    </include>
-
-    <include file="$(find navigation)/launch/localization.launch">
-        <arg name="namespace" value="volta_1"/>
-    </include>
-
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)" respawn="true" />
-
 </launch>

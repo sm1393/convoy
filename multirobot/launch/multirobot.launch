@@ -1,96 +1,86 @@
 <launch>
 
-    <arg name="first_volta"  default="volta_0"/>
-    <arg name="second_volta" default="volta_1"/>
-    <arg name="third_volta" default="volta_2"/>
-    <arg name="fourth_volta" default="volta_3"/>
-  
-    <arg name="first_volta_x_pos" default="2.0"/>
-    <arg name="first_volta_y_pos" default="0.0"/>
-    <arg name="first_volta_z_pos" default="0.0"/>
-    <arg name="first_volta_yaw"   default="-1.5708"/>
-  
-    <arg name="second_volta_x_pos" default="0.0"/>
-    <arg name="second_volta_y_pos" default="0.0"/>
-    <arg name="second_volta_z_pos" default="0.0"/>
-    <arg name="second_volta_yaw"   default="-1.5708"/>
+	<arg name="namespace_0" default="volta_0" />
+	<arg name="namespace_1" default="volta_1" />
+	<arg name="namespace_2" default="volta_2" />
+	<arg name="namespace_3" default="volta_3" />
 
-	<arg name="third_volta_x_pos" default="-2.0"/>
-    <arg name="third_volta_y_pos" default="0.0"/>
-    <arg name="third_volta_z_pos" default="0.0"/>
-    <arg name="third_volta_yaw"   default="-1.5708"/>
+	<arg name="x_pos_0" default="2.0" />
+	<arg name="y_pos_0" default="0.0" />
+	<arg name="z_pos_0" default="0.0" />
+	<arg name="yaw_0" default="-1.5708" />
 
-	<arg name="fourth_volta_x_pos" default="-4.0"/>
-    <arg name="fourth_volta_y_pos" default="0.0"/>
-    <arg name="fourth_volta_z_pos" default="0.0"/>
-    <arg name="fourth_volta_yaw"   default="-1.5708"/>
-  
-	<arg name="world" default="$(find volta_simulation)/worlds/office_full.world"/>
-    <param name="use_sim_time" value="true"/>
+	<arg name="x_pos_1" default="0.0" />
+	<arg name="y_pos_1" default="0.0" />
+	<arg name="z_pos_1" default="0.0" />
+	<arg name="yaw_1" default="-1.5708" />
 
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(arg world)"/>
-		<arg name="paused" value="false"/>
-		<arg name="use_sim_time" value="true"/>
-		<arg name="gui" value="true"/>
-		<arg name="headless" value="false"/>
-		<arg name="debug" value="false"/>
-    </include>
+	<arg name="x_pos_2" default="-2.0" />
+	<arg name="y_pos_2" default="0.0" />
+	<arg name="z_pos_2" default="0.0" />
+	<arg name="yaw_2" default="-1.5708" />
 
-    <group ns = "$(arg first_volta)">
-		<arg name="model" default="$(find descriptions)/urdf/volta0/volta.xacro"/>
-    	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
-		<param name="tf_prefix" value="volta_0_tf" />
+	<arg name="x_pos_3" default="-4.0" />
+	<arg name="y_pos_3" default="0.0" />
+	<arg name="z_pos_3" default="0.0" />
+	<arg name="yaw_3" default="-1.5708" />
+
+	<include file="$(find multirobot)/launch/convoy_world.launch"/>	
+
+	<group ns="$(arg namespace_0)">
+		<arg name="model" default="$(find descriptions)/urdf/volta/volta_0.xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+		<param name="tf_prefix" value="$(arg namespace_0)" />
 		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-			<param name="use_gui" value="False"/>
+			<param name="use_gui" value="False" />
 		</node>
 		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
 			<param name="publish_frequency" type="double" value="50.0" />
-			<param name="tf_prefix" value="volta_0_tf" />
+			<param name="tf_prefix" value="$(arg namespace_0)" />
 		</node>
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg first_volta) -x $(arg first_volta_x_pos) -y $(arg first_volta_y_pos) -z $(arg first_volta_z_pos) -Y $(arg first_volta_yaw) -param robot_description" respawn="false" output="screen" />
-    </group>
-   
-	<group ns = "$(arg second_volta)">
-	    <arg name="model" default="$(find descriptions)/urdf/volta1/volta.xacro"/>
-    	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
-		<param name="tf_prefix" value="volta_1_tf" />
-		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-			<param name="use_gui" value="False"/>
-		</node>
-		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
-			<param name="publish_frequency" type="double" value="50.0" />
-			<param name="tf_prefix" value="volta_1_tf" />
-		</node>
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg second_volta) -x $(arg second_volta_x_pos) -y $(arg second_volta_y_pos) -z $(arg second_volta_z_pos) -Y $(arg second_volta_yaw) -param robot_description" respawn="false" output="screen" />
-    </group>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg namespace_0) -x $(arg x_pos_0) -y $(arg y_pos_0) -z $(arg z_pos_0) -Y $(arg yaw_0) -param robot_description" respawn="false" output="screen" />
+	</group>
 
-	<group ns = "$(arg third_volta)">
-	    <arg name="model" default="$(find descriptions)/urdf/volta2/volta.xacro"/>
-    	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
-		<param name="tf_prefix" value="volta_2_tf" />
+	<group ns="$(arg namespace_1)">
+		<arg name="model" default="$(find descriptions)/urdf/volta/volta_0.xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+		<param name="tf_prefix" value="$(arg namespace_1)" />
 		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-			<param name="use_gui" value="False"/>
+			<param name="use_gui" value="False" />
 		</node>
 		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
 			<param name="publish_frequency" type="double" value="50.0" />
-			<param name="tf_prefix" value="volta_2_tf" />
+			<param name="tf_prefix" value="$(arg namespace_1)" />
 		</node>
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg third_volta) -x $(arg third_volta_x_pos) -y $(arg third_volta_y_pos) -z $(arg third_volta_z_pos) -Y $(arg third_volta_yaw) -param robot_description" respawn="false" output="screen" />
-    </group>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg namespace_1) -x $(arg x_pos_1) -y $(arg y_pos_1) -z $(arg z_pos_1) -Y $(arg yaw_1) -param robot_description" respawn="false" output="screen" />
+	</group>
 
-	<group ns = "$(arg fourth_volta)">
-	    <arg name="model" default="$(find descriptions)/urdf/volta3/volta.xacro"/>
-    	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
-		<param name="tf_prefix" value="volta_3_tf" />
+	<!-- <group ns="$(arg namespace_2)">
+		<arg name="model" default="$(find descriptions)/urdf/volta/volta_0.xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro -\-inorder $(arg model)" />
+		<param name="tf_prefix" value="$(arg namespace_2)" />
 		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-			<param name="use_gui" value="False"/>
+			<param name="use_gui" value="False" />
 		</node>
 		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
 			<param name="publish_frequency" type="double" value="50.0" />
-			<param name="tf_prefix" value="volta_3_tf" />
+			<param name="tf_prefix" value="$(arg namespace_2)" />
 		</node>
-		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg fourth_volta) -x $(arg fourth_volta_x_pos) -y $(arg fourth_volta_y_pos) -z $(arg fourth_volta_z_pos) -Y $(arg fourth_volta_yaw) -param robot_description" respawn="false" output="screen" />
-    </group>
-  
-  </launch>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg namespace_2) -x $(arg x_pos_2) -y $(arg y_pos_2) -z $(arg z_pos_2) -Y $(arg yaw_2) -param robot_description" respawn="false" output="screen" />
+	</group> -->
+
+	<!-- <group ns="$(arg namespace_3)">
+		<arg name="model" default="$(find descriptions)/urdf/volta/volta_0.xacro" />
+		<param name="robot_description" command="$(find xacro)/xacro -\-inorder $(arg model)" />
+		<param name="tf_prefix" value="$(arg namespace_3)" />
+		<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+			<param name="use_gui" value="False" />
+		</node>
+		<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+			<param name="publish_frequency" type="double" value="50.0" />
+			<param name="tf_prefix" value="$(arg namespace_3)" />
+		</node>
+		<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg namespace_3) -x $(arg x_pos_3) -y $(arg y_pos_3) -z $(arg z_pos_3) -Y $(arg yaw_3) -param robot_description" respawn="false" output="screen" />
+	</group> -->
+
+</launch>

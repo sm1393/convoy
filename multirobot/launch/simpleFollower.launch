@@ -6,8 +6,8 @@
     <node pkg="volta_teleoperator" type="volta_joy_teleop_node" name="joy_teleop" output="screen" unless="$(arg keyboard)">
       <remap from="/joy/cmd_vel" to="/volta_0/cmd_vel"/>
     </node>
-    <!-- <node pkg="multirobot" name="simpleFollower" type="simpleFollower.py"/> 
-    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" if="$(arg keyboard)">
+    <!-- <node pkg="multirobot" name="simpleFollower" type="simpleFollower.py"/>  -->
+    <!-- <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" if="$(arg keyboard)">
         <remap from="/cmd_vel" to="keyboard/cmd_vel"/>
     </node> -->
 </launch> 

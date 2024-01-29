@@ -12,7 +12,7 @@ prevLeaderPos = np.array([0.0, 0.0])
 followerPos = np.array([0.0, 0.0])
 
 rospy.init_node('movebase_action_client')
-client = actionlib.SimpleActionClient('/robot0/move_base',MoveBaseAction)
+client = actionlib.SimpleActionClient('/volta_1/move_base',MoveBaseAction)
 print("Searching")
 client.wait_for_server()
 print("found")

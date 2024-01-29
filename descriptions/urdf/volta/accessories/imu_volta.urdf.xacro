@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
     <xacro:macro name="imu" params="frame:=imu topic:=imu/data update_rate:=50 robot_namespace:=/ tf_pre:=/">
         <joint name="${frame}_joint" type="fixed">
             <parent link="base_link" />

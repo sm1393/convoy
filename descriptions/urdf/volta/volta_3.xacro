@@ -27,9 +27,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta_robot_0" xmlns:xacro="https://ros.org/wiki/xacro">
+<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find descriptions)/urdf/volta0/volta.urdf.xacro" />
-  <xacro:volta_robot_0/>
+  <xacro:arg name="robot_namespace" default="volta_3" />
+
+  <xacro:include filename="$(find descriptions)/urdf/volta/volta.urdf.xacro" />
+  <xacro:volta_robot robot_namespace="$(arg robot_namespace)"/>
 
 </robot>

@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <!--
 
 Copyright (c) 2020, Botsync Pte. Ltd.
@@ -28,36 +27,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
 
-<robot name="volta" xmlns:xacro="https://ros.org/wiki/xacro">
-    <xacro:macro name="imu" params="frame:=imu topic:=imu/data update_rate:=50 robot_namespace:=/ tf_pre:=/">
-        <joint name="${frame}_joint" type="fixed">
-            <parent link="base_link" />
-            <child link="${frame}" />
-            <origin xyz="0 0 ${base_h/2}" rpy="0 0 0" />
-        </joint>
+<robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
 
-        <link name="${frame}">
-            <inertial>
-                <mass value="0.001"/>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
-            </inertial>
-        </link>
+  <xacro:arg name="robot_namespace" default="volta_2" />
 
-        <gazebo>
-            <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
-                <alwaysOn>true</alwaysOn>
-                <robotNamespace>${robot_namespace}</robotNamespace>
-                <updateRate>${update_rate}</updateRate>
-                <bodyName>${frame}</bodyName>
-                <frameId>${tf_pre}${frame}</frameId>
-                <frameName>${tf_pre}${frame}</frameName>
-                <topicName>${topic}</topicName>
-                <xyzOffset>0.0 0.0 0.0</xyzOffset>
-                <rpyOffset>0.0 0.0 0.0</rpyOffset>
-                <headingDrift>0.0005</headingDrift>
-                <gaussianNoise>0.0005</gaussianNoise>
-            </plugin>
-        </gazebo>
-    </xacro:macro>
+  <xacro:include filename="$(find descriptions)/urdf/volta/volta.urdf.xacro" />
+  <xacro:volta_robot robot_namespace="$(arg robot_namespace)"/>
+
 </robot>
