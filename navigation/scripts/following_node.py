@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 import numpy as np
 import rospy
 import actionlib
@@ -11,12 +13,13 @@ leaderPos = np.array([0.0, 0.0])
 prevLeaderPos = np.array([0.0, 0.0])
 followerPos = np.array([0.0, 0.0])
 
-rospy.init_node('movebase_action_client1')
-client = actionlib.SimpleActionClient('/robot1/move_base',MoveBaseAction)
-print("Searching")
+myargv = rospy.myargv(argv=sys.argv)
+LeaderTopic = "/" + myargv[1] + "/amcl_pose"
+followerTopic = "/" + myargv[2] + "/amcl_pose"
+
+rospy.init_node('movebase_action_client')
+client = actionlib.SimpleActionClient('/' + myargv[2] + '/move_base',MoveBaseAction)
 client.wait_for_server()
-print("found")
-print()
 goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
@@ -33,8 +36,8 @@ def poseFollower(msg):
 
 if __name__ == '__main__':
     try:
-        rospy.Subscriber('/volta_1/amcl_pose', PoseWithCovarianceStamped, poseLeader)
-        rospy.Subscriber('/volta_2/amcl_pose', PoseWithCovarianceStamped, poseFollower)
+        rospy.Subscriber(LeaderTopic, PoseWithCovarianceStamped, poseLeader)
+        rospy.Subscriber(followerTopic, PoseWithCovarianceStamped, poseFollower)
         while not rospy.is_shutdown():
             if np.linalg.norm(leaderPos-followerPos) > 1:
                 if np.linalg.norm(leaderPos-prevLeaderPos) > 1:

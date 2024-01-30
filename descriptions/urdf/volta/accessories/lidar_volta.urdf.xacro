@@ -58,7 +58,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </link>
         <!-- lidar joint -->
         <joint name="lidar_joint" type="fixed">
-            <origin xyz="${lidar_joint_x} ${lidar_joint_y} ${lidar_joint_z + 0.03}" rpy="0 0 0" />
+            <origin xyz="${lidar_joint_x} ${lidar_joint_y} ${lidar_joint_z + 0.03 + 0.2}" rpy="0 0 0" />
             <parent link="base_link" />
             <child link="${frame}" />
         </joint>
