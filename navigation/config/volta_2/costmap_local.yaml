@@ -1,4 +1,4 @@
-global_frame: map
+global_frame: volta_2/odom
 rolling_window: true
 track_unknown_space: false
 width: 8
