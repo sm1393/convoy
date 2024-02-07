@@ -72,25 +72,4 @@
 
     <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower2.rviz" respawn="true" />
 
-    <!-- FOLLOWER 3 -->
-    <include file="$(find multirobot)/launch/robot.launch">
-        <arg name="namespace" default="$(arg namespace_3)" />
-        <arg name="x_pos" default="-4.0" />
-        <arg name="y_pos" default="0.0" />
-        <arg name="yaw" default="-1.5708" />
-    </include>
-    <include file="$(find navigation)/launch/localization.launch">
-        <arg name="namespace" value="$(arg namespace_3)"/>
-        <arg name="initial_pose_x"  default="0.0"/>
-        <arg name="initial_pose_y"  default="-4.0"/>
-        <arg name="initial_pose_a"  default="0.0"/>        
-    </include>
-	<include file="$(find navigation)/launch/navigation.launch">
-		<arg name="namespace" value="$(arg namespace_3)"/>
-	</include>
-
-    <node pkg="navigation" name="following_node_3" type="following_node.py" args="volta_2 volta_3" output="screen"/>
-
-    <node name="rviz_follower3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower3.rviz" respawn="true" />
-
 </launch>
