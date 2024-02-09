@@ -95,7 +95,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</link>
 
 		<joint name="aruco_marker_joint_back" type="fixed">
-			<origin xyz="-0.27 0 0.08" rpy="0 ${PI/2} 0" />
+			<origin xyz="-0.27 0 0.08" rpy="0 -${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_back" />
 		</joint>
@@ -113,7 +113,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</joint>
 
 		<joint name="aruco_marker_joint_left" type="fixed">
-			<origin xyz="0 0.2 0.08" rpy="${PI/2} 0 0" />
+			<origin xyz="0 0.2 0.08" rpy="-${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_left" />
 		</joint>
