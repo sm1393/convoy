@@ -6,7 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
       Splitter Ratio: 0.5
-    Tree Height: 657
+    Tree Height: 501
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -63,9 +63,17 @@ Visualization Manager:
           Value: true
         volta_0/aruco_marker_front:
           Value: true
+        volta_0/aruco_marker_left:
+          Value: true
+        volta_0/aruco_marker_right:
+          Value: true
         volta_0/base_link:
           Value: true
-        volta_0/camera:
+        volta_0/camera_front:
+          Value: true
+        volta_0/camera_left:
+          Value: true
+        volta_0/camera_right:
           Value: true
         volta_0/caster_front_left_link:
           Value: true
@@ -85,6 +93,40 @@ Visualization Manager:
           Value: true
         volta_0/right_wheel:
           Value: true
+        volta_1/aruco_marker_back:
+          Value: true
+        volta_1/aruco_marker_front:
+          Value: true
+        volta_1/aruco_marker_left:
+          Value: true
+        volta_1/aruco_marker_right:
+          Value: true
+        volta_1/base_link:
+          Value: true
+        volta_1/camera_front:
+          Value: true
+        volta_1/camera_left:
+          Value: true
+        volta_1/camera_right:
+          Value: true
+        volta_1/caster_front_left_link:
+          Value: true
+        volta_1/caster_front_right_link:
+          Value: true
+        volta_1/caster_rear_left_link:
+          Value: true
+        volta_1/caster_rear_right_link:
+          Value: true
+        volta_1/footprint:
+          Value: true
+        volta_1/left_wheel:
+          Value: true
+        volta_1/lidar:
+          Value: true
+        volta_1/odom:
+          Value: true
+        volta_1/right_wheel:
+          Value: true
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -99,7 +141,15 @@ Visualization Manager:
                 {}
               volta_0/aruco_marker_front:
                 {}
-              volta_0/camera:
+              volta_0/aruco_marker_left:
+                {}
+              volta_0/aruco_marker_right:
+                {}
+              volta_0/camera_front:
+                {}
+              volta_0/camera_left:
+                {}
+              volta_0/camera_right:
                 {}
               volta_0/caster_front_left_link:
                 {}
@@ -116,6 +166,38 @@ Visualization Manager:
               volta_0/lidar:
                 {}
               volta_0/right_wheel:
+                {}
+          volta_1/odom:
+            volta_1/base_link:
+              volta_1/aruco_marker_back:
+                {}
+              volta_1/aruco_marker_front:
+                {}
+              volta_1/aruco_marker_left:
+                {}
+              volta_1/aruco_marker_right:
+                {}
+              volta_1/camera_front:
+                {}
+              volta_1/camera_left:
+                {}
+              volta_1/camera_right:
+                {}
+              volta_1/caster_front_left_link:
+                {}
+              volta_1/caster_front_right_link:
+                {}
+              volta_1/caster_rear_left_link:
+                {}
+              volta_1/caster_rear_right_link:
+                {}
+              volta_1/footprint:
+                {}
+              volta_1/left_wheel:
+                {}
+              volta_1/lidar:
+                {}
+              volta_1/right_wheel:
                 {}
       Update Interval: 0
       Value: true
@@ -176,7 +258,31 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /volta_0/camera/camera
+      Image Topic: /volta_0/camera_front/camera_front
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /volta_0/camera_left/camera_left
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+    - Class: rviz/Image
+      Enabled: true
+      Image Topic: /volta_0/camera_right/camera_right
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -242,7 +348,7 @@ Window Geometry:
   Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000036700000605fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000003890000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d0061006700650100000403000002700000002600ffffff000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f20000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000bac0000005efc0100000002fb0000000800540069006d0065010000000000000bac000006dc00fffffffb0000000800540069006d00650100000000000004500000000000000000000008390000060500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000027b00000605fc020000000dfb0000001200530065006c0065006300740069006f006e00000001e10000009b000000b000fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000006e000002ed0000018200fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d0061006700650000000403000002700000000000000000fb0000000a0049006d0061006700650100000367000000ef0000002600fffffffb0000000a0049006d006100670065000000058a000000e90000000000000000fb0000000a0049006d0061006700650100000462000001000000002600fffffffb0000000a0049006d006100670065010000056e000001050000002600ffffff000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f20000013200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000bac0000005efc0100000002fb0000000800540069006d0065010000000000000bac000006dc00fffffffb0000000800540069006d00650100000000000004500000000000000000000009250000060500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

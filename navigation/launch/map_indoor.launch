@@ -1,7 +1,6 @@
 <launch>
     <param name="use_sim_time" value="true"/>
-    <arg name="map_file" default="$(find navigation)/maps/office/office.yaml"/>
-    <!-- <arg name="rviz_config" default="$(find navigation)/rviz_config/amcl.rviz"/> -->
+    <arg name="map_file" default="$(find navigation)/maps/indoor/indoor.yaml"/>
 
     <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
         <param name="frame_id" value="map"/>

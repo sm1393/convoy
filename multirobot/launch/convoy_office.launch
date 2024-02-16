@@ -5,13 +5,13 @@
 	<arg name="namespace_2" default="volta_2" />
 	<arg name="namespace_3" default="volta_3" />
     
-	<include file="$(find multirobot)/launch/convoy_world.launch"/>
-    <include file="$(find navigation)/launch/map.launch"/>
+	<include file="$(find multirobot)/launch/convoy_office_world.launch"/>
+    <include file="$(find navigation)/launch/map_office.launch"/>
 
     <!-- LEADER -->
     <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_0)" />
-        <arg name="x_pos" default="2.0" />
+        <arg name="x_pos" default="0.0" />
         <arg name="y_pos" default="0.0" />
         <arg name="yaw" default="-1.5708" />
     </include>
@@ -24,14 +24,14 @@
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_0)"/>
         <arg name="initial_pose_x"  default="0.0"/>
-        <arg name="initial_pose_y"  default="2.0"/>
+        <arg name="initial_pose_y"  default="0.0"/>
         <arg name="initial_pose_a"  default="0.0"/>        
     </include>
 
-    <!-- <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/leader.rviz" respawn="true" /> -->
+    <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/leader.rviz" respawn="true" />
 
 	<!-- FOLLOWER 1 -->
-	<include file="$(find multirobot)/launch/robot.launch">
+	<!-- <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_1)" />
         <arg name="x_pos" default="0.0" />
         <arg name="y_pos" default="0.0" />
@@ -45,11 +45,11 @@
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_1)"/>
-	</include>
+	</include> -->
 
     <!-- <node pkg="navigation" name="following_node_1" type="following_node.py" args="volta_0 volta_1" output="screen"/> -->
 
-    <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower1.rviz" respawn="true" />
+    <!-- <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower1.rviz" respawn="true" /> -->
 
     <!-- FOLLOWER 2 -->
 	<!-- <include file="$(find multirobot)/launch/robot.launch">
@@ -66,10 +66,10 @@
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_2)"/>
-	</include>
+	</include> -->
 
-    <node pkg="navigation" name="following_node_2" type="following_node.py" args="volta_1 volta_2" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_2" type="following_node.py" args="volta_1 volta_2" output="screen"/> -->
 
-    <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower2.rviz" respawn="true" /> -->
+    <!-- <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/follower2.rviz" respawn="true" /> -->
 
 </launch>
