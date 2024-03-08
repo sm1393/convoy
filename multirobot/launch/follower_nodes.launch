@@ -1,0 +1,17 @@
+<launch>
+
+	<arg name="namespace_0" default="volta_0" />
+	<arg name="namespace_1" default="volta_1" />
+	<arg name="namespace_2" default="volta_2" />
+	<arg name="namespace_3" default="volta_3" />
+
+	<!-- FOLLOWER 1 -->
+    <node pkg="navigation" name="following_node_1" type="following_node_client.py" args="1" output="screen"/>
+
+    <!-- FOLLOWER 2 -->
+    <node pkg="navigation" name="following_node_2" type="following_node_client.py" args="2" output="screen"/>
+
+    <!-- FOLLOWER 3 -->
+    <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="3" output="screen"/>
+
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+
+	<arg name="namespace_0" default="volta_0" />
+
+	<include file="$(find navigation)/launch/navigation.launch">
+		<arg name="namespace" value="$(arg namespace_0)"/>
+	</include>
+
+</launch>

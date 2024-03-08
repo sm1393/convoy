@@ -133,11 +133,11 @@ if __name__ == '__main__':
     try:
         rospy.Subscriber(LeaderTopic, PoseWithCovarianceStamped, poseLeader)
         rospy.Subscriber(followerTopic, PoseWithCovarianceStamped, poseFollower)
-        rospy.Subscriber("/" + myargv[2] + "/camera_front/camera_front", Image, cameraFrontFeed)
-        rospy.Subscriber("/" + myargv[2] + "/camera_left/camera_left", Image, cameraLeftFeed)
-        rospy.Subscriber("/" + myargv[2] + "/camera_right/camera_right", Image, cameraRightFeed)
+        # rospy.Subscriber("/" + myargv[2] + "/camera_front/camera_front", Image, cameraFrontFeed)
+        # rospy.Subscriber("/" + myargv[2] + "/camera_left/camera_left", Image, cameraLeftFeed)
+        # rospy.Subscriber("/" + myargv[2] + "/camera_right/camera_right", Image, cameraRightFeed)
         while not rospy.is_shutdown():
-            print("robotsInFront -> ", robotsInFront, "\trobotsOnLeft -> ", robotsOnLeft, "\trobotsOnRight -> ", robotsOnRight)
+            # print("robotsInFront -> ", robotsInFront, "\trobotsOnLeft -> ", robotsOnLeft, "\trobotsOnRight -> ", robotsOnRight)
             if np.linalg.norm(leaderPos-followerPos) > 2:
                 if np.linalg.norm(leaderPos-prevLeaderPos) > 2:
                     goal.target_pose.header.stamp = rospy.Time.now()
