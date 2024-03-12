@@ -10,7 +10,7 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from navigation.srv import convoyConfig,convoyConfigResponse
 followerGoal = PoseWithCovarianceStamped()
 
-noOfRobots = 4
+noOfRobots = 10
 chainFormat = np.ones((noOfRobots,))*np.nan
 rospy.init_node('way_point_decider')
 
@@ -34,14 +34,15 @@ def getConvoyConfig(robotPosArray):
     currentRobot = 0
     for i in range(noOfRobots):
         for j in range(i+1, noOfRobots):
-            print("Distance between", i, "and", j, "is", np.linalg.norm(robotPosArray[i] - robotPosArray[j]))
+            print("Distance between", i, "and", j, "is", np.round(np.linalg.norm(robotPosArray[currentRobot] - robotPosArray[j]), 2))
     print("---------------------------------------------------------------------------------------------")
     for i in range(noOfRobots-1):
         minDistance = np.inf
         nearestRobotID = np.nan
         for j in range(1, noOfRobots):
             if j not in chainFormat and j != currentRobot:
-                distance = np.linalg.norm(robotPosArray[currentRobot] - robotPosArray[j])
+                distance = np.round(np.linalg.norm(robotPosArray[currentRobot] - robotPosArray[j]), 2)
+                print(currentRobot, j, "->", distance)
                 if distance < minDistance:
                     minDistance = distance
                     nearestRobotID = j
@@ -60,7 +61,7 @@ if __name__ == '__main__':
             robotInitialPosArray.append(robotPosCallbacks[i].robotPos)
         chainFormat = getConvoyConfig(robotInitialPosArray)
         print("Final Chain Formation: ", chainFormat)
-
+        exit()
         s = rospy.Service('convoy_config', convoyConfig, assign_follower_ID)
         print("Ready to assign role.")
         rospy.spin()
