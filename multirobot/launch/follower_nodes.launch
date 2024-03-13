@@ -6,30 +6,33 @@
 	<arg name="namespace_3" default="volta_3" />
 
 	<!-- FOLLOWER 1 -->
-    <node pkg="navigation" name="following_node_1" type="following_node_client.py" args="1" output="screen"/>
-
+    <!-- <node pkg="navigation" name="following_node_1" type="following_node_client.py" args="1" output="screen"/> -->
+    <node pkg="navigation" name="following_node_1" type="following_node.py" args="volta_0 volta_1" output="screen"/>
+    
     <!-- FOLLOWER 2 -->
-    <node pkg="navigation" name="following_node_2" type="following_node_client.py" args="2" output="screen"/>
-
+    <!-- <node pkg="navigation" name="following_node_2" type="following_node_client.py" args="2" output="screen"/> -->
+    <node pkg="navigation" name="following_node_2" type="following_node.py" args="volta_0 volta_2" output="screen"/>
+    
     <!-- FOLLOWER 3 -->
-    <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="3" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="3" output="screen"/> -->
+    <node pkg="navigation" name="following_node_3" type="following_node.py" args="volta_0 volta_3" output="screen"/>
 
     <!-- FOLLOWER 4 -->
-    <node pkg="navigation" name="following_node_4" type="following_node_client.py" args="4" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_4" type="following_node_client.py" args="4" output="screen"/> -->
 
     <!-- FOLLOWER 5 -->
-    <node pkg="navigation" name="following_node_5" type="following_node_client.py" args="5" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_5" type="following_node_client.py" args="5" output="screen"/> -->
 
     <!-- FOLLOWER 6 -->
-    <node pkg="navigation" name="following_node_6" type="following_node_client.py" args="6" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_6" type="following_node_client.py" args="6" output="screen"/> -->
 
     <!-- FOLLOWER 7 -->
-    <node pkg="navigation" name="following_node_7" type="following_node_client.py" args="7" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_7" type="following_node_client.py" args="7" output="screen"/> -->
 
     <!-- FOLLOWER 8 -->
-    <node pkg="navigation" name="following_node_8" type="following_node_client.py" args="8" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_8" type="following_node_client.py" args="8" output="screen"/> -->
 
     <!-- FOLLOWER 9 -->
-    <node pkg="navigation" name="following_node_9" type="following_node_client.py" args="9" output="screen"/>
+    <!-- <node pkg="navigation" name="following_node_9" type="following_node_client.py" args="9" output="screen"/> -->
 
 </launch>

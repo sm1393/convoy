@@ -59,9 +59,10 @@ client.wait_for_server()
 goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
-robotsInFront = []
-robotsOnLeft = []
-robotsOnRight = []
+robotsAroundMe = set()
+frontCamera = False
+leftCamera = False
+rightCamera = False
 
 def aruco_display(corners, ids, rejected, image):
 	if len(corners) > 0:
@@ -97,47 +98,54 @@ def poseFollower(msg):
     followerPos[1] = msg.pose.pose.position.y
 
 def cameraFrontFeed(msg):
-    global robotsInFront
+    global frontCamera
     bridge = CvBridge()
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     image = imutils.resize(image, width=1000)
-    corners, robotsInFront, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
-    # ids = np.unique(ids)
-    # detected_markers = aruco_display(corners, ids, rejected, image)
-    # cv2.imshow('detected_markers_front', detected_markers)
-    # cv2.waitKey(1)
+    corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    if type(ids) != type(None):
+        for id in ids:
+            robotsAroundMe.add(id[0])
+    frontCamera = True
 
 def cameraLeftFeed(msg):
-    global robotsOnLeft
+    global leftCamera
     bridge = CvBridge()
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     image = imutils.resize(image, width=1000)
-    corners, robotsOnLeft, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
-    # ids = np.unique(ids)
-    # detected_markers = aruco_display(corners, ids, rejected, image)
-    # cv2.imshow('detected_markers_left', detected_markers)
-    # cv2.waitKey(1)
-    
+    corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    if type(ids) != type(None):
+        for id in ids:
+            robotsAroundMe.add(id[0])
+    leftCamera = True
+
 def cameraRightFeed(msg):
-    global robotsOnRight
+    global rightCamera
+    global robotsAroundMe
     bridge = CvBridge()
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     image = imutils.resize(image, width=1000)
-    corners, robotsOnRight, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
-    # ids = np.unique(ids)
-    # detected_markers = aruco_display(corners, ids, rejected, image)
-    # cv2.imshow('detected_markers_right', detected_markers)
-    # cv2.waitKey(1)
+    corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    if type(ids) != type(None):
+        for id in ids:
+            robotsAroundMe.add(id[0])
+    rightCamera = True
 
 if __name__ == '__main__':
     try:
         rospy.Subscriber(LeaderTopic, PoseWithCovarianceStamped, poseLeader)
         rospy.Subscriber(followerTopic, PoseWithCovarianceStamped, poseFollower)
-        # rospy.Subscriber("/" + myargv[2] + "/camera_front/camera_front", Image, cameraFrontFeed)
-        # rospy.Subscriber("/" + myargv[2] + "/camera_left/camera_left", Image, cameraLeftFeed)
-        # rospy.Subscriber("/" + myargv[2] + "/camera_right/camera_right", Image, cameraRightFeed)
+        rospy.Subscriber("/" + myargv[2] + "/camera_front/camera_front", Image, cameraFrontFeed)
+        rospy.Subscriber("/" + myargv[2] + "/camera_left/camera_left", Image, cameraLeftFeed)
+        rospy.Subscriber("/" + myargv[2] + "/camera_right/camera_right", Image, cameraRightFeed)
+        
         while not rospy.is_shutdown():
-            # print("robotsInFront -> ", robotsInFront, "\trobotsOnLeft -> ", robotsOnLeft, "\trobotsOnRight -> ", robotsOnRight)
+            if frontCamera and leftCamera and rightCamera:
+                print("Robots around me: ", robotsAroundMe)
+                frontCamera = False
+                leftCamera = False
+                rightCamera = False
+                robotsAroundMe = set({})
             if np.linalg.norm(leaderPos-followerPos) > 2:
                 if np.linalg.norm(leaderPos-prevLeaderPos) > 2:
                     goal.target_pose.header.stamp = rospy.Time.now()
@@ -153,6 +161,7 @@ if __name__ == '__main__':
             else:
                 client.stop_tracking_goal()
                 client.cancel_all_goals()
-        cv2.destroyAllWindows() 
+
+        cv2.destroyAllWindows()
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")

@@ -125,8 +125,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <xacro:lidar rplidar_a3_enabled="$(arg rplidar_a3_enabled)" hokuyo_ust_10lx_enabled="$(arg hokuyo_ust_10lx_enabled)" robot_namespace="$(arg robot_namespace)">  </xacro:lidar>
         </xacro:if>
 
-        <!-- <xacro:include filename="$(find descriptions)/urdf/volta/accessories/aruco_marker.urdf.xacro"/>
-        <xacro:aruco_marker robot_namespace="$(arg robot_namespace)">  </xacro:aruco_marker> -->
+        <xacro:include filename="$(find descriptions)/urdf/volta/accessories/aruco_marker.urdf.xacro"/>
+        <xacro:aruco_marker robot_namespace="$(arg robot_namespace)">  </xacro:aruco_marker>
 
         <!-- Camera -->
         <xacro:if value="$(arg camera_enabled)">
