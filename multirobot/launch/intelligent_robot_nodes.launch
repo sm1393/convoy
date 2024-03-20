@@ -6,15 +6,15 @@
 	<arg name="namespace_3" default="volta_3" />
 
 	<!-- FOLLOWER 1 -->
-    <!-- <node pkg="navigation" name="robot_1" type="robot_client.py" args="1" output="screen"/> -->
-    <node pkg="navigation" name="robot_1" type="intelligent_robot_node.py" args="1" output="screen"/>
+    <node pkg="navigation" name="intelligent_camera_node_1" type="intelligent_camera_node.py" args="1"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_1" type="intelligent_navigation_node.py" args="1" output="screen"/> -->
     
     <!-- FOLLOWER 2 -->
-    <!-- <node pkg="navigation" name="robot_2" type="robot_client.py" args="2" output="screen"/> -->
-    <node pkg="navigation" name="robot_2" type="intelligent_robot_node.py" args="2" output="screen"/>
+    <node pkg="navigation" name="intelligent_camera_node_2" type="intelligent_camera_node.py" args="2"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_2" type="intelligent_navigation_node.py" args="2" output="screen"/> -->
     
     <!-- FOLLOWER 3 -->
-    <!-- <node pkg="navigation" name="robot_3" type="robot_client.py" args="3" output="screen"/> -->
-    <node pkg="navigation" name="robot_3" type="intelligent_robot_node.py" args="3" output="screen"/>
+    <node pkg="navigation" name="intelligent_camera_node_3" type="intelligent_camera_node.py" args="3"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_3" type="intelligent_navigation_node.py" args="3" output="screen"/> -->
 
 </launch>

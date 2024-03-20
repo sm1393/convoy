@@ -11,10 +11,10 @@
     
     <!-- FOLLOWER 2 -->
     <!-- <node pkg="navigation" name="following_node_2" type="following_node_client.py" args="2" output="screen"/> -->
-    <node pkg="navigation" name="following_node_2" type="following_node.py" args="volta_0 volta_2" output="screen"/>
+    <node pkg="navigation" name="following_node_2" type="following_node.py" args="volta_1 volta_2" output="screen"/>
     
     <!-- FOLLOWER 3 -->
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="3" output="screen"/> -->
-    <node pkg="navigation" name="following_node_3" type="following_node.py" args="volta_0 volta_3" output="screen"/>
+    <node pkg="navigation" name="following_node_3" type="following_node.py" args="volta_2 volta_3" output="screen"/>
 
 </launch>

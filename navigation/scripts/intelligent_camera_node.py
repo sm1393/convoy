@@ -6,26 +6,21 @@ import numpy as np
 from cv_bridge import CvBridge
 import cv2
 import time
+import imutils
 
 import rospy
-import actionlib
 from geometry_msgs.msg import PoseWithCovarianceStamped
-from sensor_msgs.msg import Image, CompressedImage
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from sensor_msgs.msg import Image
+from navigation.msg import navigation
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 
-myGoal = PoseWithCovarianceStamped()
 bridge = CvBridge()
 
 robotID = int(rospy.myargv(argv=sys.argv)[1])
 
-rospy.init_node('volta_' + str(robotID) + '_node')
-client = actionlib.SimpleActionClient('/volta_' + str(robotID) + '/move_base',MoveBaseAction)
-client.wait_for_server()
-goal = MoveBaseGoal()
-goal.target_pose.header.frame_id = 'map'
+rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
 noOfRobots = 4
 myLeaderID = 0
@@ -41,9 +36,6 @@ class robotInfo:
         rospy.Subscriber("/volta_" + str(self.id) + "/amcl_pose", PoseWithCovarianceStamped, self.poseCallback)
 
     def poseCallback(self, msg):
-        global myGoal, myLeaderID
-        if self.id == myLeaderID:
-            myGoal = msg
         self.pose[0] = msg.pose.pose.position.x
         self.pose[1] = msg.pose.pose.position.y
 
@@ -51,6 +43,7 @@ def frontCameraCallback(msg):
     global frontCamera, robotsAroundMe
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
             robotsAroundMe.add(id[0])
@@ -60,6 +53,7 @@ def leftCameraCallback(msg):
     global leftCamera, robotsAroundMe
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
             robotsAroundMe.add(id[0])
@@ -69,6 +63,7 @@ def rightCameraCallback(msg):
     global rightCamera, robotsAroundMe
     image = bridge.imgmsg_to_cv2(msg, "bgr8")
     corners, ids, rejected = cv2.aruco.detectMarkers(image, arucoDict, parameters=arucoParams)
+    image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
             robotsAroundMe.add(id[0])
@@ -94,10 +89,11 @@ def selectMyLeader():
     robotsAroundMe = set({})
     return myLeaderID
 
-myLeaderPrevPose = np.array([np.inf, np.inf])
 
 if __name__ == '__main__':
     try:
+        pub = rospy.Publisher("/volta_" + str(robotID) + "/navigation", navigation, queue_size=10)
+        navigationMsg = navigation()
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_front/camera_front", Image, frontCameraCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_left/camera_left", Image, leftCameraCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_right/camera_right", Image, rightCameraCallback)
@@ -107,32 +103,25 @@ if __name__ == '__main__':
             robotsInfo.append(robotInfo(id))
 
         time.sleep(1)
-        myLeaderID = selectMyLeader()
+        navigationMsg.leaderID = selectMyLeader()
+        navigationMsg.flag = False
         print("myLeaderID = ", myLeaderID)
         print("Ready to GO !!!")
 
         while not rospy.is_shutdown():
             if frontCamera and leftCamera and rightCamera:
-                print("Robots around me: ", robotsAroundMe)
+                for id in robotsAroundMe:
+                    distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
+                    print(id, ". distance = ", distance)
+                    if distance < 1.5:
+                        navigationMsg.flag = False
+                        break
+                pub.publish(navigationMsg)
+                navigationMsg.flag = True
                 frontCamera = False
                 leftCamera = False
                 rightCamera = False
                 robotsAroundMe = set({})
-            if np.linalg.norm(robotsInfo[myLeaderID].pose - robotsInfo[robotID].pose) > 1:
-                if np.linalg.norm(robotsInfo[myLeaderID].pose - myLeaderPrevPose) > 1:
-                    goal.target_pose.header.stamp = rospy.Time.now()
-                    goal.target_pose.pose.position.x = myGoal.pose.pose.position.x
-                    goal.target_pose.pose.position.y = myGoal.pose.pose.position.y
-                    goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
-                    goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
-                    goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
-                    goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
-                    goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-                    client.send_goal(goal)
-                    myLeaderPrevPose = np.copy(robotsInfo[myLeaderID].pose)
-            else:
-                client.stop_tracking_goal()
-                client.cancel_all_goals()
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
