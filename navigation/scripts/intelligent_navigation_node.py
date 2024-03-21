@@ -83,8 +83,8 @@ if __name__ == '__main__':
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
 
         while not rospy.is_shutdown():
-            if flag and np.linalg.norm(leaderPose - myPose) > 2.0:
-                if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
+            if np.linalg.norm(leaderPose - myPose) > 1.0:
+                if np.linalg.norm(leaderPose - leaderPrevPose) > 1.0:
                     goal.target_pose.header.stamp = rospy.Time.now()
                     goal.target_pose.pose.position.x = myGoal.pose.pose.position.x
                     goal.target_pose.pose.position.y = myGoal.pose.pose.position.y

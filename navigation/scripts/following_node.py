@@ -12,6 +12,7 @@ import actionlib
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from sensor_msgs.msg import Image, CompressedImage
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from nav_msgs.msg import Path
 
 ARUCO_DICT = {
 	"DICT_4X4_50": cv2.aruco.DICT_4X4_50,
@@ -131,6 +132,9 @@ def cameraRightFeed(msg):
             robotsAroundMe.add(id[0])
     rightCamera = True
 
+def localPathCallback(msg):
+    print(msg)
+
 if __name__ == '__main__':
     try:
         rospy.Subscriber(LeaderTopic, PoseWithCovarianceStamped, poseLeader)
@@ -138,10 +142,12 @@ if __name__ == '__main__':
         rospy.Subscriber("/" + myargv[2] + "/camera_front/camera_front", Image, cameraFrontFeed)
         rospy.Subscriber("/" + myargv[2] + "/camera_left/camera_left", Image, cameraLeftFeed)
         rospy.Subscriber("/" + myargv[2] + "/camera_right/camera_right", Image, cameraRightFeed)
-        
+        rospy.Subscriber("/" + myargv[2] + "/move_base/DWAPlannerROS/local_plan", Path, localPathCallback)
+
         while not rospy.is_shutdown():
+            # print(client.get_state())
             if frontCamera and leftCamera and rightCamera:
-                print("Robots around me: ", robotsAroundMe)
+                # print("Robots around me: ", robotsAroundMe)
                 frontCamera = False
                 leftCamera = False
                 rightCamera = False

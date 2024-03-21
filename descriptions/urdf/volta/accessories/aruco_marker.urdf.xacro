@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<xacro:property name="PI" value="3.14159" />
 	<xacro:macro name="aruco_marker" params="frame:=aruco_marker robot_namespace:=/">
 
-		<xacro:property name="lidar_joint_x" value="0.1995" />
+
 		<link name="${frame}_back">
 			<visual>
 				<origin xyz="0 0 0" />
@@ -95,25 +95,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		</link>
 
 		<joint name="aruco_marker_joint_back" type="fixed">
-			<origin xyz="-0.27 0 0.08" rpy="0 -${PI/2} 0" />
+			<origin xyz="-0.27 0 0.35" rpy="0 -${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_back" />
 		</joint>
 		
 		<joint name="aruco_marker_joint_front" type="fixed">
-			<origin xyz="0.27 0 0.08" rpy="0 ${PI/2} 0" />
+			<origin xyz="0.27 0 0.35" rpy="0 ${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_front" />
 		</joint>
 
 		<joint name="aruco_marker_joint_right" type="fixed">
-			<origin xyz="0 -0.2 0.08" rpy="${PI/2} 0 0" />
+			<origin xyz="0 -0.2 0.35" rpy="${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_right" />
 		</joint>
 
 		<joint name="aruco_marker_joint_left" type="fixed">
-			<origin xyz="0 0.2 0.08" rpy="-${PI/2} 0 0" />
+			<origin xyz="0 0.2 0.35" rpy="-${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_left" />
 		</joint>

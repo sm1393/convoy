@@ -22,7 +22,7 @@ robotID = int(rospy.myargv(argv=sys.argv)[1])
 
 rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
-noOfRobots = 4
+noOfRobots = 7
 myLeaderID = 0
 robotsAroundMe = set()
 frontCamera = False

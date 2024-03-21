@@ -17,4 +17,16 @@
     <node pkg="navigation" name="intelligent_camera_node_3" type="intelligent_camera_node.py" args="3"/>
     <!-- <node pkg="navigation" name="intelligent_navigation_node_3" type="intelligent_navigation_node.py" args="3" output="screen"/> -->
 
+    <!-- FOLLOWER 4 -->
+    <node pkg="navigation" name="intelligent_camera_node_4" type="intelligent_camera_node.py" args="4"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_4" type="intelligent_navigation_node.py" args="4" output="screen"/> -->
+
+    <!-- FOLLOWER 5 -->
+    <node pkg="navigation" name="intelligent_camera_node_5" type="intelligent_camera_node.py" args="5"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_5" type="intelligent_navigation_node.py" args="5" output="screen"/> -->
+
+    <!-- FOLLOWER 6 -->
+    <node pkg="navigation" name="intelligent_camera_node_6" type="intelligent_camera_node.py" args="6"/>
+    <!-- <node pkg="navigation" name="intelligent_navigation_node_6" type="intelligent_navigation_node.py" args="6" output="screen"/>     -->
+
 </launch>

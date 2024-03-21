@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="model" default="$(find descriptions)/urdf/volta1/volta.xacro"/>
+    <arg name="model" default="$(find descriptions)/urdf/volta/volta_0.xacro"/>
     <arg name="rviz_config" default="$(find descriptions)/rviz_params/urdf.rviz"/>
 
     <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)"/>
