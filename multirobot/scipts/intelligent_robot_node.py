@@ -9,9 +9,11 @@ import time
 import imutils
 
 import rospy
+import actionlib
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from sensor_msgs.msg import Image
 from navigation.msg import navigation
+import multirobot.msg
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
@@ -23,7 +25,6 @@ robotID = int(rospy.myargv(argv=sys.argv)[1])
 rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
 noOfRobots = 7
-myLeaderID = 0
 robotsAroundMe = set()
 frontCamera = False
 leftCamera = False
@@ -89,6 +90,13 @@ def selectMyLeader():
     robotsAroundMe = set({})
     return myLeaderID
 
+def convoy_client(robotID):
+    client = actionlib.SimpleActionClient('convoy_config_'+str(robotID), multirobot.msg.InitiateConvoyAction)
+    client.wait_for_server()
+    goal = multirobot.msg.InitiateConvoyGoal(request=robotID)
+    client.send_goal(goal)
+    client.wait_for_result()
+    return client.get_result()
 
 if __name__ == '__main__':
     try:
@@ -105,14 +113,19 @@ if __name__ == '__main__':
         time.sleep(1)
         navigationMsg.leaderID = selectMyLeader()
         navigationMsg.flag = False
-        print("myLeaderID = ", myLeaderID)
+
+        result = convoy_client(robotID)
+        if not result:
+            print("Mission Abort!")
+            exit()
+
+        print("myLeaderID = ", navigationMsg.leaderID)
         print("Ready to GO !!!")
 
         while not rospy.is_shutdown():
             if frontCamera and leftCamera and rightCamera:
                 for id in robotsAroundMe:
                     distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
-                    print(id, ". distance = ", distance)
                     if distance < 1.5:
                         navigationMsg.flag = False
                         break
