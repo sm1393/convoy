@@ -61,7 +61,6 @@ if __name__ == '__main__':
             robotInitialPosArray.append(robotPosCallbacks[i].robotPos)
         chainFormat = getConvoyConfig(robotInitialPosArray)
         print("Final Chain Formation: ", chainFormat)
-        exit()
         s = rospy.Service('convoy_config', convoyConfig, assign_follower_ID)
         print("Ready to assign role.")
         rospy.spin()
