@@ -24,7 +24,7 @@ robotID = int(rospy.myargv(argv=sys.argv)[1])
 
 rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
-noOfRobots = 7
+noOfRobots = 4
 robotsAroundMe = set()
 frontCamera = False
 leftCamera = False
@@ -93,7 +93,7 @@ def selectMyLeader():
 def convoy_client(robotID):
     client = actionlib.SimpleActionClient('convoy_config_'+str(robotID), multirobot.msg.InitiateConvoyAction)
     client.wait_for_server()
-    goal = multirobot.msg.InitiateConvoyGoal(request=robotID)
+    goal = multirobot.msg.InitiateConvoyGoal(myID=robotID)
     client.send_goal(goal)
     client.wait_for_result()
     return client.get_result()
@@ -114,13 +114,12 @@ if __name__ == '__main__':
         navigationMsg.leaderID = selectMyLeader()
         navigationMsg.flag = False
 
+        print(robotID, "following", navigationMsg.leaderID)
+
         result = convoy_client(robotID)
         if not result:
             print("Mission Abort!")
             exit()
-
-        print("myLeaderID = ", navigationMsg.leaderID)
-        print("Ready to GO !!!")
 
         while not rospy.is_shutdown():
             if frontCamera and leftCamera and rightCamera:

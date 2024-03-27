@@ -7,26 +7,26 @@
 
 	<!-- FOLLOWER 1 -->
     <node pkg="multirobot" name="intelligent_robot_node_1" type="intelligent_robot_node.py" args="1" output="screen"/>
-    <node pkg="navigation" name="intelligent_navigation_node_1" type="intelligent_navigation_node.py" args="1"/>
+    <node pkg="navigation" name="navigation_node_1" type="navigation_node.py" args="1" output="screen"/>
     
     <!-- FOLLOWER 2 -->
     <node pkg="multirobot" name="intelligent_robot_node_2" type="intelligent_robot_node.py" args="2" output="screen"/>
-    <node pkg="navigation" name="intelligent_navigation_node_2" type="intelligent_navigation_node.py" args="2"/>
+    <node pkg="navigation" name="navigation_node_2" type="navigation_node.py" args="2"/>
     
     <!-- FOLLOWER 3 -->
     <node pkg="multirobot" name="intelligent_robot_node_3" type="intelligent_robot_node.py" args="3" output="screen"/>
-    <node pkg="navigation" name="intelligent_navigation_node_3" type="intelligent_navigation_node.py" args="3"/>
+    <node pkg="navigation" name="navigation_node_3" type="navigation_node.py" args="3"/>
 
     <!-- FOLLOWER 4 -->
-    <!-- <node pkg="multirobot" name="intelligent_robot_node_4" type="intelligent_robot_node.py" args="4"/> -->
-    <!-- <node pkg="navigation" name="intelligent_navigation_node_4" type="intelligent_navigation_node.py" args="4" output="screen"/> -->
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_4" type="intelligent_robot_node.py" args="4" output="screen"/>
+    <node pkg="navigation" name="navigation_node_4" type="navigation_node.py" args="4"/> -->
 
     <!-- FOLLOWER 5 -->
-    <!-- <node pkg="multirobot" name="intelligent_robot_node_5" type="intelligent_robot_node.py" args="5"/> -->
-    <!-- <node pkg="navigation" name="intelligent_navigation_node_5" type="intelligent_navigation_node.py" args="5" output="screen"/> -->
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_5" type="intelligent_robot_node.py" args="5" output="screen"/>
+    <node pkg="navigation" name="navigation_node_5" type="navigation_node.py" args="5"/> -->
 
     <!-- FOLLOWER 6 -->
-    <!-- <node pkg="multirobot" name="intelligent_robot_node_6" type="intelligent_robot_node.py" args="6"/> -->
-    <!-- <node pkg="navigation" name="intelligent_navigation_node_6" type="intelligent_navigation_node.py" args="6" output="screen"/>     -->
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_6" type="intelligent_robot_node.py" args="6" output="screen"/>
+    <node pkg="navigation" name="navigation_node_6" type="navigation_node.py" args="6"/> -->
 
 </launch>

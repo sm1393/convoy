@@ -5,6 +5,7 @@ import sys
 import numpy as np
 from cv_bridge import CvBridge
 import cv2
+import time
 
 import rospy
 import actionlib
@@ -54,7 +55,6 @@ def navigationCallback(msg):
     global flag, myLeaderID 
     flag = msg.flag
     myLeaderID = msg.leaderID
-    rospy.loginfo(msg)
 
 leaderPose = np.array([0.0, 0.0])
 prevLeaderPose = np.array([0.0, 0.0])
@@ -77,27 +77,28 @@ if __name__ == '__main__':
         rospy.Subscriber("/volta_" + str(robotID) + "/navigation", navigation, navigationCallback)
         while myLeaderID == np.inf:
             pass
-        print("My leader is ", myLeaderID)
-        print("Ready to GO !!!")
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
+        time.sleep(1)
+        print(robotID, "following", myLeaderID)
 
+        leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
-            if np.linalg.norm(leaderPose - myPose) > 1.0:
-                if np.linalg.norm(leaderPose - leaderPrevPose) > 1.0:
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
+                if flag and np.linalg.norm(leaderPose - myPose) > 1.5:
                     goal.target_pose.header.stamp = rospy.Time.now()
-                    goal.target_pose.pose.position.x = myGoal.pose.pose.position.x
-                    goal.target_pose.pose.position.y = myGoal.pose.pose.position.y
+                    goal.target_pose.pose.position.x = leaderPrevPose[0]
+                    goal.target_pose.pose.position.y = leaderPrevPose[1]
                     goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
                     goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
                     goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
                     goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
                     goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
                     client.send_goal(goal)
-                    leaderPrevPose = np.copy(leaderPose)
-            else:
-                client.stop_tracking_goal()
-                client.cancel_all_goals()
+                else:
+                    client.stop_tracking_goal()
+                    client.cancel_all_goals()
+                leaderPrevPose = np.copy(leaderPose)
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
