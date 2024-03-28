@@ -14,11 +14,13 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from sensor_msgs.msg import Image
 from navigation.msg import navigation
 import multirobot.msg
+import multirobot.srv
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 
 bridge = CvBridge()
+navigationMsg = navigation()
 
 robotID = int(rospy.myargv(argv=sys.argv)[1])
 
@@ -26,9 +28,12 @@ rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
 noOfRobots = 4
 robotsAroundMe = set()
+robotsAroundMeCopied = set()
 frontCamera = False
 leftCamera = False
 rightCamera = False
+
+underDiscussion = False
 
 class robotInfo:
     def __init__(self, id):
@@ -47,7 +52,8 @@ def frontCameraCallback(msg):
     image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
-            robotsAroundMe.add(id[0])
+            if id in range(0,10):
+                robotsAroundMe.add(id[0])
     frontCamera = True
 
 def leftCameraCallback(msg):
@@ -57,7 +63,8 @@ def leftCameraCallback(msg):
     image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
-            robotsAroundMe.add(id[0])
+            if id in range(0,10):
+                robotsAroundMe.add(id[0])
     leftCamera = True
 
 def rightCameraCallback(msg):
@@ -67,7 +74,8 @@ def rightCameraCallback(msg):
     image = imutils.resize(image, width=1000)
     if type(ids) != type(None):
         for id in ids:
-            robotsAroundMe.add(id[0])
+            if id in range(0,10):
+                robotsAroundMe.add(id[0])
     rightCamera = True
 
 def selectMyLeader():
@@ -98,10 +106,24 @@ def convoy_client(robotID):
     client.wait_for_result()
     return client.get_result()
 
+def lockCheckCallback(req):
+    global navigationMsg
+    while underDiscussion:
+        print("Waiting for previous lock to resolve")
+        pass
+    if req.leaderID == navigationMsg.leaderID:
+        if np.linalg.norm(robotsInfo[navigationMsg.leaderID].pose - robotsInfo[robotID].pose) < req.distance_from_leader:
+            return multirobot.srv.lock_checkResponse(req.leaderID == navigationMsg.leaderID, True)
+        else:
+            navigationMsg.leaderID = req.myID
+            return multirobot.srv.lock_checkResponse(req.leaderID == navigationMsg.leaderID, False)
+    else:
+        # Yet to be decided
+        return multirobot.srv.lock_checkResponse(req.leaderID == navigationMsg.leaderID, False)
+
 if __name__ == '__main__':
     try:
         pub = rospy.Publisher("/volta_" + str(robotID) + "/navigation", navigation, queue_size=10)
-        navigationMsg = navigation()
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_front/camera_front", Image, frontCameraCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_left/camera_left", Image, leftCameraCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_right/camera_right", Image, rightCameraCallback)
@@ -121,19 +143,36 @@ if __name__ == '__main__':
             print("Mission Abort!")
             exit()
 
+        rospy.Service('lock_check_' + str(robotID), multirobot.srv.lock_check, lockCheckCallback)
+
+        collisionPossible = False
         while not rospy.is_shutdown():
             if frontCamera and leftCamera and rightCamera:
-                for id in robotsAroundMe:
-                    distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
-                    if distance < 1.5:
-                        navigationMsg.flag = False
-                        break
-                pub.publish(navigationMsg)
-                navigationMsg.flag = True
+                robotsAroundMeCopied = robotsAroundMe.copy()
+                print("List out of index:", robotsAroundMeCopied, ", ", robotsAroundMe)
+                for id in robotsAroundMeCopied:
+                    if id != navigationMsg.leaderID:
+                        distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
+                        if distance < 1.5:
+                            navigationMsg.flag = False
+                            rospy.wait_for_service('lock_check_' + str(id))
+                            lock_check = rospy.ServiceProxy('lock_check_' + str(id), multirobot.srv.lock_check)
+                            lock_check_return = lock_check(robotID, navigationMsg.leaderID, np.linalg.norm(robotsInfo[navigationMsg.leaderID].pose - robotsInfo[robotID].pose))
+                            print(navigationMsg.flag, "Asking", id, "->", lock_check_return.same_leaderID_confirmation, lock_check_return.update_your_leader)
+                            if lock_check_return.same_leaderID_confirmation:
+                                if lock_check_return.update_your_leader:
+                                    navigationMsg.leaderID = id
+                            collisionPossible = True
+                        if not collisionPossible:
+                            navigationMsg.flag = True
+                collisionPossible = False
                 frontCamera = False
                 leftCamera = False
                 rightCamera = False
                 robotsAroundMe = set({})
+                robotsAroundMeCopied = set({})
+            pub.publish(navigationMsg)
+            navigationMsg.flag = True
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")

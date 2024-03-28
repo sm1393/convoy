@@ -1,0 +1,6 @@
+int8 myID
+int8 leaderID
+float32 distance_from_leader
+---
+bool same_leaderID_confirmation
+bool update_your_leader

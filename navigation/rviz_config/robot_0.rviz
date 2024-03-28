@@ -24,7 +24,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -191,111 +191,7 @@ Visualization Manager:
           Value: true
         volta_3/lidar:
           Value: true
-        volta_3/odom:
-          Value: true
         volta_3/right_wheel:
-          Value: true
-        volta_4/aruco_marker_back:
-          Value: true
-        volta_4/aruco_marker_front:
-          Value: true
-        volta_4/aruco_marker_left:
-          Value: true
-        volta_4/aruco_marker_right:
-          Value: true
-        volta_4/base_link:
-          Value: true
-        volta_4/camera_front:
-          Value: true
-        volta_4/camera_left:
-          Value: true
-        volta_4/camera_right:
-          Value: true
-        volta_4/caster_front_left_link:
-          Value: true
-        volta_4/caster_front_right_link:
-          Value: true
-        volta_4/caster_rear_left_link:
-          Value: true
-        volta_4/caster_rear_right_link:
-          Value: true
-        volta_4/footprint:
-          Value: true
-        volta_4/left_wheel:
-          Value: true
-        volta_4/lidar:
-          Value: true
-        volta_4/odom:
-          Value: true
-        volta_4/right_wheel:
-          Value: true
-        volta_5/aruco_marker_back:
-          Value: true
-        volta_5/aruco_marker_front:
-          Value: true
-        volta_5/aruco_marker_left:
-          Value: true
-        volta_5/aruco_marker_right:
-          Value: true
-        volta_5/base_link:
-          Value: true
-        volta_5/camera_front:
-          Value: true
-        volta_5/camera_left:
-          Value: true
-        volta_5/camera_right:
-          Value: true
-        volta_5/caster_front_left_link:
-          Value: true
-        volta_5/caster_front_right_link:
-          Value: true
-        volta_5/caster_rear_left_link:
-          Value: true
-        volta_5/caster_rear_right_link:
-          Value: true
-        volta_5/footprint:
-          Value: true
-        volta_5/left_wheel:
-          Value: true
-        volta_5/lidar:
-          Value: true
-        volta_5/odom:
-          Value: true
-        volta_5/right_wheel:
-          Value: true
-        volta_6/aruco_marker_back:
-          Value: true
-        volta_6/aruco_marker_front:
-          Value: true
-        volta_6/aruco_marker_left:
-          Value: true
-        volta_6/aruco_marker_right:
-          Value: true
-        volta_6/base_link:
-          Value: true
-        volta_6/camera_front:
-          Value: true
-        volta_6/camera_left:
-          Value: true
-        volta_6/camera_right:
-          Value: true
-        volta_6/caster_front_left_link:
-          Value: true
-        volta_6/caster_front_right_link:
-          Value: true
-        volta_6/caster_rear_left_link:
-          Value: true
-        volta_6/caster_rear_right_link:
-          Value: true
-        volta_6/footprint:
-          Value: true
-        volta_6/left_wheel:
-          Value: true
-        volta_6/lidar:
-          Value: true
-        volta_6/odom:
-          Value: true
-        volta_6/right_wheel:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -369,166 +265,69 @@ Visualization Manager:
                 {}
               volta_1/right_wheel:
                 {}
-          volta_2/odom:
-            volta_2/base_link:
-              volta_2/aruco_marker_back:
-                {}
-              volta_2/aruco_marker_front:
-                {}
-              volta_2/aruco_marker_left:
-                {}
-              volta_2/aruco_marker_right:
-                {}
-              volta_2/camera_front:
-                {}
-              volta_2/camera_left:
-                {}
-              volta_2/camera_right:
-                {}
-              volta_2/caster_front_left_link:
-                {}
-              volta_2/caster_front_right_link:
-                {}
-              volta_2/caster_rear_left_link:
-                {}
-              volta_2/caster_rear_right_link:
-                {}
-              volta_2/footprint:
-                {}
-              volta_2/left_wheel:
-                {}
-              volta_2/lidar:
-                {}
-              volta_2/right_wheel:
-                {}
-          volta_3/odom:
-            volta_3/base_link:
-              volta_3/aruco_marker_back:
-                {}
-              volta_3/aruco_marker_front:
-                {}
-              volta_3/aruco_marker_left:
-                {}
-              volta_3/aruco_marker_right:
-                {}
-              volta_3/camera_front:
-                {}
-              volta_3/camera_left:
-                {}
-              volta_3/camera_right:
-                {}
-              volta_3/caster_front_left_link:
-                {}
-              volta_3/caster_front_right_link:
-                {}
-              volta_3/caster_rear_left_link:
-                {}
-              volta_3/caster_rear_right_link:
-                {}
-              volta_3/footprint:
-                {}
-              volta_3/left_wheel:
-                {}
-              volta_3/lidar:
-                {}
-              volta_3/right_wheel:
-                {}
-          volta_4/odom:
-            volta_4/base_link:
-              volta_4/aruco_marker_back:
-                {}
-              volta_4/aruco_marker_front:
-                {}
-              volta_4/aruco_marker_left:
-                {}
-              volta_4/aruco_marker_right:
-                {}
-              volta_4/camera_front:
-                {}
-              volta_4/camera_left:
-                {}
-              volta_4/camera_right:
-                {}
-              volta_4/caster_front_left_link:
-                {}
-              volta_4/caster_front_right_link:
-                {}
-              volta_4/caster_rear_left_link:
-                {}
-              volta_4/caster_rear_right_link:
-                {}
-              volta_4/footprint:
-                {}
-              volta_4/left_wheel:
-                {}
-              volta_4/lidar:
-                {}
-              volta_4/right_wheel:
-                {}
-          volta_5/odom:
-            volta_5/base_link:
-              volta_5/aruco_marker_back:
-                {}
-              volta_5/aruco_marker_front:
-                {}
-              volta_5/aruco_marker_left:
-                {}
-              volta_5/aruco_marker_right:
-                {}
-              volta_5/camera_front:
-                {}
-              volta_5/camera_left:
-                {}
-              volta_5/camera_right:
-                {}
-              volta_5/caster_front_left_link:
-                {}
-              volta_5/caster_front_right_link:
-                {}
-              volta_5/caster_rear_left_link:
-                {}
-              volta_5/caster_rear_right_link:
-                {}
-              volta_5/footprint:
-                {}
-              volta_5/left_wheel:
-                {}
-              volta_5/lidar:
-                {}
-              volta_5/right_wheel:
-                {}
-          volta_6/odom:
-            volta_6/base_link:
-              volta_6/aruco_marker_back:
-                {}
-              volta_6/aruco_marker_front:
-                {}
-              volta_6/aruco_marker_left:
-                {}
-              volta_6/aruco_marker_right:
-                {}
-              volta_6/camera_front:
-                {}
-              volta_6/camera_left:
-                {}
-              volta_6/camera_right:
-                {}
-              volta_6/caster_front_left_link:
-                {}
-              volta_6/caster_front_right_link:
-                {}
-              volta_6/caster_rear_left_link:
-                {}
-              volta_6/caster_rear_right_link:
-                {}
-              volta_6/footprint:
-                {}
-              volta_6/left_wheel:
-                {}
-              volta_6/lidar:
-                {}
-              volta_6/right_wheel:
-                {}
+        volta_2/odom:
+          volta_2/base_link:
+            volta_2/aruco_marker_back:
+              {}
+            volta_2/aruco_marker_front:
+              {}
+            volta_2/aruco_marker_left:
+              {}
+            volta_2/aruco_marker_right:
+              {}
+            volta_2/camera_front:
+              {}
+            volta_2/camera_left:
+              {}
+            volta_2/camera_right:
+              {}
+            volta_2/caster_front_left_link:
+              {}
+            volta_2/caster_front_right_link:
+              {}
+            volta_2/caster_rear_left_link:
+              {}
+            volta_2/caster_rear_right_link:
+              {}
+            volta_2/footprint:
+              {}
+            volta_2/left_wheel:
+              {}
+            volta_2/lidar:
+              {}
+            volta_2/right_wheel:
+              {}
+        volta_3/base_link:
+          volta_3/aruco_marker_back:
+            {}
+          volta_3/aruco_marker_front:
+            {}
+          volta_3/aruco_marker_left:
+            {}
+          volta_3/aruco_marker_right:
+            {}
+          volta_3/camera_front:
+            {}
+          volta_3/camera_left:
+            {}
+          volta_3/camera_right:
+            {}
+          volta_3/caster_front_left_link:
+            {}
+          volta_3/caster_front_right_link:
+            {}
+          volta_3/caster_rear_left_link:
+            {}
+          volta_3/caster_rear_right_link:
+            {}
+          volta_3/footprint:
+            {}
+          volta_3/left_wheel:
+            {}
+          volta_3/lidar:
+            {}
+          volta_3/right_wheel:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988079071
@@ -741,12 +540,12 @@ Visualization Manager:
 Window Geometry:
   Displays:
     collapsed: true
-  Height: 1163
+  Height: 752
   Hide Left Dock: true
   Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001860000033afc020000000dfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d0000033a000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000002c4000000b30000001600fffffffb0000000a0049006d0061006700650000000307000000700000001600fffffffb0000000a0049006d006100670065000000058a000000e90000001600fffffffb0000000a0049006d0061006700650100000462000001000000000000000000fb0000000a0049006d006100670065010000056e000001050000000000000000000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f2000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000005efc0100000002fb0000000800540069006d0065010000000000000780000003bc00fffffffb0000000800540069006d0065010000000000000450000000000000000000000780000003cd00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001860000033afc020000000dfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d0000033a000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000002c4000000b30000001600fffffffb0000000a0049006d0061006700650000000307000000700000001600fffffffb0000000a0049006d006100670065000000058a000000e90000001600fffffffb0000000a0049006d0061006700650100000462000001000000000000000000fb0000000a0049006d006100670065010000056e000001050000000000000000000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f2000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005a00000005efc0100000002fb0000000800540069006d00650100000000000005a0000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000005a00000023200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -755,6 +554,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1920
-  X: 1920
+  Width: 1440
+  X: 3840
   Y: 0

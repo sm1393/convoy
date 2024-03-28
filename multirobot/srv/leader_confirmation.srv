@@ -1,0 +1,4 @@
+bool action
+int8 followerID
+---
+bool result

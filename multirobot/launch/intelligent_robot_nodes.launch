@@ -6,15 +6,15 @@
 	<arg name="namespace_3" default="volta_3" />
 
 	<!-- FOLLOWER 1 -->
-    <node pkg="multirobot" name="intelligent_robot_node_1" type="intelligent_robot_node.py" args="1" output="screen"/>
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_1" type="intelligent_robot_node.py" args="1" output="screen"/> -->
     <node pkg="navigation" name="navigation_node_1" type="navigation_node.py" args="1" output="screen"/>
     
     <!-- FOLLOWER 2 -->
-    <node pkg="multirobot" name="intelligent_robot_node_2" type="intelligent_robot_node.py" args="2" output="screen"/>
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_2" type="intelligent_robot_node.py" args="2" output="screen"/> -->
     <node pkg="navigation" name="navigation_node_2" type="navigation_node.py" args="2"/>
     
     <!-- FOLLOWER 3 -->
-    <node pkg="multirobot" name="intelligent_robot_node_3" type="intelligent_robot_node.py" args="3" output="screen"/>
+    <!-- <node pkg="multirobot" name="intelligent_robot_node_3" type="intelligent_robot_node.py" args="3" output="screen"/> -->
     <node pkg="navigation" name="navigation_node_3" type="navigation_node.py" args="3"/>
 
     <!-- FOLLOWER 4 -->

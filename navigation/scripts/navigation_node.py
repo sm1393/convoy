@@ -34,26 +34,16 @@ frontCamera = False
 leftCamera = False
 rightCamera = False
 
-class robotInfo:
-    def __init__(self, id):
-        self.id = id
-        self.pose = np.array([0.0, 0.0])
-        rospy.Subscriber("/volta_" + str(self.id) + "/amcl_pose", PoseWithCovarianceStamped, self.poseCallback)
-
-    def poseCallback(self, msg):
-        global myGoal, myLeaderID
-        if self.id == myLeaderID:
-            myGoal = msg
-        self.pose[0] = msg.pose.pose.position.x
-        self.pose[1] = msg.pose.pose.position.y
-
 leaderPrevPose = np.array([np.inf, np.inf])
 
 flag = True
 myLeaderID = np.inf
 def navigationCallback(msg):
-    global flag, myLeaderID 
+    global flag, myLeaderID, leaderPosSubscriber
     flag = msg.flag
+    if msg.leaderID != myLeaderID:
+        leaderPosSubscriber.unregister()
+        leaderPosSubscriber = rospy.Subscriber("/volta_" + str(msg.leaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
     myLeaderID = msg.leaderID
 
 leaderPose = np.array([0.0, 0.0])
@@ -71,6 +61,8 @@ def myPoseCallback(msg):
     myPose[0] = msg.pose.pose.position.x
     myPose[1] = msg.pose.pose.position.y    
 
+leaderPosSubscriber = rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
+
 if __name__ == '__main__':
     try:
         myLeaderID == np.inf
@@ -78,14 +70,18 @@ if __name__ == '__main__':
         while myLeaderID == np.inf:
             pass
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
-        rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
+        leaderPosSubscriber.unregister()
+        leaderPosSubscriber = rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
+            print("Navigation:", robotID, "to ", myLeaderID)
             if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
+                print("1", end=", ")
                 if flag and np.linalg.norm(leaderPose - myPose) > 1.5:
+                    print("2", end=" ")
                     goal.target_pose.header.stamp = rospy.Time.now()
                     goal.target_pose.pose.position.x = leaderPrevPose[0]
                     goal.target_pose.pose.position.y = leaderPrevPose[1]
@@ -96,9 +92,11 @@ if __name__ == '__main__':
                     goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
                     client.send_goal(goal)
                 else:
+                    print("3", end=" ")
                     client.stop_tracking_goal()
                     client.cancel_all_goals()
                 leaderPrevPose = np.copy(leaderPose)
+                print()
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
