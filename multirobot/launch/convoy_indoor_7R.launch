@@ -38,7 +38,7 @@
 		<arg name="namespace" value="$(arg namespace_0)"/>
 	</include>
 
-    <node name="rviz_robot_0" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_0" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" /> -->
 
 	<!-- ROBOT 1 -->
 	<include file="$(find multirobot)/launch/robot.launch">
@@ -57,7 +57,7 @@
 		<arg name="namespace" value="$(arg namespace_1)"/>
 	</include>
 
-    <node name="rviz_robot_1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_1" type="following_node_client.py" args="volta_0 volta_1" output="screen"/> -->
 
@@ -78,7 +78,7 @@
 		<arg name="namespace" value="$(arg namespace_2)"/>
 	</include>
 
-    <node name="rviz_robot_2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_2" type="following_node_client.py" args="volta_1 volta_2" output="screen"/> -->
 
@@ -99,7 +99,7 @@
 		<arg name="namespace" value="$(arg namespace_3)"/>
 	</include>
 
-    <node name="rviz_robot_3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="volta_2 volta_3" output="screen"/> -->
 
@@ -120,7 +120,7 @@
 		<arg name="namespace" value="$(arg namespace_4)"/>
 	</include>
 
-    <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="volta_2 volta_3" output="screen"/> -->
 
@@ -141,7 +141,7 @@
 		<arg name="namespace" value="$(arg namespace_5)"/>
 	</include>
 
-    <node name="rviz_robot_5" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_5.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_5" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_5.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="volta_2 volta_3" output="screen"/> -->
 
@@ -162,7 +162,7 @@
 		<arg name="namespace" value="$(arg namespace_6)"/>
 	</include>
 
-    <node name="rviz_robot_6" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_6.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_6" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_6.rviz" respawn="true" /> -->
     
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="volta_2 volta_3" output="screen"/> -->
 
