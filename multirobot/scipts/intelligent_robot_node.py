@@ -170,9 +170,14 @@ if __name__ == '__main__':
                 for id in robotsAroundMeCopy:
                     if id != com.navigationMsg.leaderID and id not in com.myFollowers:
                         distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
-                        if distance < 1.5:
+                        if distance < 2:
+                            print("Waiting for previous lock to resolve | ", id)
+                            while com.underDiscussion:
+                                pass
+                            print("Lock Resolved")
                             com.underDiscussion = True
                             com.navigationMsg.flag = False
+                            pub.publish(com.navigationMsg)
 
                             rospy.wait_for_service('lock_check_' + str(id))
                             lock_check = rospy.ServiceProxy('lock_check_' + str(id), multirobot.srv.lock_check)
