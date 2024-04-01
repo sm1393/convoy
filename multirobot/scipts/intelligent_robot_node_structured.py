@@ -103,9 +103,10 @@ class Communication:
         return client.get_result()
 
     def lockCheckCallback(self, req):
+        print("Waiting for previous lock to resolve | ", req.myID, ", ", req.leaderID)
         while self.underDiscussion:
-            print("Waiting for previous lock to resolve")
             pass
+        print("Lock Resolved | ", req.myID, ", ", req.leaderID)
         if req.leaderID == self.navigationMsg.leaderID:
             if np.linalg.norm(robotsInfo[self.navigationMsg.leaderID].pose - robotsInfo[robotID].pose) < req.distance_from_leader:
                 return multirobot.srv.lock_checkResponse(req.leaderID == self.navigationMsg.leaderID, True)
@@ -165,7 +166,8 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             if camera.frontCamera and camera.leftCamera and camera.rightCamera:
                 print(com.underDiscussion, " | My followers: ", com.myFollowers, " | Robots around me:", camera.robotsAroundMe)
-                for id in camera.robotsAroundMe:
+                robotsAroundMeCopy = camera.robotsAroundMe.copy()
+                for id in robotsAroundMeCopy:
                     if id != com.navigationMsg.leaderID and id not in com.myFollowers:
                         distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
                         if distance < 1.5:
@@ -197,7 +199,7 @@ if __name__ == '__main__':
                 camera.frontCamera = False
                 camera.leftCamera = False
                 camera.rightCamera = False
-                camera.robotsAroundMe = set({})
+                robotsAroundMeCopy = set({})
             pub.publish(com.navigationMsg)
             com.navigationMsg.flag = True
 
