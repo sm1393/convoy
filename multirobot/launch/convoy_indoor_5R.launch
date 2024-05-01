@@ -120,7 +120,7 @@
 		<arg name="namespace" value="$(arg namespace_4)"/>
 	</include>
 
-    <!-- <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" /> -->
+    <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" />
     
     <!-- <node pkg="navigation" name="following_node_3" type="following_node_client.py" args="volta_2 volta_3" output="screen"/> -->
 

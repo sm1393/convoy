@@ -41,7 +41,7 @@ DWAPlannerROS:
   vy_samples: 0
   vtheta_samples: 30
 
-  penalize_negative_x: true
+  penalize_negative_x: false
   path_distance_bias: 50.0
   goal_distance_bias: 20.0
   occdist_scale: 0.1

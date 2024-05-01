@@ -13,8 +13,8 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from navigation.msg import navigation
 
-arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
-arucoParams = cv2.aruco.DetectorParameters_create()
+# arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
+# arucoParams = cv2.aruco.DetectorParameters_create()
 
 myGoal = PoseWithCovarianceStamped()
 bridge = CvBridge()
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             print("Navigation:", robotID, "to ", myLeaderID)
             if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
-                if flag and np.linalg.norm(leaderPose - myPose) > 1.5:
+                if flag and np.linalg.norm(leaderPose - myPose) > 2:
                     goal.target_pose.header.stamp = rospy.Time.now()
                     goal.target_pose.pose.position.x = leaderPrevPose[0]
                     goal.target_pose.pose.position.y = leaderPrevPose[1]

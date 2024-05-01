@@ -103,18 +103,21 @@ class Communication:
         return client.get_result()
 
     def lockCheckCallback(self, req):
-        print("Waiting for previous lock to resolve | ", req.myID, ", ", req.leaderID)
-        while self.underDiscussion:
-            pass
-        print("Lock Resolved | ", req.myID, ", ", req.leaderID)
+        self.underDiscussion = True
+        print("Robot", req.myID, " with leader ", req.leaderID, " asking for lock check")
         if req.leaderID == self.navigationMsg.leaderID:
+            self.navigationMsg.flag = False
+            pub.publish(self.navigationMsg)
             if np.linalg.norm(robotsInfo[self.navigationMsg.leaderID].pose - robotsInfo[robotID].pose) < req.distance_from_leader:
+                self.underDiscussion = False
                 return multirobot.srv.lock_checkResponse(req.leaderID == self.navigationMsg.leaderID, True)
             else:
+                self.underDiscussion = False
                 self.navigationMsg.leaderID = req.myID
                 return multirobot.srv.lock_checkResponse(req.leaderID == self.navigationMsg.leaderID, False)
         else:
             # Yet to be decided
+            self.underDiscussion = False
             return multirobot.srv.lock_checkResponse(req.leaderID == self.navigationMsg.leaderID, False)
         
     def updateFollowerListCallback(self, req):
@@ -130,7 +133,7 @@ if __name__ == '__main__':
         robotID = int(rospy.myargv(argv=sys.argv)[1])
         rospy.init_node('volta_' + str(robotID) + '_camera_node')
 
-        noOfRobots = 7
+        noOfRobots = 4
         camera = Camera(noOfRobots)
         com = Communication(robotID)
 
@@ -161,52 +164,46 @@ if __name__ == '__main__':
         if not result:
             print("Mission Abort!")
             exit()
-        collisionPossible = False
 
         while not rospy.is_shutdown():
             if camera.frontCamera and camera.leftCamera and camera.rightCamera:
-                print(com.underDiscussion, " | My followers: ", com.myFollowers, " | Robots around me:", camera.robotsAroundMe)
                 robotsAroundMeCopy = camera.robotsAroundMe.copy()
                 for id in robotsAroundMeCopy:
                     if id != com.navigationMsg.leaderID and id not in com.myFollowers:
                         distance = np.linalg.norm(robotsInfo[id].pose - robotsInfo[robotID].pose)
-                        if distance < 2:
-                            print("Waiting for previous lock to resolve | ", id)
-                            while com.underDiscussion:
-                                pass
-                            print("Lock Resolved")
-                            com.underDiscussion = True
+                        if distance < 2.5:
                             com.navigationMsg.flag = False
                             pub.publish(com.navigationMsg)
+                            if not com.underDiscussion:
+                                com.underDiscussion = True
+                                rospy.wait_for_service('lock_check_' + str(id))
+                                print("Asking", id, " for discussion about leader ", com.navigationMsg.leaderID)
+                                lock_check = rospy.ServiceProxy('lock_check_' + str(id), multirobot.srv.lock_check)
+                                lock_check_return = lock_check(robotID, com.navigationMsg.leaderID, np.linalg.norm(robotsInfo[com.navigationMsg.leaderID].pose - robotsInfo[robotID].pose))
 
-                            rospy.wait_for_service('lock_check_' + str(id))
-                            lock_check = rospy.ServiceProxy('lock_check_' + str(id), multirobot.srv.lock_check)
-                            lock_check_return = lock_check(robotID, com.navigationMsg.leaderID, np.linalg.norm(robotsInfo[com.navigationMsg.leaderID].pose - robotsInfo[robotID].pose))
+                                if lock_check_return.same_leaderID_confirmation:
+                                    if lock_check_return.update_your_leader:
 
-                            print(com.navigationMsg.flag, "Asking", id, "->", lock_check_return.same_leaderID_confirmation, lock_check_return.update_your_leader)
-                            if lock_check_return.same_leaderID_confirmation:
-                                if lock_check_return.update_your_leader:
+                                        rospy.wait_for_service('leader_confirmation_' + str(com.navigationMsg.leaderID))
+                                        leader_confirmation = rospy.ServiceProxy('leader_confirmation_' + str(com.navigationMsg.leaderID), multirobot.srv.leader_confirmation)
+                                        leader_confirmation_return = leader_confirmation(False, robotID)
 
-                                    rospy.wait_for_service('leader_confirmation_' + str(com.navigationMsg.leaderID))
-                                    leader_confirmation = rospy.ServiceProxy('leader_confirmation_' + str(com.navigationMsg.leaderID), multirobot.srv.leader_confirmation)
-                                    leader_confirmation_return = leader_confirmation(False, robotID)
+                                        com.navigationMsg.leaderID = id
+                                        rospy.wait_for_service('leader_confirmation_' + str(com.navigationMsg.leaderID))
+                                        leader_confirmation = rospy.ServiceProxy('leader_confirmation_' + str(com.navigationMsg.leaderID), multirobot.srv.leader_confirmation)
+                                        leader_confirmation_return = leader_confirmation(True, robotID)
+                                com.underDiscussion = False
 
-                                    com.navigationMsg.leaderID = id
-                                    rospy.wait_for_service('leader_confirmation_' + str(com.navigationMsg.leaderID))
-                                    leader_confirmation = rospy.ServiceProxy('leader_confirmation_' + str(com.navigationMsg.leaderID), multirobot.srv.leader_confirmation)
-                                    leader_confirmation_return = leader_confirmation(True, robotID)
-
-                            collisionPossible = True
-                            com.underDiscussion = False
-                        if not collisionPossible:
-                            com.navigationMsg.flag = True
                 collisionPossible = False
                 camera.frontCamera = False
                 camera.leftCamera = False
                 camera.rightCamera = False
                 robotsAroundMeCopy = set({})
+            if com.underDiscussion:
+                com.navigationMsg.flag = False
+            else:
+                com.navigationMsg.flag = True
             pub.publish(com.navigationMsg)
-            com.navigationMsg.flag = True
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
