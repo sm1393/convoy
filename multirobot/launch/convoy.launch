@@ -1,0 +1,22 @@
+<launch>
+
+	<arg name="namespace_0" default="volta_0" />
+	<arg name="namespace_1" default="volta_1" />
+	<arg name="namespace_2" default="volta_2" />
+	<arg name="namespace_3" default="volta_3" />
+
+    <node pkg="multirobot" name="convoy_configuration" type="convoy_configuration.py" args="1"/>
+
+	<!-- FOLLOWER 1 -->
+    <node pkg="multirobot" name="intelligent_robot_node_1" type="intelligent_robot_node.py" args="1"/>
+    <node pkg="navigation" name="navigation_node_1" type="navigation_node.py" args="1"/>
+    
+    <!-- FOLLOWER 2 -->
+    <node pkg="multirobot" name="intelligent_robot_node_2" type="intelligent_robot_node.py" args="2"/>
+    <node pkg="navigation" name="navigation_node_2" type="navigation_node.py" args="2"/>
+    
+    <!-- FOLLOWER 3 -->
+    <node pkg="multirobot" name="intelligent_robot_node_3" type="intelligent_robot_node.py" args="3"/>
+    <node pkg="navigation" name="navigation_node_3" type="navigation_node.py" args="3"/>
+
+</launch>
