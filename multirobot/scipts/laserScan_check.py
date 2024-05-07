@@ -10,35 +10,39 @@ from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from nav_msgs.msg import Path
 
-scanCollected = False
+scanInfoCollected = False
 localGoal = [1.0, 1.0]
 robotPose = [1.0, 1.0]
+noOfPoints = 0
+angleMin = 0
+angleMax = 0
 
 def poseCallback(msg):
+    global robotPose
     robotPose[0] = msg.pose.pose.position.x
     robotPose[1] = msg.pose.pose.position.y
 
 def laserScanCallback(msg):
-    global scanCollected
-    if not scanCollected:
-        scanCollected = True
-        scan = msg.ranges
-        X = []
-        Y = []
-        for i in range(len(msg.ranges)):
-            if i > len(scan)/4 and i < 3*len(scan)/4:
-                if scan[i] != np.inf:
-                    X.append(scan[i] * cos(2*pi * i / len(scan)))
-                    Y.append(scan[i] * sin(2*pi * i / len(scan)))   
-                else:
-                    X.append(0)
-                    Y.append(0)   
-        plt.scatter(X, Y)
-        plt.savefig("plt")
+    global scanInfoCollected, noOfPoints, angleMin, angleMax
+    if not scanInfoCollected:
+        scanInfoCollected = True
+        angleMin = msg.angle_min
+        angleMax = msg.angle_max
+        noOfPoints = len(msg.ranges)
+    X = []
+    Y = []
+    for i in range(noOfPoints):
+        if msg.ranges[i] != np.inf:
+            angle = angleMin + (angleMax - angleMin) * i / noOfPoints
+            X.append(msg.ranges[i] * cos(angle))
+            Y.append(msg.ranges[i] * sin(angle))
 
 def localGoalCallback(msg):
-    localGoal.target_pose.pose.position.x = msg.poses.pose.position.x
-    localGoal.target_pose.pose.position.y = msg.poses.pose.position.y
+    global localGoal, robotPose
+    print("###################################################3")
+    print(robotPose, msg.poses[0], msg.poses[-1])
+    # localGoal.target_pose.pose.position.x = msg.poses.pose.position.x
+    # localGoal.target_pose.pose.position.y = msg.poses.pose.position.y
         
 if __name__ == '__main__':
     try:
