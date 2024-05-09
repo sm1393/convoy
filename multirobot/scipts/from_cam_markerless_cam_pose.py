@@ -23,11 +23,19 @@ pose_pub = rospy.Publisher('/pose_estimation', PoseStamped, queue_size=10)
 # Initialize YOLO model
 model = YOLO('train46.pt') #replace with downloaded weights file
 
+
+camera_matrix =  np.array([ [628.10785508,   0,         322.61099629],
+                            [  0,         631.33173512, 232.71236138],
+                            [  0,           0,           1        ]])
+
+dist_coeffs =  np.array([ 0.10025809, 0.03814357, -0.00244114, 0.00175835, -0.93921384])
+
+
 # Camera parameters (update these with actual camera parameters)
-camera_matrix = np.array([[970.13975699,   0.        , 661.05696322],
-                                   [  0.        , 965.0683426 , 324.24867006],
-                                   [  0.        ,    0.       ,   1.        ]]) #for camera 219, for other cameras refer to homography.txt
-dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
+# camera_matrix = np.array([[970.13975699,   0.        , 661.05696322],
+#                                    [  0.        , 965.0683426 , 324.24867006],
+#                                    [  0.        ,    0.       ,   1.        ]]) #for camera 219, for other cameras refer to homography.txt
+# dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
 
 # Function to estimate pose using PnP
 def estimate_pose(keypoints_2d, keypoints_3d):
@@ -44,20 +52,25 @@ def estimate_pose(keypoints_2d, keypoints_3d):
 def camera_callback(frame):
     try:
         # Publish processed image
-        image_msg = bridge.cv2_to_imgmsg(frame, "bgr8")
-        image_pub.publish(image_msg)
+        # image_msg = bridge.cv2_to_imgmsg(frame, "bgr8")
+        # image_pub.publish(image_msg)
         # Perform object detection
         results = model(frame)
         # Extract keypoints from YOLO detections
         keypoints = results[0].keypoints.xy.cpu().numpy()
         if keypoints.shape[1] == 0:
+            image_msg = bridge.cv2_to_imgmsg(frame, "bgr8")
+            image_pub.publish(image_msg)
             return
+        print("##############################################################################")
         # print(keypoints[0])
         for kp in keypoints[0]:
             x, y = int(kp[0]), int(kp[1])
             cv2.circle(frame, (x, y), 5, (0, 255, 0), -1)
         # Show the frame with keypoints
-        # cv2.imshow("KeyPoints", frame)
+
+        image_msg = bridge.cv2_to_imgmsg(frame, "bgr8")
+        image_pub.publish(image_msg)
 
         # # Prepare 3D keypoints
         keypoints_3d = np.array([[0.01206,0.235,-0.21776],[0.00005,0.0813,-0.26776],[0.00005, 0.171, 0.19024],[0.16505, 0.2642, 0.10624],[0.16506, 0.2655, -0.16966],[-0.16495, 0.2641, 0.10524],[-0.16495, 0.2633, -0.17016],[-0.06495, 0.17695, -0.30763],
@@ -102,7 +115,7 @@ def camera_callback(frame):
         print(e)
 
 # Initialize video capture from network camera
-video = cv2.VideoCapture(0)
+video = cv2.VideoCapture(2)
 gstreamer_exe = 'gst-launch-1.0' 
 width = 1280
 height  = 720

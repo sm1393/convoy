@@ -25,10 +25,17 @@ bridge = CvBridge()
 
 model = YOLO('train46.pt') #replace with downloaded weights file
 # Camera parameters (update these with actual camera parameters)
-camera_matrix = np.array([[970.13975699,   0.        , 661.05696322],
-                                   [  0.        , 965.0683426 , 324.24867006],
-                                   [  0.        ,    0.       ,   1.        ]]) #for camera 219, for other cameras refer to homography.txt
-dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
+
+camera_matrix =  np.array([ [628.10785508,   0,         322.61099629],
+                            [  0,         631.33173512, 232.71236138],
+                            [  0,           0,           1        ]])
+
+dist_coeffs =  np.array([ 0.10025809, 0.03814357, -0.00244114, 0.00175835, -0.93921384])
+
+# camera_matrix = np.array([[970.13975699,   0.        , 661.05696322],
+#                                    [  0.        , 965.0683426 , 324.24867006],
+#                                    [  0.        ,    0.       ,   1.        ]]) #for camera 219, for other cameras refer to homography.txt
+# dist_coeffs = np.array([-0.44779831, 0.21493212, 0.0086979, -0.00269077, 0.00281984]) #for camera 219, for other cameras refer to homography.txt
 br = tf.TransformBroadcaster()
 
 # Function to estimate pose using PnP
