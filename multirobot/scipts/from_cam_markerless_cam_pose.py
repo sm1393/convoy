@@ -102,7 +102,7 @@ def camera_callback(frame):
         print(e)
 
 # Initialize video capture from network camera
-video = cv2.VideoCapture(2)
+video = cv2.VideoCapture(0)
 gstreamer_exe = 'gst-launch-1.0' 
 width = 1280
 height  = 720
