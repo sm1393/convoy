@@ -23,6 +23,7 @@ goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
 leaderPrevPose = np.array([np.inf, np.inf])
+covariance = []
 
 leaderPose = np.array([0.0, 0.0])
 prevLeaderPose = np.array([0.0, 0.0])
@@ -33,11 +34,13 @@ def leaderPoseeCallback(msg):
     leaderPose[0] = msg.pose.pose.position.x
     leaderPose[1] = msg.pose.pose.position.y
 
+
 myPose = np.array([0.0, 0.0])
 def myPoseCallback(msg):
-    global myPose
+    global myPose, covariance
     myPose[0] = msg.pose.pose.position.x
-    myPose[1] = msg.pose.pose.position.y    
+    myPose[1] = msg.pose.pose.position.y
+    covariance = msg.pose.covariance
 
 if __name__ == '__main__':
     try:
@@ -50,11 +53,13 @@ if __name__ == '__main__':
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
             # print("Navigation:", robotID, "to ", myLeaderID)
-            if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
-                if np.linalg.norm(leaderPose - myPose) > 2:
+            # print(robotID, client.get_state(), np.linalg.norm(leaderPose - leaderPrevPose), np.linalg.norm(leaderPose - myPose))
+            print(np.array(covariance).reshape(6,6))
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
+                if np.linalg.norm(leaderPose - myPose) > 3:
                     goal.target_pose.header.stamp = rospy.Time.now()
-                    goal.target_pose.pose.position.x = leaderPrevPose[0]
-                    goal.target_pose.pose.position.y = leaderPrevPose[1]
+                    goal.target_pose.pose.position.x = leaderPose[0]
+                    goal.target_pose.pose.position.y = leaderPose[1]
                     goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
                     goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
                     goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
