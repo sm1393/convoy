@@ -4,17 +4,12 @@ import sys
 
 import numpy as np
 from cv_bridge import CvBridge
-import cv2
 import time
 
 import rospy
 import actionlib
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-from navigation.msg import navigation
-
-# arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
-# arucoParams = cv2.aruco.DetectorParameters_create()
 
 myGoal = PoseWithCovarianceStamped()
 bridge = CvBridge()
@@ -27,24 +22,7 @@ client.wait_for_server()
 goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
-noOfRobots = 4
-myLeaderID = 0
-robotsAroundMe = set()
-frontCamera = False
-leftCamera = False
-rightCamera = False
-
 leaderPrevPose = np.array([np.inf, np.inf])
-
-flag = True
-myLeaderID = np.inf
-def navigationCallback(msg):
-    global flag, myLeaderID, leaderPosSubscriber
-    flag = msg.flag
-    if msg.leaderID != myLeaderID:
-        leaderPosSubscriber.unregister()
-        leaderPosSubscriber = rospy.Subscriber("/volta_" + str(msg.leaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
-    myLeaderID = msg.leaderID
 
 leaderPose = np.array([0.0, 0.0])
 prevLeaderPose = np.array([0.0, 0.0])
@@ -61,25 +39,19 @@ def myPoseCallback(msg):
     myPose[0] = msg.pose.pose.position.x
     myPose[1] = msg.pose.pose.position.y    
 
-leaderPosSubscriber = rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
-
 if __name__ == '__main__':
     try:
-        myLeaderID == np.inf
-        rospy.Subscriber("/volta_" + str(robotID) + "/navigation", navigation, navigationCallback)
-        while myLeaderID == np.inf:
-            pass
+        myLeaderID = 0
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
-        leaderPosSubscriber.unregister()
-        leaderPosSubscriber = rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
+        rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
-            print("Navigation:", robotID, "to ", myLeaderID)
+            # print("Navigation:", robotID, "to ", myLeaderID)
             if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
-                if flag and np.linalg.norm(leaderPose - myPose) > 2:
+                if np.linalg.norm(leaderPose - myPose) > 2:
                     goal.target_pose.header.stamp = rospy.Time.now()
                     goal.target_pose.pose.position.x = leaderPrevPose[0]
                     goal.target_pose.pose.position.y = leaderPrevPose[1]
