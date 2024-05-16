@@ -3,7 +3,6 @@
 import sys
 
 import numpy as np
-from cv_bridge import CvBridge
 import time
 
 import rospy
@@ -12,9 +11,9 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 
 myGoal = PoseWithCovarianceStamped()
-bridge = CvBridge()
 
 robotID = int(rospy.myargv(argv=sys.argv)[1])
+myLeaderID = int(rospy.myargv(argv=sys.argv)[2])
 
 rospy.init_node('volta_' + str(robotID) + '_navigation_node')
 client = actionlib.SimpleActionClient('/volta_' + str(robotID) + '/move_base',MoveBaseAction)
@@ -23,7 +22,6 @@ goal = MoveBaseGoal()
 goal.target_pose.header.frame_id = 'map'
 
 leaderPrevPose = np.array([np.inf, np.inf])
-covariance = []
 
 leaderPose = np.array([0.0, 0.0])
 prevLeaderPose = np.array([0.0, 0.0])
@@ -39,12 +37,10 @@ myPose = np.array([0.0, 0.0])
 def myPoseCallback(msg):
     global myPose, covariance
     myPose[0] = msg.pose.pose.position.x
-    myPose[1] = msg.pose.pose.position.y
-    covariance = msg.pose.covariance
+    myPose[1] = msg.pose.pose.position.y    
 
 if __name__ == '__main__':
     try:
-        myLeaderID = 0
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         time.sleep(1)
@@ -52,11 +48,10 @@ if __name__ == '__main__':
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
-            # print("Navigation:", robotID, "to ", myLeaderID)
-            # print(robotID, client.get_state(), np.linalg.norm(leaderPose - leaderPrevPose), np.linalg.norm(leaderPose - myPose))
-            print(np.array(covariance).reshape(6,6))
-            if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
-                if np.linalg.norm(leaderPose - myPose) > 3:
+            print("Goal state = ", client.get_state())
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
+                if np.linalg.norm(leaderPose - myPose) > 2:
+                    # print("Goal sent")
                     goal.target_pose.header.stamp = rospy.Time.now()
                     goal.target_pose.pose.position.x = leaderPose[0]
                     goal.target_pose.pose.position.y = leaderPose[1]
@@ -67,6 +62,7 @@ if __name__ == '__main__':
                     goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
                     client.send_goal(goal)
                 else:
+                    # print("Goal cancelled")
                     client.stop_tracking_goal()
                     client.cancel_all_goals()
                 leaderPrevPose = np.copy(leaderPose)

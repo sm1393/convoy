@@ -6,12 +6,21 @@
 	<arg name="namespace_3" default="volta_3" />
 
 	<!-- FOLLOWER 1 -->
-    <node pkg="navigation" name="navigation_node_1" type="navigation_node.py" args="1 1" output="screen"/>
+    <node pkg="navigation" name="navigation_node_1" type="navigation_node.py" args="1 0" output="screen"/>
     
     <!-- FOLLOWER 2 -->
-    <node pkg="navigation" name="navigation_node_2" type="navigation_node.py" args="2 2" output="screen"/>
+    <node pkg="navigation" name="navigation_node_2" type="navigation_node.py" args="2 0" output="screen"/>
     
     <!-- FOLLOWER 3 -->
-    <node pkg="navigation" name="navigation_node_3" type="navigation_node.py" args="3 3" output="screen"/>
+    <node pkg="navigation" name="navigation_node_3" type="navigation_node.py" args="3 0" output="screen"/>
+
+    <!-- FOLLOWER 4 -->
+    <!-- <node pkg="navigation" name="navigation_node_4" type="navigation_node.py" args="4 0" output="screen"/> -->
+    
+    <!-- FOLLOWER 5 -->
+    <!-- <node pkg="navigation" name="navigation_node_5" type="navigation_node.py" args="5 0" output="screen"/> -->
+    
+    <!-- FOLLOWER 6 -->
+    <!-- <node pkg="navigation" name="navigation_node_6" type="navigation_node.py" args="6 0" output="screen"/> -->
 
 </launch>
