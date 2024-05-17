@@ -47,11 +47,13 @@ if __name__ == '__main__':
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
+            print("Goal state = ", client.get_state())
             if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
-                if np.linalg.norm(leaderPose - myPose) > 3:
+                if np.linalg.norm(leaderPose - myPose) > 2:
+                    # print("Goal sent")
                     goal.target_pose.header.stamp = rospy.Time.now()
-                    goal.target_pose.pose.position.x = leaderPose[0]
-                    goal.target_pose.pose.position.y = leaderPose[1]
+                    goal.target_pose.pose.position.x = leaderPrevPose[0]
+                    goal.target_pose.pose.position.y = leaderPrevPose[1]
                     goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
                     goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
                     goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
@@ -59,6 +61,7 @@ if __name__ == '__main__':
                     goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
                     client.send_goal(goal)
                 else:
+                    # print("Goal cancelled")
                     client.stop_tracking_goal()
                     client.cancel_all_goals()
                 leaderPrevPose = np.copy(leaderPose)
