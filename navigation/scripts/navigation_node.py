@@ -13,6 +13,7 @@ from navigation.msg import navigation
 
 myGoal = PoseWithCovarianceStamped()
 navigationControl = False
+isRobotDeviated = False
 
 robotID = int(rospy.myargv(argv=sys.argv)[1])
 myLeaderID = int(rospy.myargv(argv=sys.argv)[2])
@@ -34,7 +35,6 @@ def leaderPoseeCallback(msg):
     leaderPose[0] = msg.pose.pose.position.x
     leaderPose[1] = msg.pose.pose.position.y
 
-
 myPose = np.array([0.0, 0.0])
 def myPoseCallback(msg):
     global myPose, covariance
@@ -42,8 +42,9 @@ def myPoseCallback(msg):
     myPose[1] = msg.pose.pose.position.y    
 
 def navigationCallback(msg):
-    global navigationControl
+    global navigationControl, isRobotDeviated
     navigationControl = msg.flag
+    isRobotDeviated = msg.deviated
 
 if __name__ == '__main__':
     try:
@@ -56,24 +57,22 @@ if __name__ == '__main__':
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
-            # print("Goal state = ", client.get_state())
-            if np.linalg.norm(leaderPose - leaderPrevPose) > 0.5:
+            goal.target_pose.header.stamp = rospy.Time.now()
+            goal.target_pose.pose.position.x = leaderPose[0]
+            goal.target_pose.pose.position.y = leaderPose[1]
+            goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
+            goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
+            goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
+            goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
+            goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
                 if np.linalg.norm(leaderPose - myPose) > 1:
                     if client.get_state() == 1 and not navigationControl:
-                        client.stop_tracking_goal()
                         client.cancel_all_goals()
+                        client.send_goal(goal)
                     else:
-                        goal.target_pose.header.stamp = rospy.Time.now()
-                        goal.target_pose.pose.position.x = leaderPose[0]
-                        goal.target_pose.pose.position.y = leaderPose[1]
-                        goal.target_pose.pose.position.z = myGoal.pose.pose.position.z
-                        goal.target_pose.pose.orientation.x = myGoal.pose.pose.orientation.x
-                        goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
-                        goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
-                        goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
                         client.send_goal(goal)
                 else:
-                    # print("Goal cancelled")
                     client.stop_tracking_goal()
                     client.cancel_all_goals()
                 leaderPrevPose = np.copy(leaderPose)

@@ -32,7 +32,7 @@ def localPlanCallback(msg):
     localPlanCopy = msg
 
 def navigationControl():
-    global localPlanCopy, myPose
+    global localPlanCopy, myPose, navControl
     pointOnLine = np.array([0.0, 0.0])
     minDeviationFromPath = np.inf
     for pose in localPlanCopy.poses:
@@ -41,10 +41,9 @@ def navigationControl():
         deviation = np.linalg.norm(pointOnLine - myPose)
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
-        # print(minDeviationFromPath)
         if minDeviationFromPath > 0.25:
-            return False
-    return True
+            return True
+    return False
 
 if __name__ == '__main__':
     try:
@@ -55,7 +54,11 @@ if __name__ == '__main__':
         time.sleep(1)
 
         while not rospy.is_shutdown():
-            navControl.flag = navigationControl()
+            navControl.deviated = navigationControl()
+            if navControl.deviated == True:
+                navControl.flag = False
+            else:
+                navControl.flag = True
             pub.publish(navControl)
 
     except rospy.ROSInterruptException:
