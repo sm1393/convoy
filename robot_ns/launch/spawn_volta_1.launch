@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="namespace" default="volta_1" />
+
+  <include file="$(find multirobot)/launch/robot.launch">
+    <arg name="namespace" default="$(arg namespace)" />
+    <arg name="x_pos" default="-2.0" />
+    <arg name="y_pos" default="-3.0" />
+    <arg name="yaw" default="3.14159" />
+  </include>
+
+  <include file="$(find navigation)/launch/localization.launch">
+    <arg name="namespace" value="$(arg namespace)"/>
+    <arg name="initial_pose_x" default="0.0"/>
+    <arg name="initial_pose_y" default="-5.0"/>
+    <arg name="initial_pose_a" default="1.5707"/>
+  </include>
+
+  <include file="$(find navigation)/launch/navigation.launch">
+    <arg name="namespace" value="$(arg namespace)"/>
+  </include>
+
+</launch>

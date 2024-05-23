@@ -1,0 +1,4 @@
+<launch>
+	<include file="$(find multirobot)/launch/convoy_indoor_world.launch"/>
+    <include file="$(find navigation)/launch/map_indoor.launch"/>    
+</launch>
