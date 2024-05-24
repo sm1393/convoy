@@ -24,7 +24,7 @@
         
         <rosparam file="$(find navigation)/config/$(arg namespace)/global_planner.yaml" command="load"/>
         <!-- ########################################### -->
-        <rosparam file="$(find navigation)/config/$(arg namespace)/teb_local_planner.yaml" command="load"/>
+        <rosparam file="$(find navigation)/config/$(arg namespace)/local_planner.yaml" command="load"/>
         <!-- ########################################### -->
         <rosparam file="$(find navigation)/config/$(arg namespace)/costmap.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find navigation)/config/$(arg namespace)/costmap.yaml" command="load" ns="local_costmap" />

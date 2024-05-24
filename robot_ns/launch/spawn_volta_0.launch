@@ -1,8 +1,12 @@
 <launch>
 
-  <arg name="namespace" default="volta_0" />
+  <!-- <env name="ROS_MASTER_URI" value="http://172.17.0.1:11311"/>
+  <env name="ROS_IP" value="172.17.0.1"/> -->
 
-  <include file="$(find multirobot)/launch/robot.launch">
+  <arg name="namespace" default="volta_0" />
+  <include file="$(find navigation)/launch/map_indoor.launch"/>
+
+  <include file="$(find robot_ns)/launch/robot.launch">
     <arg name="namespace" default="$(arg namespace)" />
     <arg name="x_pos" default="-4.0" />
     <arg name="y_pos" default="-3.0" />
