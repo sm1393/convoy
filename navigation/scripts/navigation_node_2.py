@@ -89,7 +89,7 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-            if np.linalg.norm(leaderPose - myPose) < 2:
+            if np.linalg.norm(leaderPose - myPose) < 4:
                 client.stop_tracking_goal()
                 client.cancel_all_goals()
                 continue
@@ -97,11 +97,15 @@ if __name__ == '__main__':
                 client.send_goal(goal)
                 leaderPrevPose = np.copy(leaderPose)
             print(client.get_state(), end=" | ")
-            if navigationControl():
+            if client.get_state() == 1 and navigationControl():
                 velocity_publisher.publish(vel_msg)
                 print("Deviated")
-            else:
-                print("On the path")
+                continue
+            elif client.get_state() == 4:
+                print("Aborted")
+                client.send_goal(goal)
+                continue
+            print("On the path")
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")

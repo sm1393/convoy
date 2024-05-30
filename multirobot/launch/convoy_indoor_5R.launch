@@ -115,43 +115,5 @@
 	</include>
 
     <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" />
-    
-    <!-- ROBOT 5 -->
-    <include file="$(find multirobot)/launch/robot.launch">
-        <arg name="namespace" default="$(arg namespace_5)" />
-        <arg name="x_pos" default="0.0" />
-        <arg name="y_pos" default="-5.0" />
-        <arg name="yaw" default="3.14159" />
-    </include>
-    <include file="$(find navigation)/launch/localization.launch">
-        <arg name="namespace" value="$(arg namespace_5)"/>
-        <arg name="initial_pose_x"  default="-2.0"/>
-        <arg name="initial_pose_y"  default="-7.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>        
-    </include>
-	<include file="$(find navigation)/launch/navigation.launch">
-		<arg name="namespace" value="$(arg namespace_5)"/>
-	</include>
 
-    <node name="rviz_robot_5" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_5.rviz" respawn="true" />
-    
-    <!-- ROBOT 6 -->
-    <include file="$(find multirobot)/launch/robot.launch">
-        <arg name="namespace" default="$(arg namespace_6)" />
-        <arg name="x_pos" default="0.0" />
-        <arg name="y_pos" default="-1.0" />
-        <arg name="yaw" default="3.14159" />
-    </include>
-    <include file="$(find navigation)/launch/localization.launch">
-        <arg name="namespace" value="$(arg namespace_6)"/>
-        <arg name="initial_pose_x"  default="2.0"/>
-        <arg name="initial_pose_y"  default="-7.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>        
-    </include>
-	<include file="$(find navigation)/launch/navigation.launch">
-		<arg name="namespace" value="$(arg namespace_6)"/>
-	</include>
-
-    <node name="rviz_robot_6" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_6.rviz" respawn="true" />
-    
 </launch>
