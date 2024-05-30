@@ -10,6 +10,7 @@ import actionlib
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from nav_msgs.msg import Path
+from geometry_msgs.msg import Twist
 
 myGoal = PoseWithCovarianceStamped()
 localPlanCopy = Path()
@@ -65,6 +66,15 @@ if __name__ == '__main__':
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/move_base/TebLocalPlannerROS/local_plan", Path, localPlanCallback)
+        velocity_publisher = rospy.Publisher("/volta_" + str(robotID) + "/cmd_vel", Twist, queue_size=10)
+        vel_msg = Twist()
+        vel_msg.linear.x = 0
+        vel_msg.linear.x = 0
+        vel_msg.linear.y = 0
+        vel_msg.linear.z = 0
+        vel_msg.angular.x = 0
+        vel_msg.angular.y = 0
+        vel_msg.angular.z = 0
 
         time.sleep(1)
         print(robotID, "following", myLeaderID)
@@ -86,7 +96,9 @@ if __name__ == '__main__':
             if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
                 client.send_goal(goal)
                 leaderPrevPose = np.copy(leaderPose)
+            print(client.get_state(), end=" | ")
             if navigationControl():
+                velocity_publisher.publish(vel_msg)
                 print("Deviated")
             else:
                 print("On the path")
