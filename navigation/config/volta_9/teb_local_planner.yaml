@@ -15,7 +15,7 @@ recovery_behaviors: [{name: conservative_reset, type: clear_costmap_recovery/Cle
 
 TebLocalPlannerROS:
 
-  odom_topic: /volta_2/odom
+  odom_topic: /volta_9/odom
   map_frame: /map
     
   # Trajectory

@@ -25,22 +25,9 @@ def myPoseCallback(msg):
     myPose[0] = msg.pose.pose.position.x
     myPose[1] = msg.pose.pose.position.y    
 
-def localPlanCallback(msg):
-    global myPose
-    pointOnLine = np.array([0.0, 0.0])
-    minDeviationFromPath = np.inf
-    for pose in msg.poses:
-        pointOnLine[0] = pose.pose.position.x
-        pointOnLine[1] = pose.pose.position.y
-        deviation = np.linalg.norm(pointOnLine - myPose)
-        if deviation < minDeviationFromPath:
-            minDeviationFromPath = deviation
-    print(minDeviationFromPath)
-
 if __name__ == '__main__':
     try:
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
-        rospy.Subscriber("/volta_" + str(robotID) + "/move_base/TebLocalPlannerROS/local_plan", Path, localPlanCallback)
 
         time.sleep(1)
 

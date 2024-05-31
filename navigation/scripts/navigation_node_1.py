@@ -76,6 +76,8 @@ if __name__ == '__main__':
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
 
+        robotState = np.inf
+
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
@@ -90,22 +92,44 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
             if np.linalg.norm(leaderPose - myPose) < 2:
+                if robotState != 0:
+                    print("Close to leader")
+                    robotState = 0
                 client.stop_tracking_goal()
                 client.cancel_all_goals()
                 continue
             if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
+                if robotState != 1:
+                    print("Navigating")
+                    robotState = 1
                 client.send_goal(goal)
                 leaderPrevPose = np.copy(leaderPose)
-            print(client.get_state(), end=" | ")
+            # print(client.get_state(), end=" | ")
             if client.get_state() == 1 and navigationControl():
-                velocity_publisher.publish(vel_msg)
-                print("Deviated")
+                if robotState != 2:
+                    print("Deviated")
+                    robotState = 2
+                    velocity_publisher.publish(vel_msg)
                 continue
             elif client.get_state() == 4:
-                print("Aborted")
+                if robotState != 3:
+                    print("Aborted")
+                    robotState = 3
                 client.send_goal(goal)
                 continue
-            print("On the path")
+            if robotState != 4:
+                print("On path")
+                robotState = 4
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
+
+''' 
+robotState Description
+0           Close to leader
+1           Navigation ON
+2           Deviated
+3           Aborted
+4           On the path
+5           
+'''

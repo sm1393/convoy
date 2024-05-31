@@ -89,7 +89,7 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-            if np.linalg.norm(leaderPose - myPose) < 4:
+            if np.linalg.norm(leaderPose - myPose) < 2:
                 client.stop_tracking_goal()
                 client.cancel_all_goals()
                 continue

@@ -45,8 +45,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:arg name="rplidar_a3_enabled" default="true"/>
     <xacro:arg name="hokuyo_ust_10lx_enabled" default="false"/>
     <xacro:arg name="imu_enabled" default="false"/>
-    <xacro:arg name="camera_enabled" default="true"/>
-    <xacro:arg name="intel_d435i_enabled" default="true"/>
+    <xacro:arg name="camera_enabled" default="false"/>
+    <xacro:arg name="intel_d435i_enabled" default="false"/>
     <xacro:arg name="orbbec_astra_pro_enabled" default="false"/>
 
     <xacro:macro name="volta_robot" params="robot_namespace:=/">
@@ -125,8 +125,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <xacro:lidar rplidar_a3_enabled="$(arg rplidar_a3_enabled)" hokuyo_ust_10lx_enabled="$(arg hokuyo_ust_10lx_enabled)" robot_namespace="$(arg robot_namespace)">  </xacro:lidar>
         </xacro:if>
 
-        <!-- <xacro:include filename="$(find descriptions)/urdf/volta/accessories/aruco_marker.urdf.xacro"/>
-        <xacro:aruco_marker robot_namespace="$(arg robot_namespace)">  </xacro:aruco_marker> -->
+        <xacro:include filename="$(find descriptions)/urdf/volta/accessories/aruco_marker.urdf.xacro"/>
+        <xacro:aruco_marker robot_namespace="$(arg robot_namespace)">  </xacro:aruco_marker>
 
         <!-- Camera -->
         <xacro:if value="$(arg camera_enabled)">
