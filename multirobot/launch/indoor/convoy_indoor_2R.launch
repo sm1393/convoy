@@ -1,0 +1,61 @@
+<launch>
+
+	<arg name="namespace_0" default="volta_0" />
+	<arg name="namespace_1" default="volta_1" />
+	<arg name="namespace_2" default="volta_2" />
+	<arg name="namespace_3" default="volta_3" />
+	<arg name="namespace_4" default="volta_4" />
+	<arg name="namespace_5" default="volta_5" />
+	<arg name="namespace_6" default="volta_6" />
+	<arg name="namespace_7" default="volta_7" />
+	<arg name="namespace_8" default="volta_8" />
+    
+	<include file="$(find multirobot)/launch/indoor/convoy_indoor_world.launch"/>
+    <include file="$(find navigation)/launch/map_indoor.launch"/>
+
+    <!-- ROBOT 0 -->
+    <include file="$(find multirobot)/launch/robot.launch">
+        <arg name="namespace" default="$(arg namespace_0)" />
+        <arg name="x_pos" default="-4.0" />
+        <arg name="y_pos" default="-3.0" />
+        <arg name="yaw" default="3.14159" />
+    </include>
+	<arg name="keyboard" default="false" />
+    <rosparam command="load" file="$(find volta_teleoperator)/config/joy.yaml" unless="$(arg keyboard)" />
+    <node pkg="joy" type="joy_node" name="joy_node"  unless="$(arg keyboard)" />
+    <node pkg="volta_teleoperator" type="volta_joy_teleop_node" name="joy_teleop" output="screen" unless="$(arg keyboard)">
+      <remap from="/joy/cmd_vel" to="/volta_0/cmd_vel"/>
+    </node>
+    <include file="$(find navigation)/launch/localization.launch">
+        <arg name="namespace" value="$(arg namespace_0)"/>
+        <arg name="initial_pose_x"  default="0.0"/>
+        <arg name="initial_pose_y"  default="-3.0"/>
+        <arg name="initial_pose_a"  default="1.5707"/>
+    </include>
+
+    <include file="$(find navigation)/launch/navigation.launch">
+		<arg name="namespace" value="$(arg namespace_0)"/>
+	</include>
+
+    <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
+
+	<!-- ROBOT 1 -->
+	<include file="$(find multirobot)/launch/robot.launch">
+        <arg name="namespace" default="$(arg namespace_1)" />
+        <arg name="x_pos" default="-2.0" />
+        <arg name="y_pos" default="-3.0" />
+        <arg name="yaw" default="3.14159" />
+    </include>
+    <include file="$(find navigation)/launch/localization.launch">
+        <arg name="namespace" value="$(arg namespace_1)"/>
+        <arg name="initial_pose_x"  default="0.0"/>
+        <arg name="initial_pose_y"  default="-5.0"/>
+        <arg name="initial_pose_a"  default="1.5707"/>        
+    </include>
+	<include file="$(find navigation)/launch/navigation.launch">
+		<arg name="namespace" value="$(arg namespace_1)"/>
+	</include>
+
+    <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" />
+    
+</launch>
