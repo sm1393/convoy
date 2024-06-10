@@ -11,15 +11,15 @@
 	<arg name="namespace_8" default="volta_8" />
 	<arg name="namespace_9" default="volta_9" />
     
-	<include file="$(find multirobot)/launch/convoy_indoor_world.launch"/>
-    <include file="$(find navigation)/launch/map_indoor.launch"/>
+	<include file="$(find multirobot)/launch/hospital/convoy_hospital_world.launch"/>
+    <include file="$(find navigation)/launch/map_hospital.launch"/>
 
     <!-- ROBOT 0 -->
     <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_0)" />
-        <arg name="x_pos" default="-4.0" />
-        <arg name="y_pos" default="-3.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="x_pos" default="0.0" />
+        <arg name="y_pos" default="9.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
 	<arg name="keyboard" default="false" />
     <rosparam command="load" file="$(find volta_teleoperator)/config/joy.yaml" unless="$(arg keyboard)" />
@@ -30,84 +30,84 @@
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_0)"/>
         <arg name="initial_pose_x"  default="0.0"/>
-        <arg name="initial_pose_y"  default="-3.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>        
+        <arg name="initial_pose_y"  default="0.0"/>
+        <arg name="initial_pose_a"  default="0.0"/>   
     </include>
 
     <include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_0)"/>
 	</include>
 
-    <node name="rviz_robot_0" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
+    <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
 
 	<!-- ROBOT 1 -->
 	<include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_1)" />
-        <arg name="x_pos" default="-2.0" />
-        <arg name="y_pos" default="-3.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="x_pos" default="0.0" />
+        <arg name="y_pos" default="11.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_1)"/>
-        <arg name="initial_pose_x"  default="0.0"/>
-        <arg name="initial_pose_y"  default="-5.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>        
+        <arg name="initial_pose_x"  default="-2.0"/>
+        <arg name="initial_pose_y"  default="0.0"/>
+        <arg name="initial_pose_a"  default="0.0"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_1)"/>
 	</include>
 
-    <node name="rviz_robot_1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" />
-    
+    <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" />
+
     <!-- ROBOT 2 -->
 	<include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_2)" />
-        <arg name="x_pos" default="-2.0" />
-        <arg name="y_pos" default="-5.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="x_pos" default="2.0" />
+        <arg name="y_pos" default="11.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_2)"/>
         <arg name="initial_pose_x"  default="-2.0"/>
-        <arg name="initial_pose_y"  default="-5.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>
+        <arg name="initial_pose_y"  default="2.0"/>
+        <arg name="initial_pose_a"  default="0.0"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_2)"/>
 	</include>
 
-    <node name="rviz_robot_2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" />
-    
+    <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" />
+
     <!-- ROBOT 3 -->
-    <include file="$(find multirobot)/launch/robot.launch">
+	<include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_3)" />
         <arg name="x_pos" default="-2.0" />
-        <arg name="y_pos" default="-1.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="y_pos" default="11.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_3)"/>
-        <arg name="initial_pose_x"  default="2.0"/>
-        <arg name="initial_pose_y"  default="-5.0"/>
-        <arg name="initial_pose_a"  default="1.5707"/>        
+        <arg name="initial_pose_x"  default="-2.0"/>
+        <arg name="initial_pose_y"  default="-2.0"/>
+        <arg name="initial_pose_a"  default="0.0"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
 		<arg name="namespace" value="$(arg namespace_3)"/>
 	</include>
 
-    <node name="rviz_robot_3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" />
+    <node name="rviz_follower3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" />
     
     <!-- ROBOT 4 -->
     <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_4)" />
         <arg name="x_pos" default="0.0" />
-        <arg name="y_pos" default="-3.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="y_pos" default="13.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_4)"/>
-        <arg name="initial_pose_x"  default="0.0"/>
-        <arg name="initial_pose_y"  default="-7.0"/>
+        <arg name="initial_pose_x"  default="-4.0"/>
+        <arg name="initial_pose_y"  default="0.0"/>
         <arg name="initial_pose_a"  default="1.5707"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
@@ -119,14 +119,14 @@
     <!-- ROBOT 5 -->
     <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_5)" />
-        <arg name="x_pos" default="0.0" />
-        <arg name="y_pos" default="-5.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="x_pos" default="2.0" />
+        <arg name="y_pos" default="13.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_5)"/>
-        <arg name="initial_pose_x"  default="-2.0"/>
-        <arg name="initial_pose_y"  default="-7.0"/>
+        <arg name="initial_pose_x"  default="-4.0"/>
+        <arg name="initial_pose_y"  default="2.0"/>
         <arg name="initial_pose_a"  default="1.5707"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
@@ -138,14 +138,14 @@
     <!-- ROBOT 6 -->
     <include file="$(find multirobot)/launch/robot.launch">
         <arg name="namespace" default="$(arg namespace_6)" />
-        <arg name="x_pos" default="0.0" />
-        <arg name="y_pos" default="-1.0" />
-        <arg name="yaw" default="3.14159" />
+        <arg name="x_pos" default="-2.0" />
+        <arg name="y_pos" default="13.0" />
+        <arg name="yaw" default="-1.5707" />
     </include>
     <include file="$(find navigation)/launch/localization.launch">
         <arg name="namespace" value="$(arg namespace_6)"/>
-        <arg name="initial_pose_x"  default="2.0"/>
-        <arg name="initial_pose_y"  default="-7.0"/>
+        <arg name="initial_pose_x"  default="-4.0"/>
+        <arg name="initial_pose_y"  default="-2.0"/>
         <arg name="initial_pose_a"  default="1.5707"/>        
     </include>
 	<include file="$(find navigation)/launch/navigation.launch">
