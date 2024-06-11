@@ -76,6 +76,8 @@ if __name__ == '__main__':
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
 
+        robotState = np.inf
+
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
@@ -96,16 +98,26 @@ if __name__ == '__main__':
             if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
                 client.send_goal(goal)
                 leaderPrevPose = np.copy(leaderPose)
-            print(client.get_state(), end=" | ")
             if client.get_state() == 1 and navigationControl():
+                rospy.loginfo("Deviated")
                 velocity_publisher.publish(vel_msg)
-                print("Deviated")
+                time.sleep(1)
+                client.send_goal(goal)
+                print("Goal updated")
                 continue
             elif client.get_state() == 4:
-                print("Aborted")
                 client.send_goal(goal)
                 continue
-            print("On the path")
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
+
+''' 
+robotState Description
+0           Close to leader
+1           Navigation ON
+2           Deviated
+3           Aborted
+4           On the path
+5           
+'''

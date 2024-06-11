@@ -1,0 +1,14 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="world_name" value="$(find aws_robomaker_hospital_world)/worlds/hospital.world"/>
+		<arg name="paused" value="false"/>
+		<arg name="use_sim_time" value="true"/>
+		<arg name="gui" value="true"/>
+		<arg name="headless" value="false"/>
+		<arg name="debug" value="false"/>
+    </include>
+
+</launch>
