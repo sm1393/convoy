@@ -58,9 +58,7 @@ def navigationControl():
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
         if minDeviationFromPath > 0.5:
-            # print("minDeviationFromPath = ", minDeviationFromPath)
             return True
-    # print("minDeviationFromPath = ", minDeviationFromPath)
     return False
 
 if __name__ == '__main__':
@@ -95,43 +93,28 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
             if np.linalg.norm(leaderPose - myPose) < 2:
                 if robotState != 0:
-                    print("Close to leader")
                     robotState = 0
                 client.stop_tracking_goal()
                 client.cancel_all_goals()
                 continue
             if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
                 if robotState != 1:
-                    print("Navigating")
                     robotState = 1
                 client.send_goal(goal)
                 leaderPrevPose = np.copy(leaderPose)
-            # print(client.get_state(), end=" | ")
             if client.get_state() == 1 and navigationControl():
                 if robotState != 2:
-                    print("Deviated")
                     robotState = 2
                     velocity_publisher.publish(vel_msg)
                 continue
             elif client.get_state() == 4:
                 if robotState != 3:
-                    print("Aborted")
                     robotState = 3
                 client.send_goal(goal)
                 continue
             if robotState != 4:
-                print("On path")
                 robotState = 4
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
 
-''' 
-robotState Description
-0           Close to leader
-1           Navigation ON
-2           Deviated
-3           Aborted
-4           On the path
-5           
-'''
