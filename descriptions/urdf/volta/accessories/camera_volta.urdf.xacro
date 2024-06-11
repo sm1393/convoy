@@ -53,7 +53,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                   <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
               </inertial>
           </link>
-          <link name="${frame}_right">
+          <!-- <link name="${frame}_right">
             <visual>
                 <origin xyz="0 0 -0.0125" rpy="0 0 0"/>
                 <geometry>
@@ -71,8 +71,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <origin xyz="-0.003 0 ${0.0125-0.0125}" rpy="0 0 0"/>
                 <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
             </inertial>
-        </link>
-        <link name="${frame}_left">
+        </link> -->
+        <!-- <link name="${frame}_left">
             <visual>
                 <origin xyz="0 0 -0.0125" rpy="0 0 0"/>
                 <geometry>
@@ -90,23 +90,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <origin xyz="-0.003 0 ${0.0125-0.0125}" rpy="0 0 0"/>
                 <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
             </inertial>
-        </link>
+        </link> -->
           <!-- Camera joint -->
         <joint name="base_to_camera_front" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_front"/>
             <origin xyz="${camera_joint_x} ${camera_joint_y} ${camera_joint_z + 0.0125}"/>
         </joint>
-        <joint name="base_to_camera_right" type="fixed">
+        <!-- <joint name="base_to_camera_right" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_right"/>
             <origin xyz="0.0 -0.2 ${camera_joint_z + 0.0125}" rpy="0 0 -1.5707"/>
-        </joint>
-        <joint name="base_to_camera_left" type="fixed">
+        </joint> -->
+        <!-- <joint name="base_to_camera_left" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_left"/>
             <origin xyz="0.0 0.2 ${camera_joint_z + 0.0125}" rpy="0 0 1.5707"/>
-        </joint>
+        </joint> -->
 
         </xacro:if>
 
@@ -180,7 +180,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
                 <camera>
-                <horizontal_fov>1.5</horizontal_fov>
+                <horizontal_fov>1.75</horizontal_fov>
                 <!-- <horizontal_fov>1.047198</horizontal_fov> -->
                 <image>
                     <width>640</width>
@@ -255,7 +255,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 </plugin>
             </sensor>
         </gazebo> -->
-        <gazebo reference="${frame}_right">
+        <!-- <gazebo reference="${frame}_right">
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
                 <camera>
@@ -295,7 +295,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <hackBaseline>0</hackBaseline>
                 </plugin>
             </sensor>
-        </gazebo>
+        </gazebo> -->
         <!-- <gazebo reference="${frame}_left">
             <sensor type="camera" name="camera">
                 <update_rate>${update_rate}</update_rate>
@@ -333,7 +333,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 </plugin>
             </sensor>
         </gazebo> -->
-        <gazebo reference="${frame}_left">
+        <!-- <gazebo reference="${frame}_left">
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
                 <camera>
@@ -373,6 +373,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <hackBaseline>0</hackBaseline>
                 </plugin>
             </sensor>
-        </gazebo>
+        </gazebo> -->
     </xacro:macro>
 </robot>

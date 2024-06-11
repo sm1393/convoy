@@ -19,39 +19,18 @@ class Camera:
         self.rightCamera = False
         self.noOfRobots = noOfRobots
         
-        self.arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
-        self.arucoParams = cv2.aruco.DetectorParameters_create()
+        self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_5X5_250)
+        self.arucoParams = cv2.aruco.DetectorParameters()
         self.bridge = CvBridge()
 
     def frontCameraCallback(self, msg):
         image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
         corners, ids, rejected = cv2.aruco.detectMarkers(image, self.arucoDict, parameters=self.arucoParams)
-        image = imutils.resize(image, width=1000)
         if type(ids) != type(None):
             for id in ids:
                 if id in range(self.noOfRobots):
                     self.robotsAroundMe.add(id[0])
         self.frontCamera = True
-
-    def leftCameraCallback(self, msg):
-        image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
-        corners, ids, rejected = cv2.aruco.detectMarkers(image, self.arucoDict, parameters=self.arucoParams)
-        image = imutils.resize(image, width=1000)
-        if type(ids) != type(None):
-            for id in ids:
-                if id in range(self.noOfRobots):
-                    self.robotsAroundMe.add(id[0])
-        self.leftCamera = True
-
-    def rightCameraCallback(self, msg):
-        image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
-        corners, ids, rejected = cv2.aruco.detectMarkers(image, self.arucoDict, parameters=self.arucoParams)
-        image = imutils.resize(image, width=1000)
-        if type(ids) != type(None):
-            for id in ids:
-                if id in range(self.noOfRobots):
-                    self.robotsAroundMe.add(id[0])
-        self.rightCamera = True
 
 if __name__ == '__main__':
     try:
@@ -61,20 +40,14 @@ if __name__ == '__main__':
         noOfRobots = 4
         camera = Camera(noOfRobots)
 
-        rospy.Subscriber("/volta_" + str(robotID) + "/camera_front/camera_front", Image, camera.frontCameraCallback)
-        rospy.Subscriber("/volta_" + str(robotID) + "/camera_left/camera_left", Image, camera.leftCameraCallback)
-        rospy.Subscriber("/volta_" + str(robotID) + "/camera_right/camera_right", Image, camera.rightCameraCallback)
-
+        rospy.Subscriber("/volta_" + str(robotID) + "/camera_front_ir/camera_front/color/image_raw", Image, camera.frontCameraCallback)
         time.sleep(1)
 
         while not rospy.is_shutdown():
-            if camera.frontCamera and camera.leftCamera and camera.rightCamera:
+            if camera.frontCamera:
                 robotsAroundMeCopy = camera.robotsAroundMe.copy()
-                print(robotsAroundMeCopy)
-                collisionPossible = False
+                print("robotsAroundMeCopy", robotsAroundMeCopy)
                 camera.frontCamera = False
-                camera.leftCamera = False
-                camera.rightCamera = False
                 robotsAroundMe = set({})
                 robotsAroundMeCopy = set({})
 
