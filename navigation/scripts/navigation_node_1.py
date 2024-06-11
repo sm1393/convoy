@@ -57,8 +57,10 @@ def navigationControl():
         deviation = np.linalg.norm(pointOnLine - myPose)
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
-        if minDeviationFromPath > 0.25:
+        if minDeviationFromPath > 0.5:
+            # print("minDeviationFromPath = ", minDeviationFromPath)
             return True
+    # print("minDeviationFromPath = ", minDeviationFromPath)
     return False
 
 if __name__ == '__main__':
