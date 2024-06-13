@@ -38,7 +38,7 @@
 		<arg name="namespace" value="$(arg namespace_0)"/>
 	</include>
 
-    <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
+    <!-- <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" /> -->
 
 	<!-- ROBOT 1 -->
 	<include file="$(find multirobot)/launch/robot.launch">
@@ -57,7 +57,7 @@
 		<arg name="namespace" value="$(arg namespace_1)"/>
 	</include>
 
-    <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" />
+    <!-- <node name="rviz_follower1" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_1.rviz" respawn="true" /> -->
 
     <!-- ROBOT 2 -->
 	<include file="$(find multirobot)/launch/robot.launch">
@@ -76,7 +76,7 @@
 		<arg name="namespace" value="$(arg namespace_2)"/>
 	</include>
 
-    <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" />
+    <!-- <node name="rviz_follower2" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_2.rviz" respawn="true" /> -->
 
     <!-- ROBOT 3 -->
 	<include file="$(find multirobot)/launch/robot.launch">
@@ -95,7 +95,7 @@
 		<arg name="namespace" value="$(arg namespace_3)"/>
 	</include>
 
-    <node name="rviz_follower3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" />
+    <!-- <node name="rviz_follower3" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_3.rviz" respawn="true" /> -->
     
     <!-- ROBOT 4 -->
     <include file="$(find multirobot)/launch/robot.launch">
@@ -114,7 +114,7 @@
 		<arg name="namespace" value="$(arg namespace_4)"/>
 	</include>
 
-    <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_4" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_4.rviz" respawn="true" /> -->
     
     <!-- ROBOT 5 -->
     <include file="$(find multirobot)/launch/robot.launch">
@@ -133,7 +133,7 @@
 		<arg name="namespace" value="$(arg namespace_5)"/>
 	</include>
 
-    <node name="rviz_robot_5" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_5.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_5" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_5.rviz" respawn="true" /> -->
     
     <!-- ROBOT 6 -->
     <include file="$(find multirobot)/launch/robot.launch">
@@ -152,6 +152,6 @@
 		<arg name="namespace" value="$(arg namespace_6)"/>
 	</include>
 
-    <node name="rviz_robot_6" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_6.rviz" respawn="true" />
+    <!-- <node name="rviz_robot_6" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_6.rviz" respawn="true" /> -->
     
 </launch>
