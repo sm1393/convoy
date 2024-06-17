@@ -10,7 +10,7 @@
 	<arg name="namespace_7" default="volta_7" />
 	<arg name="namespace_8" default="volta_8" />
     
-	<include file="$(find multirobot)/launch/convoy_indoor_world.launch"/>
+	<include file="$(find multirobot)/launch/indoor/convoy_indoor_world.launch"/>
     <include file="$(find navigation)/launch/map_indoor.launch"/>
 
     <!-- ROBOT 0 -->

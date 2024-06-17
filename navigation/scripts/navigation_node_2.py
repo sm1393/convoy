@@ -83,6 +83,14 @@ if __name__ == '__main__':
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
+        leaderHasMoved = False
+        closeToLeader = False
+        deviatedFromPath = False
+        OnPath = False
+
+        goalCancelled = False
+        goalSent = False
+
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
             goal.target_pose.header.stamp = rospy.Time.now()
@@ -93,35 +101,39 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-            if np.linalg.norm(leaderPose - myPose) < 4:
-                if robotState != 0:
-                    print("Close to leader")
-                    robotState = 0
-                client.stop_tracking_goal()
-                client.cancel_all_goals()
-                continue
+
+            if np.linalg.norm(leaderPose - myPose) < 2:
+                closeToLeader = True
+            else:
+                closeToLeader = False
+
             if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
-                if robotState != 1:
-                    print("Navigating")
-                    robotState = 1
-                client.send_goal(goal)
-                leaderPrevPose = np.copy(leaderPose)
-            # print(client.get_state(), end=" | ")
+                leaderHasMoved = True
+            else:
+                leaderHasMoved = False
+
             if client.get_state() == 1 and navigationControl():
-                if robotState != 2:
-                    print("Deviated")
-                    robotState = 2
-                    velocity_publisher.publish(vel_msg)
-                continue
-            elif client.get_state() == 4:
-                if robotState != 3:
-                    print("Aborted")
-                    robotState = 3
-                client.send_goal(goal)
-                continue
-            if robotState != 4:
-                print("On path")
-                robotState = 4
+                deviatedFromPath = True
+            else:
+                deviatedFromPath = False
+
+            if closeToLeader or deviatedFromPath:
+                if not goalCancelled:
+                    client.stop_tracking_goal()
+                    client.cancel_all_goals()
+                    goalCancelled = True
+                    goalSent = False
+                    if deviatedFromPath:
+                        print(deviatedFromPath, end=" ")
+                    print(closeToLeader, leaderHasMoved, "cancel")
+
+            if not closeToLeader:
+                if not goalSent or leaderHasMoved:
+                    client.send_goal(goal)
+                    leaderPrevPose = np.copy(leaderPose)
+                    goalSent = True
+                    goalCancelled = False
+                    print(closeToLeader, leaderHasMoved, "sent")
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
