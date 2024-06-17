@@ -44,6 +44,24 @@ class Camera:
                     self.robotsAroundMe.add(id[0])
         self.frontCamera = True
 
+    def leftCameraCallback(self, msg):
+        image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+        corners, ids, rejected = cv2.aruco.detectMarkers(image, self.arucoDict, parameters=self.arucoParams)
+        if type(ids) != type(None):
+            for id in ids:
+                if id in range(self.noOfRobots):
+                    self.robotsAroundMe.add(id[0])
+        self.leftCamera = True
+
+    def rightCameraCallback(self, msg):
+        image = self.bridge.imgmsg_to_cv2(msg, "bgr8")
+        corners, ids, rejected = cv2.aruco.detectMarkers(image, self.arucoDict, parameters=self.arucoParams)
+        if type(ids) != type(None):
+            for id in ids:
+                if id in range(self.noOfRobots):
+                    self.robotsAroundMe.add(id[0])
+        self.rightCamera = True
+
     def selectMyLeader(self, robotsInfo):
         while not self.frontCamera and self.leftCamera and self.rightCamera:
             pass
@@ -72,6 +90,8 @@ if __name__ == '__main__':
         camera = Camera(noOfRobots)
 
         rospy.Subscriber("/volta_" + str(robotID) + "/camera_front_ir/camera_front/color/image_raw", Image, camera.frontCameraCallback)
+        rospy.Subscriber("/volta_" + str(robotID) + "/camera_left_ir/camera_left/color/image_raw", Image, camera.leftCameraCallback)
+        rospy.Subscriber("/volta_" + str(robotID) + "/camera_right_ir/camera_right/color/image_raw", Image, camera.rightCameraCallback)
 
         robotsInfo = []
         for id in range(noOfRobots):
@@ -80,10 +100,12 @@ if __name__ == '__main__':
         time.sleep(1)
 
         while not rospy.is_shutdown():
-            if camera.frontCamera:
+            if camera.frontCamera and camera.leftCamera and camera.rightCamera:
                 robotsAroundMeCopy = camera.robotsAroundMe.copy()
                 print(robotsAroundMeCopy)
                 camera.frontCamera = False
+                camera.leftCamera = False
+                camera.rightCamera = False
                 robotsAroundMeCopy = set({})
                 robotsAroundMe = set({})
 

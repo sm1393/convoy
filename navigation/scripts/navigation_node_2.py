@@ -47,20 +47,28 @@ def localPlanCallback(msg):
     global localPlanCopy
     localPlanCopy = msg
 
+finalDeviation = np.inf
 def navigationControl():
-    global localPlanCopy, myPose
-    pointOnLine = np.array([0.0, 0.0])
+    global localPlanCopy, myPose, finalDeviation
+    pointList = [np.array([pose.pose.position.x, pose.pose.position.y]) for pose in localPlanCopy.poses]
     minDeviationFromPath = np.inf
-    for pose in localPlanCopy.poses:
-        pointOnLine[0] = pose.pose.position.x
-        pointOnLine[1] = pose.pose.position.y
-        deviation = np.linalg.norm(pointOnLine - myPose)
+    minDeviationPoint = 0
+    for i in range(len(pointList)):
+        deviation = np.linalg.norm(pointList[i] - myPose)
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
-        if minDeviationFromPath > 0.5:
-            # print("minDeviationFromPath = ", minDeviationFromPath)
+            minDeviationPoint = i
+        if minDeviationPoint == 0:
+            minDeviationPoint_1 = 1
+        elif minDeviationPoint == len(pointList)-1:
+            minDeviationPoint_1 = len(pointList)-2
+        elif np.linalg.norm(np.array(pointList[minDeviationPoint-1]) - np.array(myPose)) > np.linalg.norm(np.array(pointList[minDeviationPoint+1]) - np.array(myPose)):
+            minDeviationPoint_1 = minDeviationPoint+1
+        else:
+            minDeviationPoint_1 = minDeviationPoint-1
+        finalDeviation = np.linalg.norm(np.cross(pointList[minDeviationPoint_1]-pointList[minDeviationPoint], pointList[minDeviationPoint]-myPose))/np.linalg.norm(pointList[minDeviationPoint_1]-pointList[minDeviationPoint])
+        if finalDeviation > 0.25:
             return True
-    # print("minDeviationFromPath = ", minDeviationFromPath)
     return False
 
 if __name__ == '__main__':
@@ -68,6 +76,7 @@ if __name__ == '__main__':
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/move_base/TebLocalPlannerROS/local_plan", Path, localPlanCallback)
+        
         velocity_publisher = rospy.Publisher("/volta_" + str(robotID) + "/cmd_vel", Twist, queue_size=10)
         vel_msg = Twist()
         vel_msg.linear.x = 0
@@ -77,8 +86,6 @@ if __name__ == '__main__':
         vel_msg.angular.x = 0
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
-
-        robotState = np.inf
 
         time.sleep(1)
         print(robotID, "following", myLeaderID)
@@ -90,6 +97,8 @@ if __name__ == '__main__':
 
         goalCancelled = False
         goalSent = False
+
+        counter = 0
 
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
@@ -117,15 +126,19 @@ if __name__ == '__main__':
             else:
                 deviatedFromPath = False
 
-            if closeToLeader or deviatedFromPath:
+            # if closeToLeader or deviatedFromPath:
+            if closeToLeader:
                 if not goalCancelled:
+                    velocity_publisher.publish(vel_msg)
                     client.stop_tracking_goal()
                     client.cancel_all_goals()
                     goalCancelled = True
                     goalSent = False
                     if deviatedFromPath:
-                        print(deviatedFromPath, end=" ")
-                    print(closeToLeader, leaderHasMoved, "cancel")
+                        print(finalDeviation, end=" ")
+                        deviatedFromPath = False
+                    print(counter, closeToLeader, leaderHasMoved, "cancel")
+                    counter += 1
 
             if not closeToLeader:
                 if not goalSent or leaderHasMoved:
@@ -133,17 +146,8 @@ if __name__ == '__main__':
                     leaderPrevPose = np.copy(leaderPose)
                     goalSent = True
                     goalCancelled = False
-                    print(closeToLeader, leaderHasMoved, "sent")
+                    print(counter, closeToLeader, leaderHasMoved, "sent")
+                    counter += 1
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
-
-''' 
-robotState Description
-0           Close to leader
-1           Navigation ON
-2           Deviated
-3           Aborted
-4           On the path
-5           
-'''

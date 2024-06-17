@@ -53,7 +53,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                   <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
               </inertial>
           </link>
-          <!-- <link name="${frame}_right">
+          <link name="${frame}_right">
             <visual>
                 <origin xyz="0 0 -0.0125" rpy="0 0 0"/>
                 <geometry>
@@ -71,8 +71,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <origin xyz="-0.003 0 ${0.0125-0.0125}" rpy="0 0 0"/>
                 <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
             </inertial>
-        </link> -->
-        <!-- <link name="${frame}_left">
+        </link>
+        <link name="${frame}_left">
             <visual>
                 <origin xyz="0 0 -0.0125" rpy="0 0 0"/>
                 <geometry>
@@ -90,24 +90,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <origin xyz="-0.003 0 ${0.0125-0.0125}" rpy="0 0 0"/>
                 <inertia ixx="0.00011" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00011"/>
             </inertial>
-        </link> -->
+        </link>
           <!-- Camera joint -->
         <joint name="base_to_camera_front" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_front"/>
             <origin xyz="${camera_joint_x} ${camera_joint_y} ${camera_joint_z + 0.0125}"/>
         </joint>
-        <!-- <joint name="base_to_camera_right" type="fixed">
+        <joint name="base_to_camera_right" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_right"/>
             <origin xyz="0.0 -0.2 ${camera_joint_z + 0.0125}" rpy="0 0 -1.5707"/>
-        </joint> -->
-        <!-- <joint name="base_to_camera_left" type="fixed">
+        </joint>
+        <joint name="base_to_camera_left" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_left"/>
             <origin xyz="0.0 0.2 ${camera_joint_z + 0.0125}" rpy="0 0 1.5707"/>
-        </joint> -->
-
+        </joint>
         </xacro:if>
 
         <xacro:if value="${orbbec_astra_pro_enabled}">
@@ -139,43 +138,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           </joint>
         </xacro:if>
 
-        <!-- <gazebo reference="${frame}_front">
-            <sensor type="camera" name="camera">
-                <update_rate>${update_rate}</update_rate>
-                <camera name="head">
-                    <horizontal_fov>1.3962634</horizontal_fov>
-                    <image>
-                        <width>1080</width>
-                        <height>720</height>
-                        <format>R8G8B8</format>
-                    </image>
-                    <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                    </clip>
-                    <noise>
-                      <type>gaussian</type>
-                      <mean>0.0</mean>
-                      <stddev>0.007</stddev>
-                    </noise>
-                </camera>
-                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                    <!-|- <robotNamespace>${robot_namespace}</robotNamespace> -|->
-                    <alwaysOn>true</alwaysOn>
-                    <updateRate>${update_rate}</updateRate>
-                    <cameraName>${frame}_front</cameraName>
-                    <imageTopicName>${topic}_front</imageTopicName>
-                    <cameraInfoTopicName>${info_topic}_front</cameraInfoTopicName>
-                    <frameName>${frame}_front</frameName>
-                    <hackBaseline>0.07</hackBaseline>
-                    <distortionK1>0.0</distortionK1>
-                    <distortionK2>0.0</distortionK2>
-                    <distortionK3>0.0</distortionK3>
-                    <distortionT1>0.0</distortionT1>
-                    <distortionT2>0.0</distortionT2>
-                </plugin>
-            </sensor>
-        </gazebo> -->
         <gazebo reference="${frame}_front">
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
@@ -218,48 +180,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 </plugin>
             </sensor>
         </gazebo>
-        <!-- <gazebo reference="${frame}_right">
-            <sensor type="camera" name="camera">
-                <update_rate>${update_rate}</update_rate>
-                <camera name="head">
-                    <horizontal_fov>1.3962634</horizontal_fov>
-                    <image>
-                        <width>1080</width>
-                        <height>720</height>
-                        <format>R8G8B8</format>
-                    </image>
-                    <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                    </clip>
-                    <noise>
-                      <type>gaussian</type>
-                      <mean>0.0</mean>
-                      <stddev>0.007</stddev>
-                    </noise>
-                </camera>
-                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                    <!-|- <robotNamespace>${robot_namespace}</robotNamespace> -|->
-                    <alwaysOn>true</alwaysOn>
-                    <updateRate>${update_rate}</updateRate>
-                    <cameraName>${frame}_right</cameraName>
-                    <imageTopicName>${topic}_right</imageTopicName>
-                    <cameraInfoTopicName>${info_topic}_right</cameraInfoTopicName>
-                    <frameName>${frame}_right</frameName>
-                    <hackBaseline>0.07</hackBaseline>
-                    <distortionK1>0.0</distortionK1>
-                    <distortionK2>0.0</distortionK2>
-                    <distortionK3>0.0</distortionK3>
-                    <distortionT1>0.0</distortionT1>
-                    <distortionT2>0.0</distortionT2>
-                </plugin>
-            </sensor>
-        </gazebo> -->
-        <!-- <gazebo reference="${frame}_right">
+        <gazebo reference="${frame}_right">
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
                 <camera>
-                <horizontal_fov>1.047198</horizontal_fov>
+                <horizontal_fov>1.75</horizontal_fov>
                 <image>
                     <width>640</width>
                     <height>480</height>
@@ -295,49 +220,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <hackBaseline>0</hackBaseline>
                 </plugin>
             </sensor>
-        </gazebo> -->
-        <!-- <gazebo reference="${frame}_left">
-            <sensor type="camera" name="camera">
-                <update_rate>${update_rate}</update_rate>
-                <camera name="head">
-                    <horizontal_fov>1.3962634</horizontal_fov>
-                    <image>
-                        <width>1080</width>
-                        <height>720</height>
-                        <format>R8G8B8</format>
-                    </image>
-                    <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                    </clip>
-                    <noise>
-                      <type>gaussian</type>
-                      <mean>0.0</mean>
-                      <stddev>0.007</stddev>
-                    </noise>
-                </camera>
-                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-                    <!-|- <robotNamespace>${robot_namespace}</robotNamespace> -|->
-                    <alwaysOn>true</alwaysOn>
-                    <updateRate>${update_rate}</updateRate>
-                    <cameraName>${frame}_left</cameraName>
-                    <imageTopicName>${topic}_left</imageTopicName>
-                    <cameraInfoTopicName>${info_topic}_left</cameraInfoTopicName>
-                    <frameName>${frame}_left</frameName>
-                    <hackBaseline>0.07</hackBaseline>
-                    <distortionK1>0.0</distortionK1>
-                    <distortionK2>0.0</distortionK2>
-                    <distortionK3>0.0</distortionK3>
-                    <distortionT1>0.0</distortionT1>
-                    <distortionT2>0.0</distortionT2>
-                </plugin>
-            </sensor>
-        </gazebo> -->
-        <!-- <gazebo reference="${frame}_left">
+        </gazebo>
+        <gazebo reference="${frame}_left">
             <sensor name="camera" type="depth">
                 <update_rate>20</update_rate>
                 <camera>
-                <horizontal_fov>1.047198</horizontal_fov>
+                <horizontal_fov>1.75</horizontal_fov>
                 <image>
                     <width>640</width>
                     <height>480</height>
@@ -373,6 +261,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                 <hackBaseline>0</hackBaseline>
                 </plugin>
             </sensor>
-        </gazebo> -->
+        </gazebo>
     </xacro:macro>
 </robot>
