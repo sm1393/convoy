@@ -51,6 +51,8 @@ finalDeviation = np.inf
 def navigationControl():
     global localPlanCopy, myPose, finalDeviation
     pointList = [np.array([pose.pose.position.x, pose.pose.position.y]) for pose in localPlanCopy.poses]
+    if len(pointList) == 0:
+        return False
     minDeviationFromPath = np.inf
     minDeviationPoint = 0
     for i in range(len(pointList)):
@@ -58,17 +60,18 @@ def navigationControl():
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
             minDeviationPoint = i
-        if minDeviationPoint == 0:
-            minDeviationPoint_1 = 1
-        elif minDeviationPoint == len(pointList)-1:
-            minDeviationPoint_1 = len(pointList)-2
-        elif np.linalg.norm(np.array(pointList[minDeviationPoint-1]) - np.array(myPose)) > np.linalg.norm(np.array(pointList[minDeviationPoint+1]) - np.array(myPose)):
-            minDeviationPoint_1 = minDeviationPoint+1
-        else:
-            minDeviationPoint_1 = minDeviationPoint-1
-        finalDeviation = np.linalg.norm(np.cross(pointList[minDeviationPoint_1]-pointList[minDeviationPoint], pointList[minDeviationPoint]-myPose))/np.linalg.norm(pointList[minDeviationPoint_1]-pointList[minDeviationPoint])
-        if finalDeviation > 0.25:
-            return True
+    if minDeviationPoint == 0:
+        minDeviationPoint_1 = 1
+        return False
+    elif minDeviationPoint == len(pointList)-1:
+        minDeviationPoint_1 = len(pointList)-2
+    elif np.linalg.norm(np.array(pointList[minDeviationPoint-1]) - np.array(myPose)) > np.linalg.norm(np.array(pointList[minDeviationPoint+1]) - np.array(myPose)):
+        minDeviationPoint_1 = minDeviationPoint+1
+    else:
+        minDeviationPoint_1 = minDeviationPoint-1
+    finalDeviation = np.linalg.norm(np.cross(pointList[minDeviationPoint_1]-pointList[minDeviationPoint], pointList[minDeviationPoint]-myPose))/np.linalg.norm(pointList[minDeviationPoint_1]-pointList[minDeviationPoint])
+    if finalDeviation > 0.25:
+        return True
     return False
 
 if __name__ == '__main__':
@@ -99,7 +102,6 @@ if __name__ == '__main__':
         goalSent = False
 
         counter = 0
-
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
             goal.target_pose.header.stamp = rospy.Time.now()
@@ -116,37 +118,40 @@ if __name__ == '__main__':
             else:
                 closeToLeader = False
 
-            if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 2:
                 leaderHasMoved = True
             else:
                 leaderHasMoved = False
 
-            if client.get_state() == 1 and navigationControl():
-                deviatedFromPath = True
+            if navigationControl():
+                if deviatedFromPath:
+                    stillDeviated = True
+                else:
+                    stillDeviated = False
+                    deviatedFromPath = True
             else:
                 deviatedFromPath = False
+                stillDeviated = False
 
-            # if closeToLeader or deviatedFromPath:
-            if closeToLeader:
+            if closeToLeader or deviatedFromPath:
+            # if closeToLeader:
                 if not goalCancelled:
-                    velocity_publisher.publish(vel_msg)
-                    client.stop_tracking_goal()
-                    client.cancel_all_goals()
-                    goalCancelled = True
-                    goalSent = False
-                    if deviatedFromPath:
-                        print(finalDeviation, end=" ")
-                        deviatedFromPath = False
-                    print(counter, closeToLeader, leaderHasMoved, "cancel")
-                    counter += 1
+                    if not stillDeviated:
+                        print(counter, closeToLeader, leaderHasMoved, deviatedFromPath, stillDeviated, "C")
+                        velocity_publisher.publish(vel_msg)
+                        client.stop_tracking_goal()
+                        client.cancel_all_goals()
+                        goalCancelled = True
+                        goalSent = False
+                        counter += 1
 
             if not closeToLeader:
                 if not goalSent or leaderHasMoved:
+                    print(counter, closeToLeader, leaderHasMoved, deviatedFromPath, stillDeviated, "S")
                     client.send_goal(goal)
                     leaderPrevPose = np.copy(leaderPose)
                     goalSent = True
                     goalCancelled = False
-                    print(counter, closeToLeader, leaderHasMoved, "sent")
                     counter += 1
 
     except rospy.ROSInterruptException:

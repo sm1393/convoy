@@ -45,10 +45,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:arg name="rplidar_a3_enabled" default="true"/>
     <xacro:arg name="hokuyo_ust_10lx_enabled" default="false"/>
     <xacro:arg name="imu_enabled" default="false"/>
-    <xacro:arg name="camera_enabled" default="true"/>
-    <xacro:arg name="intel_d435i_enabled" default="true"/>
+    <xacro:arg name="camera_enabled" default="false"/>
+    <xacro:arg name="intel_d435i_enabled" default="false"/>
     <xacro:arg name="orbbec_astra_pro_enabled" default="false"/>
-    <xacro:arg name="aruco_enabled" default="true"/>
+    <xacro:arg name="aruco_enabled" default="false"/>
 
     <xacro:macro name="volta_robot" params="robot_namespace:=/">
         <!-- Footprint -->

@@ -38,7 +38,7 @@
 		<arg name="namespace" value="$(arg namespace_0)"/>
 	</include>
 
-    <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" />
+    <!-- <node name="rviz_leader" pkg="rviz" type="rviz" args="-d $(find navigation)/rviz_config/robot_0.rviz" respawn="true" /> -->
 
 	<!-- ROBOT 1 -->
 	<include file="$(find multirobot)/launch/robot.launch">

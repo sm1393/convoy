@@ -31,7 +31,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <robot name="volta_robot" xmlns:xacro="https://ros.org/wiki/xacro">
 
   <xacro:macro name="lidar" params="frame:=lidar topic:=scan_filtered sample_size:=271 update_rate:=120
-                 min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.55 max_range:=10.0 rplidar_a3_enabled:=true hokuyo_ust_10lx_enabled:=false robot_namespace:=/">
+                 min_angle:=-3.14159 max_angle:=3.14159 min_range:=0.5 max_range:=10.0 rplidar_a3_enabled:=true hokuyo_ust_10lx_enabled:=false robot_namespace:=/">
                  <!-- min_angle:=-1.75 max_angle:=1.75 min_range:=0.1 max_range:=10.0 rplidar_a3_enabled:=true hokuyo_ust_10lx_enabled:=false robot_namespace:=/"> -->
 
       <xacro:if value="${rplidar_a3_enabled}">
