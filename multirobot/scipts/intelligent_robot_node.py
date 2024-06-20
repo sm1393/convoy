@@ -34,8 +34,8 @@ class Camera:
         self.rightCamera = False
         self.noOfRobots = noOfRobots
         
-        self.arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
-        self.arucoParams = cv2.aruco.DetectorParameters_create()
+        self.arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_5X5_250)
+        self.arucoParams = cv2.aruco.DetectorParameters()
         self.bridge = CvBridge()
 
     def frontCameraCallback(self, msg):
