@@ -17,8 +17,11 @@ localPlanCopy = Path()
 navigationControl = False
 isRobotDeviated = False
 
-robotID = int(rospy.myargv(argv=sys.argv)[1])
-myLeaderID = int(rospy.myargv(argv=sys.argv)[2])
+# robotID = int(rospy.myargv(argv=sys.argv)[1])
+# myLeaderID = int(rospy.myargv(argv=sys.argv)[2])
+
+robotID = 6
+myLeaderID = 4
 
 rospy.init_node('volta_' + str(robotID) + '_navigation_node')
 client = actionlib.SimpleActionClient('/volta_' + str(robotID) + '/move_base',MoveBaseAction)
@@ -39,7 +42,7 @@ def leaderPoseeCallback(msg):
 
 myPose = np.array([0.0, 0.0])
 def myPoseCallback(msg):
-    global myPose, covariance
+    global myPose
     myPose[0] = msg.pose.pose.position.x
     myPose[1] = msg.pose.pose.position.y    
 
@@ -61,10 +64,45 @@ def navigationControl():
             return True
     return False
 
+followersList = []
+followerPose = [np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0])]
+def followerPose_1_Callback(msg):
+    global followerPose
+    followerPose[1][0] = msg.pose.pose.position.x
+    followerPose[1][1] = msg.pose.pose.position.y
+def followerPose_2_Callback(msg):
+    global followerPose
+    followerPose[2][0] = msg.pose.pose.position.x
+    followerPose[2][1] = msg.pose.pose.position.y
+def followerPose_3_Callback(msg):
+    global followerPose
+    followerPose[3][0] = msg.pose.pose.position.x
+    followerPose[3][1] = msg.pose.pose.position.y
+def followerPose_4_Callback(msg):
+    global followerPose
+    followerPose[4][0] = msg.pose.pose.position.x
+    followerPose[4][1] = msg.pose.pose.position.y
+def followerPose_5_Callback(msg):
+    global followerPose
+    followerPose[5][0] = msg.pose.pose.position.x
+    followerPose[5][1] = msg.pose.pose.position.y
+def followerPose_6_Callback(msg):
+    global followerPose
+    followerPose[6][0] = msg.pose.pose.position.x
+    followerPose[6][1] = msg.pose.pose.position.y
+
 if __name__ == '__main__':
     try:
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
+
+        # rospy.Subscriber("/volta_1/amcl_pose", PoseWithCovarianceStamped, followerPose_1_Callback)
+        # rospy.Subscriber("/volta_2/amcl_pose", PoseWithCovarianceStamped, followerPose_2_Callback)
+        # rospy.Subscriber("/volta_3/amcl_pose", PoseWithCovarianceStamped, followerPose_3_Callback)
+        # rospy.Subscriber("/volta_4/amcl_pose", PoseWithCovarianceStamped, followerPose_4_Callback)
+        # rospy.Subscriber("/volta_5/amcl_pose", PoseWithCovarianceStamped, followerPose_5_Callback)
+        # rospy.Subscriber("/volta_6/amcl_pose", PoseWithCovarianceStamped, followerPose_6_Callback)
+
         rospy.Subscriber("/volta_" + str(robotID) + "/move_base/TebLocalPlannerROS/local_plan", Path, localPlanCallback)
         velocity_publisher = rospy.Publisher("/volta_" + str(robotID) + "/cmd_vel", Twist, queue_size=10)
         vel_msg = Twist()
@@ -91,7 +129,12 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-            if np.linalg.norm(leaderPose - myPose) < 4:
+            followerLeftBack = False
+            for i in followersList:
+                if np.linalg.norm(followerPose[i] - myPose) > 4:
+                    followerLeftBack = True
+                    break
+            if np.linalg.norm(leaderPose - myPose) < 2 or followerLeftBack:
                 if robotState != 0:
                     robotState = 0
                 client.stop_tracking_goal()

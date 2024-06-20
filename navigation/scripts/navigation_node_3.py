@@ -47,18 +47,31 @@ def localPlanCallback(msg):
     global localPlanCopy
     localPlanCopy = msg
 
+finalDeviation = np.inf
 def navigationControl():
-    global localPlanCopy, myPose
-    pointOnLine = np.array([0.0, 0.0])
+    global localPlanCopy, myPose, finalDeviation
+    pointList = [np.array([pose.pose.position.x, pose.pose.position.y]) for pose in localPlanCopy.poses]
+    if len(pointList) == 0:
+        return False
     minDeviationFromPath = np.inf
-    for pose in localPlanCopy.poses:
-        pointOnLine[0] = pose.pose.position.x
-        pointOnLine[1] = pose.pose.position.y
-        deviation = np.linalg.norm(pointOnLine - myPose)
+    minDeviationPoint = 0
+    for i in range(len(pointList)):
+        deviation = np.linalg.norm(pointList[i] - myPose)
         if deviation < minDeviationFromPath:
             minDeviationFromPath = deviation
-        if minDeviationFromPath > 0.5:
-            return True
+            minDeviationPoint = i
+    if minDeviationPoint == 0:
+        minDeviationPoint_1 = 1
+        return False
+    elif minDeviationPoint == len(pointList)-1:
+        minDeviationPoint_1 = len(pointList)-2
+    elif np.linalg.norm(np.array(pointList[minDeviationPoint-1]) - np.array(myPose)) > np.linalg.norm(np.array(pointList[minDeviationPoint+1]) - np.array(myPose)):
+        minDeviationPoint_1 = minDeviationPoint+1
+    else:
+        minDeviationPoint_1 = minDeviationPoint-1
+    finalDeviation = np.linalg.norm(np.cross(pointList[minDeviationPoint_1]-pointList[minDeviationPoint], pointList[minDeviationPoint]-myPose))/np.linalg.norm(pointList[minDeviationPoint_1]-pointList[minDeviationPoint])
+    if finalDeviation > 0.25:
+        return True
     return False
 
 if __name__ == '__main__':
@@ -66,6 +79,7 @@ if __name__ == '__main__':
         rospy.Subscriber("/volta_" + str(robotID) + "/amcl_pose", PoseWithCovarianceStamped, myPoseCallback)
         rospy.Subscriber("/volta_" + str(myLeaderID) + "/amcl_pose", PoseWithCovarianceStamped, leaderPoseeCallback)
         rospy.Subscriber("/volta_" + str(robotID) + "/move_base/TebLocalPlannerROS/local_plan", Path, localPlanCallback)
+        
         velocity_publisher = rospy.Publisher("/volta_" + str(robotID) + "/cmd_vel", Twist, queue_size=10)
         vel_msg = Twist()
         vel_msg.linear.x = 0
@@ -76,11 +90,18 @@ if __name__ == '__main__':
         vel_msg.angular.y = 0
         vel_msg.angular.z = 0
 
-        robotState = np.inf
-
         time.sleep(1)
         print(robotID, "following", myLeaderID)
 
+        leaderHasMoved = False
+        closeToLeader = False
+        deviatedFromPath = False
+        OnPath = False
+
+        goalCancelled = False
+        goalSent = False
+
+        counter = 0
         leaderPrevPose = np.copy(leaderPose)
         while not rospy.is_shutdown():
             goal.target_pose.header.stamp = rospy.Time.now()
@@ -91,30 +112,47 @@ if __name__ == '__main__':
             goal.target_pose.pose.orientation.y = myGoal.pose.pose.orientation.y
             goal.target_pose.pose.orientation.z = myGoal.pose.pose.orientation.z
             goal.target_pose.pose.orientation.w = myGoal.pose.pose.orientation.w
-            if np.linalg.norm(leaderPose - myPose) < 4:
-                if robotState != 0:
-                    robotState = 0
-                client.stop_tracking_goal()
-                client.cancel_all_goals()
-                continue
-            if np.linalg.norm(leaderPose - leaderPrevPose) > 1:
-                if robotState != 1:
-                    robotState = 1
-                client.send_goal(goal)
-                leaderPrevPose = np.copy(leaderPose)
-            if client.get_state() == 1 and navigationControl():
-                if robotState != 2:
-                    robotState = 2
-                    velocity_publisher.publish(vel_msg)
-                continue
-            elif client.get_state() == 4:
-                if robotState != 3:
-                    robotState = 3
-                client.send_goal(goal)
-                continue
-            if robotState != 4:
-                robotState = 4
+
+            if np.linalg.norm(leaderPose - myPose) < 2:
+                closeToLeader = True
+            else:
+                closeToLeader = False
+
+            if np.linalg.norm(leaderPose - leaderPrevPose) > 2:
+                leaderHasMoved = True
+            else:
+                leaderHasMoved = False
+
+            if navigationControl():
+                if deviatedFromPath:
+                    stillDeviated = True
+                else:
+                    stillDeviated = False
+                    deviatedFromPath = True
+            else:
+                deviatedFromPath = False
+                stillDeviated = False
+
+            if closeToLeader or deviatedFromPath:
+            # if closeToLeader:
+                if not goalCancelled:
+                    if not stillDeviated:
+                        print(counter, closeToLeader, leaderHasMoved, deviatedFromPath, stillDeviated, "C")
+                        velocity_publisher.publish(vel_msg)
+                        client.stop_tracking_goal()
+                        client.cancel_all_goals()
+                        goalCancelled = True
+                        goalSent = False
+                        counter += 1
+
+            if not closeToLeader:
+                if not goalSent or leaderHasMoved:
+                    print(counter, closeToLeader, leaderHasMoved, deviatedFromPath, stillDeviated, "S")
+                    client.send_goal(goal)
+                    leaderPrevPose = np.copy(leaderPose)
+                    goalSent = True
+                    goalCancelled = False
+                    counter += 1
 
     except rospy.ROSInterruptException:
         rospy.loginfo("Navigation test finished.")
-
