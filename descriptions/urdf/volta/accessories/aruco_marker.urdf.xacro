@@ -33,33 +33,32 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	<xacro:property name="PI" value="3.14159" />
 	<xacro:macro name="aruco_marker" params="frame:=aruco_marker robot_namespace:=/">
 
-
-		<link name="${frame}_back_0">
+		<!-- <link name="${frame}_back_0">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
-		</link>
+		</link> -->
 
 		<link name="${frame}_back_1">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
@@ -68,43 +67,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
 
-		<link name="${frame}_front_0">
+		<!-- <link name="${frame}_front_0">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
-		</link>
+		</link> -->
 
 		<link name="${frame}_front_1">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
@@ -113,43 +112,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
 
-		<link name="${frame}_right_0">
+		<!-- <link name="${frame}_right_0">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
-		</link>
+		</link> -->
 
 		<link name="${frame}_right_1">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
@@ -158,43 +157,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
 
-		<link name="${frame}_left_0">
+		<!-- <link name="${frame}_left_0">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
-		</link>
+		</link> -->
 
 		<link name="${frame}_left_1">
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
@@ -203,85 +202,85 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			<visual>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</visual>
 			<collision>
 				<origin xyz="0 0 0" />
 				<geometry>
-					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.3 0.3 0.3"/>
+					<mesh filename="package://descriptions/urdf/volta/meshes/${robot_namespace}_aruco.dae" scale="0.6 0.6 0.6"/>
 				</geometry>
 			</collision>
 		</link>
 
-		<joint name="aruco_marker_joint_back_0" type="fixed">
+		<!-- <joint name="aruco_marker_joint_back_0" type="fixed">
 			<origin xyz="-0.27 0 0.15" rpy="0 -${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_back_0" />
-		</joint>
+		</joint> -->
 		
 		<joint name="aruco_marker_joint_back_1" type="fixed">
-			<origin xyz="-0.27 -0.125 0.15" rpy="0 -${PI/2} 0" />
+			<origin xyz="-0.27 -0.12 0.1" rpy="0 -${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_back_1" />
 		</joint>
 
 		<joint name="aruco_marker_joint_back_2" type="fixed">
-			<origin xyz="-0.27 0.125 0.15" rpy="0 -${PI/2} 0" />
+			<origin xyz="-0.27 0.12 0.1" rpy="0 -${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_back_2" />
 		</joint>
 		
-		<joint name="aruco_marker_joint_front_0" type="fixed">
+		<!-- <joint name="aruco_marker_joint_front_0" type="fixed">
 			<origin xyz="0.27 0 0.15" rpy="0 ${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_front_0" />
-		</joint>
+		</joint> -->
 
 		<joint name="aruco_marker_joint_front_1" type="fixed">
-			<origin xyz="0.27 -0.125 0.15" rpy="0 ${PI/2} 0" />
+			<origin xyz="0.27 -0.12 0.1" rpy="0 ${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_front_1" />
 		</joint>
 
 		<joint name="aruco_marker_joint_front_2" type="fixed">
-			<origin xyz="0.27 0.125 0.15" rpy="0 ${PI/2} 0" />
+			<origin xyz="0.27 0.12 0.1" rpy="0 ${PI/2} 0" />
 			<parent link="base_link" />
 			<child link="${frame}_front_2" />
 		</joint>
 
-		<joint name="aruco_marker_joint_right_0" type="fixed">
+		<!-- <joint name="aruco_marker_joint_right_0" type="fixed">
 			<origin xyz="0 -0.2 0.15" rpy="${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_right_0" />
-		</joint>
+		</joint> -->
 
 		<joint name="aruco_marker_joint_right_1" type="fixed">
-			<origin xyz="-0.2 -0.2 0.15" rpy="${PI/2} 0 0" />
+			<origin xyz="-0.1 -0.2 0.1" rpy="${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_right_1" />
 		</joint>
 
 		<joint name="aruco_marker_joint_right_2" type="fixed">
-			<origin xyz="0.2 -0.2 0.15" rpy="${PI/2} 0 0" />
+			<origin xyz="0.1 -0.2 0.1" rpy="${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_right_2" />
 		</joint>
 
-		<joint name="aruco_marker_joint_left_0" type="fixed">
+		<!-- <joint name="aruco_marker_joint_left_0" type="fixed">
 			<origin xyz="0 0.2 0.15" rpy="-${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_left_0" />
-		</joint>
+		</joint> -->
 
 		<joint name="aruco_marker_joint_left_1" type="fixed">
-			<origin xyz="-0.2 0.2 0.15" rpy="-${PI/2} 0 0" />
+			<origin xyz="-0.1 0.2 0.1" rpy="-${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_left_1" />
 		</joint>
 
 		<joint name="aruco_marker_joint_left_2" type="fixed">
-			<origin xyz="0.2 0.2 0.15" rpy="-${PI/2} 0 0" />
+			<origin xyz="0.1 0.2 0.1" rpy="-${PI/2} 0 0" />
 			<parent link="base_link" />
 			<child link="${frame}_left_2" />
 		</joint>

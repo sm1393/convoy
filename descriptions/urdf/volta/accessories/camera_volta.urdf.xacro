@@ -95,17 +95,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <joint name="base_to_camera_front" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_front"/>
-            <origin xyz="${camera_joint_x} ${camera_joint_y} ${camera_joint_z + 0.0125}"/>
+            <origin xyz="${camera_joint_x + 0.05} ${camera_joint_y} ${camera_joint_z + 0.0225}"/>
         </joint>
         <joint name="base_to_camera_right" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_right"/>
-            <origin xyz="0.0 -0.2 ${camera_joint_z + 0.0125}" rpy="0 0 -1.5707"/>
+            <origin xyz="0.0 -0.2 ${camera_joint_z + 0.0225}" rpy="0 0 -1.5707"/>
         </joint>
         <joint name="base_to_camera_left" type="fixed">
             <parent link="base_link"/>
             <child link="${frame}_left"/>
-            <origin xyz="0.0 0.2 ${camera_joint_z + 0.0125}" rpy="0 0 1.5707"/>
+            <origin xyz="0.0 0.2 ${camera_joint_z + 0.0225}" rpy="0 0 1.5707"/>
         </joint>
         </xacro:if>
 
