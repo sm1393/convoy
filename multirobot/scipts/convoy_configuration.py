@@ -5,7 +5,7 @@ import actionlib
 import multirobot.msg
 
 robotsReady = 0
-noOfRobots = 4
+noOfRobots = 2
 
 class ConvoyAction(object):
     _feedback = multirobot.msg.InitiateConvoyFeedback()

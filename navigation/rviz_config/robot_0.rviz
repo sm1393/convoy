@@ -1,12 +1,12 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 138
+    Help Height: 70
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
       Splitter Ratio: 0.5
-    Tree Height: 303
+    Tree Height: 166
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -24,7 +24,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -59,21 +59,7 @@ Visualization Manager:
         All Enabled: true
         map:
           Value: true
-        volta_0/aruco_marker_back:
-          Value: true
-        volta_0/aruco_marker_front:
-          Value: true
-        volta_0/aruco_marker_left:
-          Value: true
-        volta_0/aruco_marker_right:
-          Value: true
         volta_0/base_link:
-          Value: true
-        volta_0/camera_front:
-          Value: true
-        volta_0/camera_left:
-          Value: true
-        volta_0/camera_right:
           Value: true
         volta_0/caster_front_left_link:
           Value: true
@@ -93,21 +79,7 @@ Visualization Manager:
           Value: true
         volta_0/right_wheel:
           Value: true
-        volta_1/aruco_marker_back:
-          Value: true
-        volta_1/aruco_marker_front:
-          Value: true
-        volta_1/aruco_marker_left:
-          Value: true
-        volta_1/aruco_marker_right:
-          Value: true
         volta_1/base_link:
-          Value: true
-        volta_1/camera_front:
-          Value: true
-        volta_1/camera_left:
-          Value: true
-        volta_1/camera_right:
           Value: true
         volta_1/caster_front_left_link:
           Value: true
@@ -127,21 +99,7 @@ Visualization Manager:
           Value: true
         volta_1/right_wheel:
           Value: true
-        volta_2/aruco_marker_back:
-          Value: true
-        volta_2/aruco_marker_front:
-          Value: true
-        volta_2/aruco_marker_left:
-          Value: true
-        volta_2/aruco_marker_right:
-          Value: true
         volta_2/base_link:
-          Value: true
-        volta_2/camera_front:
-          Value: true
-        volta_2/camera_left:
-          Value: true
-        volta_2/camera_right:
           Value: true
         volta_2/caster_front_left_link:
           Value: true
@@ -161,21 +119,7 @@ Visualization Manager:
           Value: true
         volta_2/right_wheel:
           Value: true
-        volta_3/aruco_marker_back:
-          Value: true
-        volta_3/aruco_marker_front:
-          Value: true
-        volta_3/aruco_marker_left:
-          Value: true
-        volta_3/aruco_marker_right:
-          Value: true
         volta_3/base_link:
-          Value: true
-        volta_3/camera_front:
-          Value: true
-        volta_3/camera_left:
-          Value: true
-        volta_3/camera_right:
           Value: true
         volta_3/caster_front_left_link:
           Value: true
@@ -191,6 +135,8 @@ Visualization Manager:
           Value: true
         volta_3/lidar:
           Value: true
+        volta_3/odom:
+          Value: true
         volta_3/right_wheel:
           Value: true
       Marker Alpha: 1
@@ -203,20 +149,6 @@ Visualization Manager:
         map:
           volta_0/odom:
             volta_0/base_link:
-              volta_0/aruco_marker_back:
-                {}
-              volta_0/aruco_marker_front:
-                {}
-              volta_0/aruco_marker_left:
-                {}
-              volta_0/aruco_marker_right:
-                {}
-              volta_0/camera_front:
-                {}
-              volta_0/camera_left:
-                {}
-              volta_0/camera_right:
-                {}
               volta_0/caster_front_left_link:
                 {}
               volta_0/caster_front_right_link:
@@ -235,20 +167,6 @@ Visualization Manager:
                 {}
           volta_1/odom:
             volta_1/base_link:
-              volta_1/aruco_marker_back:
-                {}
-              volta_1/aruco_marker_front:
-                {}
-              volta_1/aruco_marker_left:
-                {}
-              volta_1/aruco_marker_right:
-                {}
-              volta_1/camera_front:
-                {}
-              volta_1/camera_left:
-                {}
-              volta_1/camera_right:
-                {}
               volta_1/caster_front_left_link:
                 {}
               volta_1/caster_front_right_link:
@@ -265,69 +183,42 @@ Visualization Manager:
                 {}
               volta_1/right_wheel:
                 {}
-        volta_2/odom:
-          volta_2/base_link:
-            volta_2/aruco_marker_back:
-              {}
-            volta_2/aruco_marker_front:
-              {}
-            volta_2/aruco_marker_left:
-              {}
-            volta_2/aruco_marker_right:
-              {}
-            volta_2/camera_front:
-              {}
-            volta_2/camera_left:
-              {}
-            volta_2/camera_right:
-              {}
-            volta_2/caster_front_left_link:
-              {}
-            volta_2/caster_front_right_link:
-              {}
-            volta_2/caster_rear_left_link:
-              {}
-            volta_2/caster_rear_right_link:
-              {}
-            volta_2/footprint:
-              {}
-            volta_2/left_wheel:
-              {}
-            volta_2/lidar:
-              {}
-            volta_2/right_wheel:
-              {}
-        volta_3/base_link:
-          volta_3/aruco_marker_back:
-            {}
-          volta_3/aruco_marker_front:
-            {}
-          volta_3/aruco_marker_left:
-            {}
-          volta_3/aruco_marker_right:
-            {}
-          volta_3/camera_front:
-            {}
-          volta_3/camera_left:
-            {}
-          volta_3/camera_right:
-            {}
-          volta_3/caster_front_left_link:
-            {}
-          volta_3/caster_front_right_link:
-            {}
-          volta_3/caster_rear_left_link:
-            {}
-          volta_3/caster_rear_right_link:
-            {}
-          volta_3/footprint:
-            {}
-          volta_3/left_wheel:
-            {}
-          volta_3/lidar:
-            {}
-          volta_3/right_wheel:
-            {}
+          volta_2/odom:
+            volta_2/base_link:
+              volta_2/caster_front_left_link:
+                {}
+              volta_2/caster_front_right_link:
+                {}
+              volta_2/caster_rear_left_link:
+                {}
+              volta_2/caster_rear_right_link:
+                {}
+              volta_2/footprint:
+                {}
+              volta_2/left_wheel:
+                {}
+              volta_2/lidar:
+                {}
+              volta_2/right_wheel:
+                {}
+          volta_3/odom:
+            volta_3/base_link:
+              volta_3/caster_front_left_link:
+                {}
+              volta_3/caster_front_right_link:
+                {}
+              volta_3/caster_rear_left_link:
+                {}
+              volta_3/caster_rear_right_link:
+                {}
+              volta_3/footprint:
+                {}
+              volta_3/left_wheel:
+                {}
+              volta_3/lidar:
+                {}
+              volta_3/right_wheel:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 0.699999988079071
@@ -337,6 +228,43 @@ Visualization Manager:
       Enabled: true
       Name: Map
       Topic: /map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 186; 189; 182
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: PoseArray
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /volta_0/particlecloud
+      Unreliable: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /volta_0/move_base/global_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /volta_0/move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -363,10 +291,74 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /volta_0/scan_filtered
+      Topic: /volta_1/scan_filtered
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic: /volta_1/move_base/current_goal
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 25; 255; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Queue Size: 10
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /volta_0/move_base/TebLocalPlannerROS/global_plan
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz/Path
+      Color: 164; 0; 0
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Queue Size: 10
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic: /volta_0/move_base/TebLocalPlannerROS/local_plan
+      Unreliable: false
       Value: true
     - Alpha: 1
       Arrow Length: 0.30000001192092896
@@ -382,104 +374,20 @@ Visualization Manager:
       Shaft Length: 0.23000000417232513
       Shaft Radius: 0.009999999776482582
       Shape: Arrow (Flat)
-      Topic: /volta_0/particlecloud
+      Topic: /volta_0/move_base/TebLocalPlannerROS/teb_poses
       Unreliable: false
       Value: true
-    - Alpha: 0.699999988079071
-      Class: rviz/Map
-      Color Scheme: map
-      Draw Behind: false
+    - Class: rviz/Marker
       Enabled: true
-      Name: Map
-      Topic: /volta_0/move_base/global_costmap/costmap
-      Unreliable: false
-      Use Timestamp: false
-      Value: true
-    - Alpha: 0.699999988079071
-      Class: rviz/Map
-      Color Scheme: costmap
-      Draw Behind: false
-      Enabled: true
-      Name: Map
-      Topic: /volta_0/move_base/local_costmap/costmap
-      Unreliable: false
-      Use Timestamp: false
-      Value: true
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
-      Color: 25; 255; 0
-      Enabled: true
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
-      Length: 0.30000001192092896
-      Line Style: Lines
-      Line Width: 0.029999999329447746
-      Name: Path
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Pose Color: 255; 85; 255
-      Pose Style: None
-      Queue Size: 10
-      Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
-      Topic: /volta_0/move_base/DWAPlannerROS/global_plan
-      Unreliable: false
-      Value: true
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
-      Color: 25; 255; 0
-      Enabled: true
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
-      Length: 0.30000001192092896
-      Line Style: Lines
-      Line Width: 0.029999999329447746
-      Name: Path
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Pose Color: 255; 85; 255
-      Pose Style: None
-      Queue Size: 10
-      Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
-      Topic: /volta_0/move_base/DWAPlannerROS/local_plan
-      Unreliable: false
+      Marker Topic: /volta_0/move_base/TebLocalPlannerROS/teb_markers
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
       Value: true
     - Class: rviz/Image
       Enabled: false
-      Image Topic: /volta_0/camera_front/camera_front
-      Max Value: 1
-      Median window: 5
-      Min Value: 0
-      Name: Image
-      Normalize Range: true
-      Queue Size: 2
-      Transport Hint: raw
-      Unreliable: false
-      Value: false
-    - Class: rviz/Image
-      Enabled: false
-      Image Topic: /volta_0/camera_left/camera_left
-      Max Value: 1
-      Median window: 5
-      Min Value: 0
-      Name: Image
-      Normalize Range: true
-      Queue Size: 2
-      Transport Hint: raw
-      Unreliable: false
-      Value: false
-    - Class: rviz/Image
-      Enabled: false
-      Image Topic: /volta_0/camera_right/camera_right
+      Image Topic: /volta_0/camera_front_ir/camera_front/color/image_raw
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -517,7 +425,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 17.202259063720703
+      Distance: 30.708023071289062
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -525,9 +433,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 2.787649393081665
-        Y: -4.407841205596924
-        Z: -0.002851707860827446
+        X: 17.33881187438965
+        Y: -0.03946733474731445
+        Z: -0.006677723489701748
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -535,17 +443,17 @@ Visualization Manager:
       Near Clip Distance: 0.009999999776482582
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 6.26858377456665
+      Yaw: 1.555397629737854
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: true
-  Height: 752
+  Height: 569
   Hide Left Dock: true
   Hide Right Dock: true
   Image:
-    collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001860000033afc020000000dfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d0000033a000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000002c4000000b30000001600fffffffb0000000a0049006d0061006700650000000307000000700000001600fffffffb0000000a0049006d006100670065000000058a000000e90000001600fffffffb0000000a0049006d0061006700650100000462000001000000000000000000fb0000000a0049006d006100670065010000056e000001050000000000000000000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f2000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005a00000005efc0100000002fb0000000800540069006d00650100000000000005a0000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000005a00000023200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+    collapsed: true
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000183fc0200000010fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000b0fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003d00000129000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d006100670065000000016c000000540000001600fffffffb0000000a0049006d00610067006501000001a8000000c70000000000000000fb0000000a0049006d00610067006500000001e10000008e0000000000000000fb0000000a0049006d0061006700650100000462000001000000000000000000fb0000000a0049006d006100670065010000056e000001050000000000000000fb0000000a0049006d00610067006501000001a30000006f0000000000000000fb0000000a0049006d0061006700650100000218000000940000000000000000fb0000000a0049006d00610067006501000002b2000000c50000000000000000000000010000015f000002f2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000006e000002f2000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000003bc0000005efc0100000002fb0000000800540069006d00650100000000000003bc000003bc00fffffffb0000000800540069006d00650100000000000004500000000000000000000003bc0000017b00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -554,6 +462,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1440
-  X: 3840
-  Y: 0
+  Width: 956
+  X: 1925
+  Y: 27
